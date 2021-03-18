@@ -5,9 +5,10 @@ body {
 h1 {
   background: #eee;
 }
-#user-controls {
+
+/* #user-controls {
   background: rgb(0, 149, 221);
-}
+} */
 
 .canvas-container {
   position: relative;
