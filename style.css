@@ -1,0 +1,50 @@
+body {
+  font-family: Helvetica;
+}
+
+h1 {
+  background: #eee;
+}
+#user-controls {
+  background: rgb(0, 149, 221);
+}
+
+.canvas-container {
+  position: relative;
+  width: 480px;
+  height: 350px;
+}
+
+.canvas-container > canvas:first-child {
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: left;
+  z-index: -1;
+}
+
+.canvas-container > canvas {
+  position: absolute;
+  top: 0;
+}
+
+#breaker-img {
+  background-image: url("https://i.postimg.cc/8cWcCXyx/sizin.png");
+}
+
+.estimations {
+  overflow: overlay;
+}
+
+.estimations > * {
+  float: left;
+}
+
+#reference {
+  /* width: calc(100% - 480px); */
+  width: 560px;
+  position: absolute;
+}
+
+#board {
+  z-index: 0;
+}

@@ -1,0 +1,154 @@
+<bpardiv<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+
+  <body>
+    <div class="hero-bg">
+      <header>
+        <a href="#"></a>
+      </header>
+
+      <h1><span> SwitchBoard Sizing Estimation</span></h1>
+
+      <div id="user-controls">
+        <div>
+          <label for="incoming">Incoming Feeder</label>
+          <select class="select-position" id="incoming">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+
+          <label for="outgoing">Outgoing Feeder</label>
+          <select class="select-position" id="outgoing">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+
+          <label for="mmcb-100">100 MCCB</label>
+          <select class="select-position" id="mmcb-100">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+
+          <label for="mmcb-250">250 MCCB</label>
+          <select class="select-position" id="mmcb-250">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+
+          <label for="mmcb-400">400 MCCB</label>
+          <select class="select-position" id="mmcb-400">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+
+          <label for="mmcb-630">630 MCCB</label>
+          <select class="select-position" id="mmcb-630">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select> 
+
+          <label for="mmcb-900">900 MCCB</label>
+          <select class="select-position" id="mmcb-900">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select> 
+
+          <label for="mmcb-1200">1200 MCCB</label>
+          <select class="select-position" id="mmcb-1200">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select> 
+
+          <label for="mmcb-1600">1600 MCCB</label>
+          <select class="select-position" id="mmcb-1600">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select> 
+        </div>
+        <div>
+          <input type="button" value=Estimate id='estimate-btn'>
+        </div>
+
+      </div>
+    </div>
+
+    <div class='form-container'>
+      <div class='estimation-container'>
+        <p class='estimation-text'>(GUTHRIE Estimation)</p> 
+        <div class='estimations'>
+            <div class="canvas-container">
+              <canvas id='breaker-img'></canvas>
+              <canvas id='board'></canvas>
+            </div>
+            <img id="reference"src="https://i.postimg.cc/15W8bvBy/Room-Size.png">
+        </div>
+      </div>
+      
+      <div class='estimation-container'>
+        <p>(GATHERGATES Estimation)</p>
+        <div class='estimations'>
+        </div>
+      </div>
+      
+      <div class='estimation-container'>
+        <p>(SIEMENS Estimation)</p>
+        <div class='estimations'>
+        </div>
+      </div>
+      
+      <div class='estimation-container'>
+        <p>(SCHNEDIER Estimation)</p>
+        <div class='estimations'>
+        </div>
+      </div>
+    </div>
+  
+  </body>
+
+</html> 
