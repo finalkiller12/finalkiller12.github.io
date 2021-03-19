@@ -7,13 +7,19 @@ h1 {
 }
 
 /* #user-controls {
-  background: #f9fafb;
+  background: rgb(0, 149, 221);
 } */
 
-.canvas-container {
+.canvas-container.guthrie-back {
   position: relative;
   width: 480px;
   height: 350px;
+}
+
+.canvas-container.guthrie-side {
+  position: relative;
+  width: 600px;
+  height: 630px;
 }
 
 .canvas-container > canvas:first-child {
@@ -28,8 +34,13 @@ h1 {
   top: 0;
 }
 
-#breaker-img {
+#guthrie-1 {
   background-image: url("https://i.postimg.cc/8cWcCXyx/sizin.png");
+}
+
+#guthrie-2 {
+  background-image: url("https://i.postimg.cc/pXM9zYbP/Front-End.png");
+  background-size: cover;
 }
 
 .estimations {
@@ -46,6 +57,6 @@ h1 {
   position: absolute;
 }
 
-#board {
+.board {
   z-index: 0;
 }
