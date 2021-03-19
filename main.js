@@ -1,27 +1,57 @@
 // change these numbers when you want to resize
-// also remember to change canvas-container's dimensions too
-const canvas_size = {height: 330, width: 480};
+// also remember to change .canvas-container's dimensions too
+const canvas_size = [
+	{width: 480, height: 330},
+	{width: 480, height: 330},
+	{width: 589, height: 621},
+	{width: 589, height: 621},
+];
 
-const column_limit = 2000;
-
-// canvas stuff
+// set canvas sizes
 const canvases = document.getElementsByTagName('canvas');
 for (let i = 0; i < canvases.length; i++){
-	canvases[i].height = canvas_size.height;
-  canvases[i].width = canvas_size.width;
+	canvases[i].height = canvas_size[i].height;
+  canvases[i].width = canvas_size[i].width;
 }
 
-const board = document.getElementById('board');
-const ctx = board.getContext("2d");
-const origin = {x: 38, y: 70};
-const column = {width: 66, height: 200};
+const boards = document.getElementsByClassName('boards');
+let ctxs = [];
+for (let i = 0; i < boards.length; i++) {
+	ctxs.push(boards[i].getContext("2d"));
+}
+
+const canvas_objects = [{
+	name: 'guthrie-1',
+  ctx: ctxs[0],
+  size: canvas_size[1],
+	origin: {x: 38, y: 70},
+	column: {width: 66, height: 200},
+  column_limit: 1800,
+  max_columns: 6
+},{
+	name: 'guthrie-2',
+  ctx: ctxs[1],
+  size: canvas_size[3],
+	origin: {x: 48, y: 85},
+	column: {width: 85, height: 100},
+  column_limit: 1800,
+  max_columns: 4,
+  column_gap: 31.5
+  
+}]
+/* const origin = {x: 38, y: 70}; */
+/* const column = {width: 66, height: 200}; */
 
 // calculation stuff
 const estimate_btn = document.getElementById('estimate-btn');
 
 estimate_btn.addEventListener('click', function(){
 	// clear canvas
-  ctx.clearRect(0, 0, board.width, board.height);
+  for (let i = 0; i < canvas_objects.length; i++){
+  	const c = canvas_objects[i];
+  	const board = c.size;
+  	c.ctx.clearRect(0, 0, board.width, board.height);
+  }
   
   // gather select input values
   const selects = document.getElementsByClassName('select-position');
@@ -29,16 +59,22 @@ estimate_btn.addEventListener('click', function(){
   for (let i = 0; i < selects.length; i++) {
   	values.push(parseInt(selects[i].value));
   }
-  // do calculation
+  
   const units = countUnits(values);
-  const blocks = groupUnits(units);
-  // draw
-  drawBreakers(blocks);
+  // on every odd numbered canvas
+  for (let i = 0; i < canvas_objects.length; i++){
+  	const c = canvas_objects[i]; // for easier reference
+  	// do calculation
+    const blocks = groupUnits(units, c.column_limit, c.max_columns);
+    // draw
+  	console.log('drawing on: '+ c.name);
+    drawBreakers(c, blocks);
+  }
 })
 
 function countUnits(quantities){
 	// Size to be change according to breaker rating
-	sizes = [0, 0, 200, 200, 400, 630, 900, 1200, 1600]; 
+	sizes = [1800, 0, 0, 200, 200, 400, 630, 900, 1200, 1600]; 
   var units = [];
   // https://stackoverflow.com/questions/45770423/javascript-push-shift-same-element-multiple-times
   for (let i = 0; i < quantities.length; i++) {
@@ -48,8 +84,8 @@ function countUnits(quantities){
 }
 
 // calculate the grouping for each column using algo or whatever
-function groupUnits(units){
-  let groups = [[],[],[],[],[],[]]; // should find this dynamically instead
+function groupUnits(units, column_limit, max_columns){
+  let groups = [...Array(max_columns)].map(e => Array());
   
   // recursively find a placement for the breaker
   function findPlacement(unit, column_idx){
@@ -79,7 +115,7 @@ function groupUnits(units){
   
   // debugging the group sizes
   for (let i = 0; i < groups.length; i++){
-  	console.log(`group ${i}: ${sum(groups[i])}`);
+    console.log(`group ${i}: ${sum(groups[i])}`);
   }
   console.log(groups);
   
@@ -90,8 +126,13 @@ function sum(arr){
 	return arr.reduce((a, b) => a + b, 0);
 }
 
-function drawBreakers(blocks){
-  const column_spacing = 3;
+function drawBreakers(cv_obj, blocks){
+	const ctx = cv_obj.ctx;
+  const column = cv_obj.column;
+  const column_limit = cv_obj.column_limit;
+  const origin = cv_obj.origin;
+  
+  const column_spacing = cv_obj.column_gap || 3;
   const vertical_spacing = 2;
   // tested scaling factor: 8.9 for limit=1800, 13.4 for limit=2700, 17.8 for limit=3600
   // plug into desmos to find y=mx+c lol
@@ -118,12 +159,12 @@ function drawBreakers(blocks){
   }
 }
 
-function testAlignment(){
+/* function testAlignment(){
   // draw all columns to test alignment
   for (var i = 0; i < 6; i++){
     var start_pos = {x: origin.x + i*(column.width+3), y: origin.y};
     ctx.fillStyle = "rgba(0,0,0,0.2)";
     ctx.fillRect(start_pos.x, start_pos.y, column.width, column.height);
   }
-}
+} */
 /* testAlignment(); */
