@@ -1,4 +1,4 @@
-<bpardiv<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
   <head>
@@ -21,6 +21,16 @@
 
       <div id="user-controls">
         <div>
+          <label for="Bus-Coupler">Bus-Coupler</label>
+          <select class="select-position" id="incoming">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        
           <label for="incoming">Incoming Feeder</label>
           <select class="select-position" id="incoming">
             <option>0</option>
@@ -91,8 +101,8 @@
             <option>5</option>
           </select> 
 
-          <label for="mmcb-1200">1200 MCCB</label>
-          <select class="select-position" id="mmcb-1200">
+          <label for="ACB-1200">1200 ACB</label>
+          <select class="select-position" id="ACB-1200">
             <option>0</option>
             <option>1</option>
             <option>2</option>
@@ -101,8 +111,8 @@
             <option>5</option>
           </select> 
 
-          <label for="mmcb-1600">1600 MCCB</label>
-          <select class="select-position" id="mmcb-1600">
+          <label for="ACB-1600">1600 MCCB</label>
+          <select class="select-position" id="ACB-1600">
             <option>0</option>
             <option>1</option>
             <option>2</option>
@@ -120,13 +130,22 @@
 
     <div class='form-container container'>
       <div class='estimation-container'>
-        <p class='estimation-text'>(GUTHRIE Estimation)</p> 
+        <p class='estimation-text'>(GUTHRIE Estimation)</p>
+        <p class='Back-text'>(Back Cable Termination)</p> 
         <div class='estimations'>
-            <div class="canvas-container">
-              <canvas id='breaker-img'></canvas>
-              <canvas id='board'></canvas>
+            <div class="canvas-container guthrie-back">
+              <canvas id='guthrie-1'></canvas>
+              <canvas id='board-1' class='boards'></canvas>
             </div>
             <img id="reference"src="https://i.postimg.cc/15W8bvBy/Room-Size.png">
+        </div>
+        
+        <p class='Side Cable Termination-text'>(Side Cable Termination)</p>
+        <div class='estimations'>
+            <div class="canvas-container guthrie-side">
+              <canvas id='guthrie-2'></canvas>
+              <canvas id='board-2' class='boards'></canvas>
+            </div>
         </div>
       </div>
       
