@@ -39,8 +39,6 @@ const canvas_objects = [{
   column_gap: 31.5
   
 }]
-/* const origin = {x: 38, y: 70}; */
-/* const column = {width: 66, height: 200}; */
 
 // calculation stuff
 const estimate_btn = document.getElementById('estimate-btn');
@@ -76,7 +74,7 @@ function countUnits(quantities){
 	// Size to be change according to breaker rating
 	sizes = [1800, 0, 0, 200, 200, 400, 630, 900, 1200, 1600]; 
   var units = [];
-  // https://stackoverflow.com/questions/45770423/javascript-push-shift-same-element-multiple-times
+  // count the number of each unit
   for (let i = 0; i < quantities.length; i++) {
     units.push( ...Array(quantities[i]).fill(sizes[i]) );
   }
@@ -127,27 +125,25 @@ function sum(arr){
 }
 
 function drawBreakers(cv_obj, blocks){
-	const ctx = cv_obj.ctx;
-  const column = cv_obj.column;
-  const column_limit = cv_obj.column_limit;
-  const origin = cv_obj.origin;
-  
+  const { ctx, column, column_limit, origin } = cv_obj;
   const column_spacing = cv_obj.column_gap || 3;
   const vertical_spacing = 2;
+
   // tested scaling factor: 8.9 for limit=1800, 13.4 for limit=2700, 17.8 for limit=3600
   // plug into desmos to find y=mx+c lol
   const m = 0.00494444
   const c = 1/60;
   const scaling_factor = m*column_limit+c;
+  
   for (let col = 0; col < blocks.length; col++){
-		// draw each column
+		// iterate each column
 		const start_pos = {x: origin.x + col*(column.width+column_spacing), y: origin.y};
     let total_height = 0;
     for (let j = 0; j < blocks[col].length; j++){
-  		// draw each unit within the column
+  		// iterate each unit within the column
       const block_height = blocks[col][j]/scaling_factor - vertical_spacing;
       const current_y = start_pos.y + total_height;
-      /* console.log(`drawing at y=${start_pos.y+total_height}, height=${block_height}`); */
+      // draw the unit
   		ctx.fillStyle = "rgba(255,0,0,0.5)";
   		ctx.fillRect(start_pos.x, current_y, column.width, block_height);
   		ctx.fillStyle = "black";
@@ -158,13 +154,3 @@ function drawBreakers(cv_obj, blocks){
     }
   }
 }
-
-/* function testAlignment(){
-  // draw all columns to test alignment
-  for (var i = 0; i < 6; i++){
-    var start_pos = {x: origin.x + i*(column.width+3), y: origin.y};
-    ctx.fillStyle = "rgba(0,0,0,0.2)";
-    ctx.fillRect(start_pos.x, start_pos.y, column.width, column.height);
-  }
-} */
-/* testAlignment(); */
