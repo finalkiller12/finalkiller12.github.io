@@ -36,8 +36,7 @@ const canvas_objects = [{
 	column: {width: 85, height: 100},
   column_limit: 1800,
   max_columns: 4,
-  column_gap: 31.5
-  
+  column_spacing: 31.5
 }]
 
 // calculation stuff
@@ -125,8 +124,7 @@ function sum(arr){
 }
 
 function drawBreakers(cv_obj, blocks){
-  const { ctx, column, column_limit, origin } = cv_obj;
-  const column_spacing = cv_obj.column_gap || 3;
+  const { ctx, column, column_limit, origin, column_spacing = 3 } = cv_obj;
   const vertical_spacing = 2;
 
   // tested scaling factor: 8.9 for limit=1800, 13.4 for limit=2700, 17.8 for limit=3600
