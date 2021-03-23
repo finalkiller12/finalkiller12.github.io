@@ -6,9 +6,9 @@ h1 {
   background: #eee;
 }
 
-/* #user-controls {
-  background: rgb(0, 149, 221);
-} */
+#user-controls {
+ text-align: center;
+}
 
 .canvas-container.guthrie-back {
   position: relative;
