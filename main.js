@@ -25,17 +25,17 @@ const canvas_objects = [{
     ctx: ctxs[0],
     size: canvas_size[1],
     origin: { x: 38, y: 70 },
-    column: { width: 66, height: 200 },
+    column: { width: 66=0, height: 200 },
     column_limit: 1800,
-    max_columns: 6
+    max_columns: 7
 }, {
     name: 'guthrie-2',
     ctx: ctxs[1],
     size: canvas_size[3],
     origin: { x: 48, y: 85 },
-    column: { width: 85, height: 100 },
+    column: { width: 60, height: 100 },
     column_limit: 1800,
-    max_columns: 4,
+    max_columns: 6,
     column_spacing: 31.5
 }]
 
@@ -152,7 +152,7 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
             if (block_text == 'height') {
                 textToUse = String(blocks[col][j]);
             } else if (block_text == 'width') {
-                textToUse = String(cv_obj.column.width);
+                textToUse = String(cv_obj.column.width)*10;
             }
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
