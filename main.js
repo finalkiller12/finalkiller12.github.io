@@ -36,7 +36,7 @@ const canvas_objects = [{
     column: { width: 60, height: 100 },
     column_limit: 1800,
     max_columns: 10,
-    column_spacing: 10
+    column_spacing: 12
 }]
 
 // calculation stuff
