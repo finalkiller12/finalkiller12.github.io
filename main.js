@@ -120,9 +120,9 @@ function groupUnits(units, column_limit, max_columns) {
     groups = groups.sort(function (a, b) { return b[0] - a[0] });
 
     // debugging the group sizes
-    for (let i = 0; i < groups.length; i++) {
-        // console.log(`group ${i}: ${sum(groups[i])}`);
-    }
+    // for (let i = 0; i < groups.length; i++) {
+    //     console.log(`group ${i}: ${sum(groups[i])}`);
+    // }
     console.log(groups);
 
     return groups;
@@ -160,7 +160,7 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
             if (block_text == 'height') {
                 textToUse = String(blocks[col][j]);
             } else if (block_text == 'width') {
-                textToUse = String(cv_obj.column.width)*10;
+                textToUse = String(column.width[col])*10;
                 
             }
             ctx.fillStyle = "black";
