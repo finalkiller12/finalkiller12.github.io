@@ -54,23 +54,17 @@ h1 {
 
 #reference_RoomSize {
   /* width: calc(100% - 480px); */
-  width: 480px;
+  width: 350px;
   position: absolute;
   margin-left: 200px;
 }
 
-#reference_CableEnd {
+#reference_2in1 {
   /* width: calc(100% - 480px); */
-  width: 125px;
+  width: 300px;
   position: absolute;
   margin-left: 200px;
-}
-
-#reference_CableFront {
-  /* width: calc(100% - 480px); */
-  width: 150px;
-  position: absolute;
-  margin-left: 350px;
+  margin-top: -65px;
 }
 
 .board {
