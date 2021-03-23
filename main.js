@@ -11,7 +11,7 @@ const canvas_size = [
 const canvases = document.getElementsByTagName('canvas');
 for (let i = 0; i < canvases.length; i++) {
     canvases[i].height = canvas_size[i].height;
-    canvases[i].width = canvas_size[i].width*10;
+    canvases[i].width = canvas_size[i].width;
 }
 
 const boards = document.getElementsByClassName('boards');
