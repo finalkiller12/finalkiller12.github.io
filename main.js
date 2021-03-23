@@ -11,7 +11,7 @@ const canvas_size = [
 const canvases = document.getElementsByTagName('canvas');
 for (let i = 0; i < canvases.length; i++) {
     canvases[i].height = canvas_size[i].height;
-    canvases[i].width = canvas_size[i].width;
+    canvases[i].width = canvas_size[i].width*10;
 }
 
 const boards = document.getElementsByClassName('boards');
@@ -35,7 +35,7 @@ const canvas_objects = [{
     origin: { x: 48, y: 85 },
     column: { width: 60, height: 100 },
     column_limit: 1800,
-    max_columns: 6,
+    max_columns: 7,
     column_spacing: 31.5
 }]
 
