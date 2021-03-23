@@ -1,10 +1,10 @@
 // change these numbers when you want to resize
 // also remember to change .canvas-container's dimensions too
 const canvas_size = [
-    { width: 480, height: 330 },
-    { width: 480, height: 330 },
-    { width: 589, height: 621 },
-    { width: 589, height: 621 },
+    { width: 800, height: 300 },
+    { width: 800, height: 300 },
+    { width: 800, height: 300 },
+    { width: 800, height: 300 },
 ];
 
 // set canvas sizes
@@ -80,7 +80,7 @@ estimate_btn.addEventListener('click', function () {
 
 function countUnits(quantities) {
     // Size to be change according to breaker rating
-    sizes = [1800, 0, 0, 200, 200, 400, 630, 900, 1200, 1600];
+    sizes = [1800, 0, 0, 200, 200, 400, 630, 900, 1800, 1800];
     var units = [];
     // count the number of each unit
     for (let i = 0; i < quantities.length; i++) {
@@ -161,6 +161,7 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
                 textToUse = String(blocks[col][j]);
             } else if (block_text == 'width') {
                 textToUse = String(cv_obj.column.width)*10;
+                
             }
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
