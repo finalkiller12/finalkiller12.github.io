@@ -25,7 +25,7 @@ const canvas_objects = [{
     ctx: ctxs[0],
     size: canvas_size[1],
     origin: { x: 38, y: 70 },
-    column: { width: 66=0, height: 200 },
+    column: { width: 60, height: 200 },
     column_limit: 1800,
     max_columns: 7
 }, {
