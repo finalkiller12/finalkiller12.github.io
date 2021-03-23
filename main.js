@@ -24,26 +24,26 @@ const canvas_objects = [{
     name: 'guthrie-1',
     ctx: ctxs[0],
     size: canvas_size[1],
-    origin: { x: 38, y: 70 },
+    origin: { x: 10, y: 5 },
     column: { 
         width: [40, 40, 60, 60, 60, 60, 60], 
         height: 200,
         limit: 1800,
         spacing: 3
     },
-    max_columns: 7
+    max_columns: 15
 }, {
     name: 'guthrie-2',
     ctx: ctxs[1],
     size: canvas_size[3],
-    origin: { x: 48, y: 85 },
+    origin: { x: 10, y: 5 },
     column: { 
         width: [60, 60, 60, 60, 60, 60, 60], 
         height: 100,
         limit: 1800,
         spacing: 31.5,
     },
-    max_columns: 7,
+    max_columns: 15,
 }]
 
 // calculation stuff
