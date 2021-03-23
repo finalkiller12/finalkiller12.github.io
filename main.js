@@ -50,6 +50,7 @@ const canvas_objects = [{
 const estimate_btn = document.getElementById('estimate-btn');
 
 estimate_btn.addEventListener('click', function () {
+    
     // clear canvas
     for (let i = 0; i < canvas_objects.length; i++) {
         const c = canvas_objects[i];
@@ -65,13 +66,15 @@ estimate_btn.addEventListener('click', function () {
     }
 
     const block_text = document.getElementById('block-text').value.toLowerCase();
-
     const units = countUnits(values);
+
     // on every odd numbered canvas
     for (let i = 0; i < canvas_objects.length; i++) {
         const c = canvas_objects[i]; // for easier reference
+
         // do calculation
         const blocks = groupUnits(units, c.column.limit, c.max_columns);
+
         // draw
         console.log('drawing on: ' + c.name);
         drawBreakers(c, blocks, block_text);
@@ -79,9 +82,11 @@ estimate_btn.addEventListener('click', function () {
 })
 
 function countUnits(quantities) {
+
     // Size to be change according to breaker rating
     sizes = [1800, 0, 0, 200, 200, 400, 630, 900, 1800, 1800];
     var units = [];
+
     // count the number of each unit
     for (let i = 0; i < quantities.length; i++) {
         units.push(...Array(quantities[i]).fill(sizes[i]));
@@ -112,10 +117,12 @@ function groupUnits(units, column_limit, max_columns) {
         /* console.log('finding place for: '+String(units[i])); */
         findPlacement(units[i], 0);
     }
+
     // sort each column in desc order
     for (let i = 0; i < groups.length; i++) {
         groups[i] = groups[i].sort(function (a, b) { return b - a })
     }
+
     // sort all column in desc order by first unit size
     groups = groups.sort(function (a, b) { return b[0] - a[0] });
 
@@ -143,25 +150,25 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
     const c = 1 / 60;
     const scaling_factor = m * column.limit + c;
 
-    for (let col = 0; col < blocks.length; col++) {
-        // iterate each column
+    for (let col = 0; col < blocks.length; col++) { // iterate each column
+        
         const start_pos = { x: origin.x + sum(column.width, col) + col * column.spacing, y: origin.y };
         let total_height = 0;
-        for (let j = 0; j < blocks[col].length; j++) {
-            // iterate each unit within the column
+        for (let j = 0; j < blocks[col].length; j++) { // iterate each unit within the column
+            
             const block_height = blocks[col][j] / scaling_factor - vertical_spacing;
             const current_y = start_pos.y + total_height;
+
             // draw the unit
             ctx.fillStyle = "rgba(255,0,0,0.5)";
             ctx.fillRect(start_pos.x, current_y, column.width[col], block_height);
-            // write centered text
 
+            // write centered text
             let textToUse = '';
             if (block_text == 'height') {
                 textToUse = String(blocks[col][j]);
             } else if (block_text == 'width') {
                 textToUse = String(column.width[col])*10;
-                
             }
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
