@@ -25,18 +25,25 @@ const canvas_objects = [{
     ctx: ctxs[0],
     size: canvas_size[1],
     origin: { x: 38, y: 70 },
-    column: { width: 60, height: 200 },
-    column_limit: 1800,
+    column: { 
+        width: [40, 40, 60, 60, 60, 60, 60], 
+        height: 200,
+        limit: 1800,
+        spacing: 3
+    },
     max_columns: 7
 }, {
     name: 'guthrie-2',
     ctx: ctxs[1],
     size: canvas_size[3],
     origin: { x: 48, y: 85 },
-    column: { width: 60, height: 100 },
-    column_limit: 1800,
+    column: { 
+        width: [60, 60, 60, 60, 60, 60, 60], 
+        height: 100,
+        limit: 1800,
+        spacing: 31.5,
+    },
     max_columns: 7,
-    column_spacing: 31.5
 }]
 
 // calculation stuff
@@ -64,7 +71,7 @@ estimate_btn.addEventListener('click', function () {
     for (let i = 0; i < canvas_objects.length; i++) {
         const c = canvas_objects[i]; // for easier reference
         // do calculation
-        const blocks = groupUnits(units, c.column_limit, c.max_columns);
+        const blocks = groupUnits(units, c.column.limit, c.max_columns);
         // draw
         console.log('drawing on: ' + c.name);
         drawBreakers(c, blocks, block_text);
@@ -88,12 +95,12 @@ function groupUnits(units, column_limit, max_columns) {
 
     // recursively find a placement for the breaker
     function findPlacement(unit, column_idx) {
-        console.log(groups[column_idx]);
+        // console.log(groups[column_idx]);
         if (sum(groups[column_idx].concat(unit)) <= column_limit) {
             groups[column_idx].push(unit);
         } else {
             if (column_idx == groups.length - 1) { // last group
-                console.log('could not find any space')
+                // console.log('could not find any space')
                 return;
             }
             findPlacement(unit, column_idx + 1)
@@ -114,30 +121,31 @@ function groupUnits(units, column_limit, max_columns) {
 
     // debugging the group sizes
     for (let i = 0; i < groups.length; i++) {
-        console.log(`group ${i}: ${sum(groups[i])}`);
+        // console.log(`group ${i}: ${sum(groups[i])}`);
     }
     console.log(groups);
 
     return groups;
 }
 
-function sum(arr) {
+function sum(arr, stop=arr.length) {
+    arr = arr.slice(0, stop)
     return arr.reduce((a, b) => a + b, 0);
 }
 
 function drawBreakers(cv_obj, blocks, block_text = 'height') {
-    const { ctx, column, column_limit, origin, column_spacing = 3 } = cv_obj;
+    const { ctx, column, origin } = cv_obj;
     const vertical_spacing = 2;
 
     // tested scaling factor: 8.9 for limit=1800, 13.4 for limit=2700, 17.8 for limit=3600
     // plug into desmos to find y=mx+c lol
     const m = 0.00494444
     const c = 1 / 60;
-    const scaling_factor = m * column_limit + c;
+    const scaling_factor = m * column.limit + c;
 
     for (let col = 0; col < blocks.length; col++) {
         // iterate each column
-        const start_pos = { x: origin.x + col * (column.width + column_spacing), y: origin.y };
+        const start_pos = { x: origin.x + sum(column.width, col) + col * column.spacing, y: origin.y };
         let total_height = 0;
         for (let j = 0; j < blocks[col].length; j++) {
             // iterate each unit within the column
@@ -145,7 +153,7 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
             const current_y = start_pos.y + total_height;
             // draw the unit
             ctx.fillStyle = "rgba(255,0,0,0.5)";
-            ctx.fillRect(start_pos.x, current_y, column.width, block_height);
+            ctx.fillRect(start_pos.x, current_y, column.width[col], block_height);
             // write centered text
 
             let textToUse = '';
@@ -157,7 +165,7 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            ctx.fillText(textToUse, start_pos.x + (column.width / 2), current_y + (block_height / 2));
+            ctx.fillText(textToUse, start_pos.x + (column.width[col] / 2), current_y + (block_height / 2));
             total_height += block_height + vertical_spacing;
         }
     }
