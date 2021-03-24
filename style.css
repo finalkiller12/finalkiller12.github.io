@@ -90,9 +90,9 @@ body {
   background-size: cover;
 } */
 
-.estimations {
+/* .estimations {
   overflow: overlay;
-}
+} */
 
 .estimations > * {
   float: left;
