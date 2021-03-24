@@ -48,16 +48,9 @@ body {
   float: left;
 }
 
-
-.canvas-container.guthrie-back {
+.canvas-container {
   position: relative;
-  width: 600px;
-  height: 300px;
-}
-
-.canvas-container.guthrie-side {
-  position: relative;
-  width: 600px;
+  width: 800px;
   height: 300px;
 }
 
@@ -77,16 +70,22 @@ body {
   float: left;
 }
 
+.estimations:after { 
+  content: " "; 
+  display: block;
+  clear: both;
+} 
+
 #reference_RoomSize {
   width: 350px;
   position: absolute;
-  margin-left: 200px;
+  /* margin-left: 200px; */
 }
 
 #reference_2in1 {
   width: 300px;
   position: absolute;
-  margin-left: 200px;
+  /* margin-left: 200px; */
   margin-top: -65px;
 }
 

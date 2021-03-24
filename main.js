@@ -7,6 +7,8 @@ const canvas_size = [
     { width: 800, height: 300 },
 ];
 
+const sizes = [1800, 0, 0, 200, 200, 400, 630, 900, 1800, 1800];
+
 // set canvas sizes
 const canvases = document.getElementsByTagName('canvas');
 for (let i = 0; i < canvases.length; i++) {
@@ -26,7 +28,7 @@ const canvas_objects = [{
     size: canvas_size[1],
     origin: { x: 10, y: 5 },
     column: { 
-        width: [40, 40, 60, 60, 60, 60, 60], 
+        widths: [40, 40, 60, 60, 60, 60, 60], 
         height: 200,
         limit: 1800,
         spacing: 3
@@ -38,7 +40,7 @@ const canvas_objects = [{
     size: canvas_size[3],
     origin: { x: 10, y: 5 },
     column: { 
-        width: [60, 60, 60, 60, 60, 60, 60], 
+        widths: [60, 60, 60, 60, 60, 60, 60], 
         height: 100,
         limit: 1800,
         spacing: 31.5,
@@ -53,9 +55,9 @@ estimate_btn.addEventListener('click', function () {
     
     // clear canvas
     for (let i = 0; i < canvas_objects.length; i++) {
-        const c = canvas_objects[i];
-        const board = c.size;
-        c.ctx.clearRect(0, 0, board.width, board.height);
+        const { ctx, size: board } = canvas_objects[i];
+        // const board = c.size;
+        ctx.clearRect(0, 0, board.width, board.height);
     }
 
     // gather select input values
@@ -84,7 +86,6 @@ estimate_btn.addEventListener('click', function () {
 function countUnits(quantities) {
 
     // Size to be change according to breaker rating
-    sizes = [1800, 0, 0, 200, 200, 400, 630, 900, 1800, 1800];
     var units = [];
 
     // count the number of each unit
@@ -152,7 +153,7 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
 
     for (let col = 0; col < blocks.length; col++) { // iterate each column
         
-        const start_pos = { x: origin.x + sum(column.width, col) + col * column.spacing, y: origin.y };
+        const start_pos = { x: origin.x + sum(column.widths, col) + col * column.spacing, y: origin.y };
         let total_height = 0;
         for (let j = 0; j < blocks[col].length; j++) { // iterate each unit within the column
             
@@ -161,20 +162,20 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
 
             // draw the unit
             ctx.fillStyle = "rgba(255,0,0,0.5)";
-            ctx.fillRect(start_pos.x, current_y, column.width[col], block_height);
+            ctx.fillRect(start_pos.x, current_y, column.widths[col], block_height);
 
             // write centered text
             let textToUse = '';
             if (block_text == 'height') {
                 textToUse = String(blocks[col][j]);
             } else if (block_text == 'width') {
-                textToUse = String(column.width[col])*10;
+                textToUse = String(column.widths[col])*10;
             }
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             ctx.font = "16px Arial";
-            ctx.fillText(textToUse, start_pos.x + (column.width[col] / 2), current_y + (block_height / 2));
+            ctx.fillText(textToUse, start_pos.x + (column.widths[col] / 2), current_y + (block_height / 2));
             total_height += block_height + vertical_spacing;
         }
     }
