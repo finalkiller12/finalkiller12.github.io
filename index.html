@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+</head>
 
-  <body class="">
-    <div class="hero-bg">
-      <header>
-        <a href="#"></a>
-      </header>
+<body class="">
+  <header>
+    <a href="#"></a>
+  </header>
 
-      <h1><span> SwitchBoard Sizing Estimation</span></h1>
+  <div class='navbar'>
+    <h1>SwitchBoard Sizing Estimation</h1>
+  </div>
+  <div class='sidebar'>
 
-      <div id="user-controls">
-        <div>
+    <div class='sidebar-group'>
+      <div><b>Select Quantity</b></div>
+      <div id='select-quantity' class='sidebar-group-content'>
+        <div class='selection-wrapper'>
           <label for="Bus-Coupler">Bus-Coupler</label>
           <select class="select-position" id="incoming">
             <option>0</option>
@@ -30,7 +34,8 @@
             <option>4</option>
             <option>5</option>
           </select>
-        
+        </div>
+        <div class='selection-wrapper'>
           <label for="incoming">Incoming Feeder</label>
           <select class="select-position" id="incoming">
             <option>0</option>
@@ -40,7 +45,8 @@
             <option>4</option>
             <option>5</option>
           </select>
-
+        </div>
+        <div class='selection-wrapper'>
           <label for="outgoing">Outgoing Feeder</label>
           <select class="select-position" id="outgoing">
             <option>0</option>
@@ -50,7 +56,8 @@
             <option>4</option>
             <option>5</option>
           </select>
-
+        </div>
+        <div class='selection-wrapper'>
           <label for="mmcb-100">100 MCCB</label>
           <select class="select-position" id="mmcb-100">
             <option>0</option>
@@ -60,7 +67,8 @@
             <option>4</option>
             <option>5</option>
           </select>
-
+        </div>
+        <div class='selection-wrapper'>
           <label for="mmcb-250">250 MCCB</label>
           <select class="select-position" id="mmcb-250">
             <option>0</option>
@@ -70,7 +78,8 @@
             <option>4</option>
             <option>5</option>
           </select>
-
+        </div>
+        <div class='selection-wrapper'>
           <label for="mmcb-400">400 MCCB</label>
           <select class="select-position" id="mmcb-400">
             <option>0</option>
@@ -80,7 +89,8 @@
             <option>4</option>
             <option>5</option>
           </select>
-
+        </div>
+        <div class='selection-wrapper'>
           <label for="mmcb-630">630 MCCB</label>
           <select class="select-position" id="mmcb-630">
             <option>0</option>
@@ -89,8 +99,9 @@
             <option>3</option>
             <option>4</option>
             <option>5</option>
-          </select> 
-
+          </select>
+        </div>
+        <div class='selection-wrapper'>
           <label for="mmcb-900">900 MCCB</label>
           <select class="select-position" id="mmcb-900">
             <option>0</option>
@@ -99,8 +110,9 @@
             <option>3</option>
             <option>4</option>
             <option>5</option>
-          </select> 
-
+          </select>
+        </div>
+        <div class='selection-wrapper'>
           <label for="ACB-1200">1200 ACB</label>
           <select class="select-position" id="ACB-1200">
             <option>0</option>
@@ -109,8 +121,9 @@
             <option>3</option>
             <option>4</option>
             <option>5</option>
-          </select> 
-
+          </select>
+        </div>
+        <div class='selection-wrapper'>
           <label for="ACB-1600">1600 ACB</label>
           <select class="select-position" id="ACB-1600">
             <option>0</option>
@@ -119,61 +132,87 @@
             <option>3</option>
             <option>4</option>
             <option>5</option>
-          </select> 
+          </select>
         </div>
-        <div>
-          <input type="button" value=Estimate id='estimate-btn'>
+      </div>
+    </div>
+
+    <div class='sidebar-group'>
+      <div><b>Drawing Options</b></div>
+      <div id="user-controls" class='sidebar-group-content'>
+        <div id='options-drawing'>
           <label for="block-text">Text in drawing</label>
           <select id="block-text">
             <option>Height</option>
             <option>Width</option>
           </select>
         </div>
-
       </div>
     </div>
+
+    <div class='sidebar-group'>
+      <div><b>placeholder</b></div>
+      <div class='estimate-btn-wrapper sidebar-group-content'>
+        <input type="button" value=Estimate class='btn btn-primary' id='estimate-btn'>
+      </div>
+    </div>
+  </div>
+  <div class='content-wrapper'>
 
     <div class='form-container container'>
       <div class='estimation-container'>
-        <p class='estimation-text'>(GUTHRIE Estimation)</p>
-        <p class='Back-text'>(Back Cable Termination)</p> 
-        <div class='estimations'>
-            <div class="canvas-container guthrie-back">
-              <canvas id='guthrie-1'></canvas>
-              <canvas id='board-1' class='boards'></canvas>
-            </div>
-            <img id="reference_RoomSize"src="https://i.postimg.cc/MpS2tf2Q/Room-Sizing.png">
+        <div class='estimation-header'>
+          <div class='estimation-text'>GUTHRIE Estimation (Back Cable Termination)</div>
         </div>
-        
-        <p class='Side Cable Termination-text'>(Side Cable Termination)</p>
         <div class='estimations'>
-            <div class="canvas-container guthrie-side">
-              <canvas id='guthrie-2'></canvas>
-              <canvas id='board-2' class='boards'></canvas>
-            </div>
-            <img id="reference_2in1"src="https://i.postimg.cc/k4hj2GdG/2-in-1.png">
+          <div class="canvas-container guthrie-back">
+            <canvas id='guthrie-1'></canvas>
+            <canvas id='board-1' class='boards'></canvas>
+          </div>
+          <img id="reference_RoomSize" src="https://i.postimg.cc/MpS2tf2Q/Room-Sizing.png">
         </div>
-      </div>
-      
-      <div class='estimation-container'>
-        <p>(GATHERGATES Estimation)</p>
+  
+        <div class='estimation-header'>
+          <div class='estimation-text'>GUTHRIE Estimation (Side Cable Termination)</div>
+        </div>
         <div class='estimations'>
+          <div class="canvas-container guthrie-side">
+            <canvas id='guthrie-2'></canvas>
+            <canvas id='board-2' class='boards'></canvas>
+          </div>
+          <img id="reference_2in1" src="https://i.postimg.cc/k4hj2GdG/2-in-1.png">
         </div>
       </div>
-      
+  
       <div class='estimation-container'>
-        <p>(SIEMENS Estimation)</p>
+        <div class='estimation-header'>
+          <div class='estimation-text'>GATHERGATES Estimation</div>
+        </div>
         <div class='estimations'>
         </div>
       </div>
-      
+  
       <div class='estimation-container'>
-        <p>(SCHNEDIER Estimation)</p>
+        <div class='estimation-header'>
+          <div class='estimation-text'>SIEMENS Estimation</div>
+        </div>
+        <div class='estimations'>
+        </div>
+      </div>
+  
+      <div class='estimation-container'>
+        <div class='estimation-header'>
+          <div class='estimation-text'>SCHNEDIER Estimation</div>
+        </div>
         <div class='estimations'>
         </div>
       </div>
     </div>
-  
-  </body>
-  <script src="main.js"></script>
-</html> 
+  </div>
+
+
+
+</body>
+<script src="main.js"></script>
+
+</html>

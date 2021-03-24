@@ -2,13 +2,59 @@ body {
   font-family: Helvetica;
 }
 
-h1 {
+.navbar {
+  background-color: #ccc;
+  color: #444;
+  padding-left: .5rem;
+}
+
+/* h1 {
   background: #eee;
+} */
+
+.sidebar {
+  width: 180px;
+  height: 100vh;
+  float: left;
+}
+
+.sidebar-group {
+  margin-top: 15px;
+  background-color: #eee;
+}
+
+.sidebar-group > div:first-child {
+  background-color: white;
+  /* margin-top: 10px; */
+  padding-left: 5px;
+}
+
+.sidebar-group-content {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /* border-bottom: 1px solid #aaa;
+  border-right: 1px solid #aaa; */
+  box-shadow: 1px 1px 2px #aaa;
+}
+
+.selection-wrapper {
+  padding: 0 10px;
+  text-align: right;
 }
 
 #user-controls {
   text-align: center;
 } 
+
+.estimate-btn-wrapper {
+  text-align: center;
+}
+
+
+.content-wrapper {
+  float: left;
+}
+
 
 .canvas-container.guthrie-back {
   position: relative;
