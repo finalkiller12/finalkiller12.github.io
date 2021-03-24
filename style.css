@@ -49,7 +49,7 @@ body {
 }
 
 
-.canvas-container.guthrie-back {
+/* .canvas-container.guthrie-back {
   position: relative;
   width: 600px;
   height: 300px;
@@ -58,6 +58,12 @@ body {
 .canvas-container.guthrie-side {
   position: relative;
   width: 600px;
+  height: 300px;
+} */
+
+.canvas-container {
+  position: relative;
+  width: 800px;
   height: 300px;
 }
 
@@ -80,13 +86,13 @@ body {
 #reference_RoomSize {
   width: 350px;
   position: absolute;
-  margin-left: 200px;
+  /* margin-left: 200px; */
 }
 
 #reference_2in1 {
   width: 300px;
   position: absolute;
-  margin-left: 200px;
+  /* margin-left: 200px; */
   margin-top: -65px;
 }
 
