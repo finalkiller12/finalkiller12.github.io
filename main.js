@@ -173,6 +173,7 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
+            ctx.font = "16px Arial";
             ctx.fillText(textToUse, start_pos.x + (column.width[col] / 2), current_y + (block_height / 2));
             total_height += block_height + vertical_spacing;
         }
