@@ -8,10 +8,6 @@ body {
   padding-left: .5rem;
 }
 
-/* h1 {
-  background: #eee;
-} */
-
 .sidebar {
   width: 180px;
   height: 100vh;
@@ -25,15 +21,12 @@ body {
 
 .sidebar-group > div:first-child {
   background-color: white;
-  /* margin-top: 10px; */
   padding-left: 5px;
 }
 
 .sidebar-group-content {
   padding-top: 10px;
   padding-bottom: 10px;
-  /* border-bottom: 1px solid #aaa;
-  border-right: 1px solid #aaa; */
   box-shadow: 1px 1px 2px #aaa;
 }
 
@@ -80,33 +73,17 @@ body {
   top: 0;
 }
 
-/*
-#guthrie-1 {
-  
-} 
-
-#guthrie-2 {
-  
-  background-size: cover;
-} */
-
-/* .estimations {
-  overflow: overlay;
-} */
-
 .estimations > * {
   float: left;
 }
 
 #reference_RoomSize {
-  /* width: calc(100% - 480px); */
   width: 350px;
   position: absolute;
   margin-left: 200px;
 }
 
 #reference_2in1 {
-  /* width: calc(100% - 480px); */
   width: 300px;
   position: absolute;
   margin-left: 200px;
