@@ -20,7 +20,7 @@ const canvas_objects = [{
         limit: 1800,
         spacing: 3
     },
-    max_columns: 15
+    max_columns: 7
 }, {
     name: 'guthrie-2',
     ctx: boards[1].getContext("2d"),
@@ -32,7 +32,7 @@ const canvas_objects = [{
         limit: 1800,
         spacing: 31.5,
     },
-    max_columns: 15,
+    max_columns: 7
 }]
 
 // set canvas sizes
