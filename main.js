@@ -7,13 +7,6 @@ const canvas_size = [
 
 const sizes = [1800, 0, 0, 200, 200, 400, 630, 900, 1800, 1800];
 
-// set canvas sizes
-const canvases = document.getElementsByTagName('canvas');
-for (let i = 0; i < canvases.length; i++) {
-    canvases[i].height = canvas_size[i].height;
-    canvases[i].width = canvas_size[i].width;
-}
-
 const boards = document.getElementsByClassName('boards');
 
 const canvas_objects = [{
@@ -41,6 +34,13 @@ const canvas_objects = [{
     },
     max_columns: 15,
 }]
+
+// set canvas sizes
+const canvases = document.getElementsByTagName('canvas');
+for (let i = 0; i < canvases.length; i++) {
+    canvases[i].height = canvas_size[i].height;
+    canvases[i].width = canvas_size[i].width;
+}
 
 // calculation stuff
 const estimate_btn = document.getElementById('estimate-btn');
