@@ -2,30 +2,17 @@
 // also remember to change .canvas-container's dimensions too
 const canvas_size = [
     { width: 800, height: 300 },
-    { width: 800, height: 300 },
-    { width: 800, height: 300 },
-    { width: 800, height: 300 },
+    { width: 800, height: 300 }
 ];
 
 const sizes = [1800, 0, 0, 200, 200, 400, 630, 900, 1800, 1800];
 
-// set canvas sizes
-const canvases = document.getElementsByTagName('canvas');
-for (let i = 0; i < canvases.length; i++) {
-    canvases[i].height = canvas_size[i].height;
-    canvases[i].width = canvas_size[i].width;
-}
-
 const boards = document.getElementsByClassName('boards');
-let ctxs = [];
-for (let i = 0; i < boards.length; i++) {
-    ctxs.push(boards[i].getContext("2d"));
-}
 
 const canvas_objects = [{
     name: 'guthrie-1',
-    ctx: ctxs[0],
-    size: canvas_size[1],
+    ctx: boards[0].getContext("2d"),
+    size: canvas_size[0],
     origin: { x: 10, y: 5 },
     column: { 
         widths: [40, 40, 60, 60, 60, 60, 60], 
@@ -36,8 +23,8 @@ const canvas_objects = [{
     max_columns: 15
 }, {
     name: 'guthrie-2',
-    ctx: ctxs[1],
-    size: canvas_size[3],
+    ctx: boards[1].getContext("2d"),
+    size: canvas_size[1],
     origin: { x: 10, y: 5 },
     column: { 
         widths: [60, 60, 60, 60, 60, 60, 60], 
@@ -47,6 +34,13 @@ const canvas_objects = [{
     },
     max_columns: 15,
 }]
+
+// set canvas sizes
+const canvases = document.getElementsByTagName('canvas');
+for (let i = 0; i < canvases.length; i++) {
+    canvases[i].height = canvas_size[i].height;
+    canvases[i].width = canvas_size[i].width;
+}
 
 // calculation stuff
 const estimate_btn = document.getElementById('estimate-btn');
@@ -70,7 +64,7 @@ estimate_btn.addEventListener('click', function () {
     const block_text = document.getElementById('block-text').value.toLowerCase();
     const units = countUnits(values);
 
-    // on every odd numbered canvas
+
     for (let i = 0; i < canvas_objects.length; i++) {
         const c = canvas_objects[i]; // for easier reference
 
@@ -101,21 +95,20 @@ function groupUnits(units, column_limit, max_columns) {
 
     // recursively find a placement for the breaker
     function findPlacement(unit, column_idx) {
-        // console.log(groups[column_idx]);
+        
         if (sum(groups[column_idx].concat(unit)) <= column_limit) {
             groups[column_idx].push(unit);
-        } else {
+        } else { // no space
             if (column_idx == groups.length - 1) { // last group
-                // console.log('could not find any space')
-                return;
+                return; // stop recursion
             }
+
             findPlacement(unit, column_idx + 1)
         }
     }
 
     // find placement starting with the biggest sizes
     for (let i = units.length - 1; i >= 0; i--) {
-        /* console.log('finding place for: '+String(units[i])); */
         findPlacement(units[i], 0);
     }
 
@@ -127,10 +120,6 @@ function groupUnits(units, column_limit, max_columns) {
     // sort all column in desc order by first unit size
     groups = groups.sort(function (a, b) { return b[0] - a[0] });
 
-    // debugging the group sizes
-    // for (let i = 0; i < groups.length; i++) {
-    //     console.log(`group ${i}: ${sum(groups[i])}`);
-    // }
     console.log(groups);
 
     return groups;
@@ -155,6 +144,7 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
         
         const start_pos = { x: origin.x + sum(column.widths, col) + col * column.spacing, y: origin.y };
         let total_height = 0;
+
         for (let j = 0; j < blocks[col].length; j++) { // iterate each unit within the column
             
             const block_height = blocks[col][j] / scaling_factor - vertical_spacing;
@@ -176,7 +166,7 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
             ctx.textBaseline = "middle";
             ctx.font = "16px Arial";
             ctx.fillText(textToUse, start_pos.x + (column.widths[col] / 2), current_y + (block_height / 2));
-            total_height += block_height + vertical_spacing;
+            total_height += block_height + vertical_spacing; // start the next drawing lower down
         }
     }
 }
