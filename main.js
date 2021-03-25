@@ -15,14 +15,10 @@ for (let i = 0; i < canvases.length; i++) {
 }
 
 const boards = document.getElementsByClassName('boards');
-let ctxs = [];
-for (let i = 0; i < boards.length; i++) {
-    ctxs.push(boards[i].getContext("2d"));
-}
 
 const canvas_objects = [{
     name: 'guthrie-1',
-    ctx: ctxs[0],
+    ctx: boards[0].getContext("2d"),
     size: canvas_size[0],
     origin: { x: 10, y: 5 },
     column: { 
@@ -34,7 +30,7 @@ const canvas_objects = [{
     max_columns: 15
 }, {
     name: 'guthrie-2',
-    ctx: ctxs[1],
+    ctx: boards[1].getContext("2d"),
     size: canvas_size[1],
     origin: { x: 10, y: 5 },
     column: { 
