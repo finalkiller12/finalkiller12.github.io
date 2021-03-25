@@ -64,7 +64,7 @@ estimate_btn.addEventListener('click', function () {
     const block_text = document.getElementById('block-text').value.toLowerCase();
     const units = countUnits(values);
 
-    // on every odd numbered canvas
+
     for (let i = 0; i < canvas_objects.length; i++) {
         const c = canvas_objects[i]; // for easier reference
 
@@ -95,21 +95,20 @@ function groupUnits(units, column_limit, max_columns) {
 
     // recursively find a placement for the breaker
     function findPlacement(unit, column_idx) {
-        // console.log(groups[column_idx]);
+        
         if (sum(groups[column_idx].concat(unit)) <= column_limit) {
             groups[column_idx].push(unit);
-        } else {
+        } else { // no space
             if (column_idx == groups.length - 1) { // last group
-                // console.log('could not find any space')
-                return;
+                return; // stop recursion
             }
+
             findPlacement(unit, column_idx + 1)
         }
     }
 
     // find placement starting with the biggest sizes
     for (let i = units.length - 1; i >= 0; i--) {
-        /* console.log('finding place for: '+String(units[i])); */
         findPlacement(units[i], 0);
     }
 
@@ -121,10 +120,6 @@ function groupUnits(units, column_limit, max_columns) {
     // sort all column in desc order by first unit size
     groups = groups.sort(function (a, b) { return b[0] - a[0] });
 
-    // debugging the group sizes
-    // for (let i = 0; i < groups.length; i++) {
-    //     console.log(`group ${i}: ${sum(groups[i])}`);
-    // }
     console.log(groups);
 
     return groups;
@@ -149,6 +144,7 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
         
         const start_pos = { x: origin.x + sum(column.widths, col) + col * column.spacing, y: origin.y };
         let total_height = 0;
+
         for (let j = 0; j < blocks[col].length; j++) { // iterate each unit within the column
             
             const block_height = blocks[col][j] / scaling_factor - vertical_spacing;
@@ -170,7 +166,7 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
             ctx.textBaseline = "middle";
             ctx.font = "16px Arial";
             ctx.fillText(textToUse, start_pos.x + (column.widths[col] / 2), current_y + (block_height / 2));
-            total_height += block_height + vertical_spacing;
+            total_height += block_height + vertical_spacing; // start the next drawing lower down
         }
     }
 }
