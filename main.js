@@ -2,9 +2,7 @@
 // also remember to change .canvas-container's dimensions too
 const canvas_size = [
     { width: 800, height: 300 },
-    { width: 800, height: 300 },
-    { width: 800, height: 300 },
-    { width: 800, height: 300 },
+    { width: 800, height: 300 }
 ];
 
 const sizes = [1800, 0, 0, 200, 200, 400, 630, 900, 1800, 1800];
@@ -25,7 +23,7 @@ for (let i = 0; i < boards.length; i++) {
 const canvas_objects = [{
     name: 'guthrie-1',
     ctx: ctxs[0],
-    size: canvas_size[1],
+    size: canvas_size[0],
     origin: { x: 10, y: 5 },
     column: { 
         widths: [40, 40, 60, 60, 60, 60, 60], 
@@ -37,7 +35,7 @@ const canvas_objects = [{
 }, {
     name: 'guthrie-2',
     ctx: ctxs[1],
-    size: canvas_size[3],
+    size: canvas_size[1],
     origin: { x: 10, y: 5 },
     column: { 
         widths: [60, 60, 60, 60, 60, 60, 60], 
