@@ -156,25 +156,23 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
     const c = 1 / 60;
     const scaling_factor = m * column.limit + c;
 
-    let offset = { x: 0, y: 0 };
+    const currentPos = { x: origin.x, y: origin.y }; // copy by value, not reference
 
     for (let col = 0; col < blocks.length; col++) { // iterate each column
-        
+
         if (blocks[col].length > 0){ // skip everything if column is empty
             if (col > 0){
-                offset.x += blocks[col-1][0].width + column.spacing;
+                currentPos.x += blocks[col-1][0].width + column.spacing;
             }
-            offset.y = 0;
-            const start_pos = { x: origin.x + offset.x, y: origin.y };
+            currentPos.y = 0;
 
             for (let j = 0; j < blocks[col].length; j++) { // iterate each unit within the column
                 
                 const block_height = blocks[col][j].height / scaling_factor - vertical_spacing;
-                const current_y = start_pos.y + offset.y;
 
                 // draw the unit
                 ctx.fillStyle = "rgba(255,0,0,0.5)";
-                ctx.fillRect(start_pos.x, current_y, blocks[col][j].width, block_height);
+                ctx.fillRect(currentPos.x, currentPos.y, blocks[col][j].width, block_height);
 
                 // write centered text
                 let textToUse = '';
@@ -187,9 +185,9 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
                 ctx.font = "16px Arial";
-                ctx.fillText(textToUse, start_pos.x + (blocks[col][j].width / 2), current_y + (block_height / 2));
+                ctx.fillText(textToUse, currentPos.x + (blocks[col][j].width / 2), currentPos.y + (block_height / 2));
                 
-                offset.y += block_height + vertical_spacing; // start the next drawing lower down
+                currentPos.y += block_height + vertical_spacing; // start the next drawing lower down
             }
         }
     }
