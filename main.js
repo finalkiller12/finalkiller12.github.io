@@ -105,6 +105,7 @@ function countUnits(quantities) {
 
 // calculate the grouping for each column using algo or whatever
 function groupUnits(units, column_limit, max_columns) {
+
     let groups = [...Array(max_columns)].map(e => Array());
 
     // recursively find a placement for the breaker
@@ -130,11 +131,14 @@ function groupUnits(units, column_limit, max_columns) {
 
     // sort each column in desc order
     for (let i = 0; i < groups.length; i++) {
-        groups[i] = groups[i].sort(function (a, b) { return b - a })
+        groups[i] = groups[i].sort(function (a, b) { return b.height - a.height })
     }
 
     // sort all column in desc order by first unit size
-    groups = groups.sort(function (a, b) { return b[0] - a[0] });
+    groups = groups.sort(function (a, b) {
+        if (a.length != 0 && b.length != 0) // handle empty groups
+            return b[0].height - a[0].height 
+    });
 
     console.log(groups);
 
