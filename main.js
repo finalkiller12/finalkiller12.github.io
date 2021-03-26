@@ -58,35 +58,38 @@ const estimate_btn = document.getElementById('estimate-btn');
 
 estimate_btn.addEventListener('click', function () {
     
-    // clear canvas
+    clearCanvases();
+
+    const quantities = gatherUnitSelections();
+    const units = countUnits(quantities);
+
+    const block_text = document.getElementById('block-text').value.toLowerCase();
+
+    for (let i = 0; i < canvas_objects.length; i++) {
+        const c = canvas_objects[i];
+
+        const blocks = groupUnits(units, c.column.limit, c.max_columns); // calculate breaker arrangement
+
+        console.log('drawing on: ' + c.name);
+        drawBreakers(c, blocks, block_text);
+    }
+})
+
+function clearCanvases(){
     for (let i = 0; i < canvas_objects.length; i++) {
         const { ctx, size: board } = canvas_objects[i];
-        // const board = c.size;
         ctx.clearRect(0, 0, board.width, board.height);
     }
+}
 
-    // gather select input values
+function gatherUnitSelections(){
     const selects = document.getElementsByClassName('select-position');
     let values = [];
     for (let i = 0; i < selects.length; i++) {
         values.push(parseInt(selects[i].value));
     }
-
-    const block_text = document.getElementById('block-text').value.toLowerCase();
-    const units = countUnits(values);
-
-
-    for (let i = 0; i < canvas_objects.length; i++) {
-        const c = canvas_objects[i]; // for easier reference
-
-        // do calculation
-        const blocks = groupUnits(units, c.column.limit, c.max_columns);
-
-        // draw
-        console.log('drawing on: ' + c.name);
-        drawBreakers(c, blocks, block_text);
-    }
-})
+    return values;
+}
 
 function countUnits(quantities) {
 
@@ -185,6 +188,7 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
                 ctx.textBaseline = "middle";
                 ctx.font = "16px Arial";
                 ctx.fillText(textToUse, start_pos.x + (blocks[col][j].width / 2), current_y + (block_height / 2));
+                
                 offset.y += block_height + vertical_spacing; // start the next drawing lower down
             }
         }
