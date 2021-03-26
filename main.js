@@ -1,3 +1,59 @@
+
+// change these numbers when you want to resize
+// also remember to change .canvas-container's dimensions too
+const canvas_size = [
+    { width: 800, height: 300 },
+    { width: 800, height: 300 }
+];
+
+const breakers = [
+    { name: 'bus-coupler',      height: 1800, width: 80 },
+    { name: 'incoming-feeder',  height: 1800, width: 80 },
+    { name: 'outgoing-feeder',  height: 1800, width: 80 },
+    { name: 'mmcb-100',         height: 200, width: 60 },
+    { name: 'mmcb-250',         height: 200, width: 60 },
+    { name: 'mmcb-400',         height: 400, width: 60 },
+    { name: 'mmcb-630',         height: 630, width: 60 },
+    { name: 'mmcb-900',         height: 900, width: 60 },
+    { name: 'mmcb-1200',        height: 1800, width: 80 },
+    { name: 'mmcb-1600',        height: 1800, width: 80 },
+]
+
+function initEstimations(){
+
+    const boards = document.getElementsByClassName('boards');
+
+    const canvas_objects = [{
+        name: 'guthrie-1',
+        ctx: boards[0].getContext("2d"),
+        size: canvas_size[0],
+        origin: { x: 10, y: 5 },
+        column: { 
+            limit: 1800,
+            spacing: 3
+        },
+        max_columns: 7
+    }, {
+        name: 'guthrie-2',
+        ctx: boards[1].getContext("2d"),
+        size: canvas_size[1],
+        origin: { x: 10, y: 5 },
+        column: { 
+            limit: 1800,
+            spacing: 31.5,
+        },
+        max_columns: 7
+    }]
+
+    const canvases = document.getElementsByTagName('canvas');
+    const estimations = []
+    for (let i = 0; i < canvas_objects.length; i++){
+        estimations.push(new CanvasObject(canvas_objects[i]))
+        estimations[i].setDomCanvasSize(canvases[i]);
+    }
+
+    return estimations;
+}
 class CanvasObject {
     constructor(obj) {
         this.name = obj.name;
@@ -13,15 +69,19 @@ class CanvasObject {
         domCanvas.width = this.size.width;
     }
 
+    clearCanvas() {
+        this.ctx.clearRect(0, 0, this.size.width, this.size.height);
+    }
+
     groupUnits(units) {
         let groups = [...Array(this.max_columns)].map(e => Array());
     
-        let that = this;
+        let { column } = this;
         // recursively find a placement for the breaker
         function findPlacement(unit, column_idx) {
             let heightSum = groups[column_idx].map(a => a.height);
             let potentialCombinedHeight = sum(heightSum.concat(unit.height))
-            if (potentialCombinedHeight <= that.column.limit) {
+            if (potentialCombinedHeight <= column.limit) {
                 groups[column_idx].push(unit);
             } else { // no space
                 if (column_idx == groups.length - 1) { // last group
@@ -98,64 +158,13 @@ class CanvasObject {
                 }
             }
         }
-    }    
+    }
 }
 
-// change these numbers when you want to resize
-// also remember to change .canvas-container's dimensions too
-const canvas_size = [
-    { width: 800, height: 300 },
-    { width: 800, height: 300 }
-];
-
-const breakers = [
-    { name: 'bus-coupler',      height: 1800, width: 80 },
-    { name: 'incoming-feeder',  height: 1800, width: 80 },
-    { name: 'outgoing-feeder',  height: 1800, width: 80 },
-    { name: 'mmcb-100',         height: 200, width: 60 },
-    { name: 'mmcb-250',         height: 200, width: 60 },
-    { name: 'mmcb-400',         height: 400, width: 60 },
-    { name: 'mmcb-630',         height: 630, width: 60 },
-    { name: 'mmcb-900',         height: 900, width: 60 },
-    { name: 'mmcb-1200',        height: 1800, width: 80 },
-    { name: 'mmcb-1600',        height: 1800, width: 80 },
-]
-
-const boards = document.getElementsByClassName('boards');
-
-const canvas_objects = [{
-    name: 'guthrie-1',
-    ctx: boards[0].getContext("2d"),
-    size: canvas_size[0],
-    origin: { x: 10, y: 5 },
-    column: { 
-        limit: 1800,
-        spacing: 3
-    },
-    max_columns: 7
-}, {
-    name: 'guthrie-2',
-    ctx: boards[1].getContext("2d"),
-    size: canvas_size[1],
-    origin: { x: 10, y: 5 },
-    column: { 
-        limit: 1800,
-        spacing: 31.5,
-    },
-    max_columns: 7
-}]
-
-const canvases = document.getElementsByTagName('canvas');
-const estimations = []
-for (let i = 0; i < canvas_objects.length; i++){
-    estimations.push(new CanvasObject(canvas_objects[i]))
-    estimations[i].setDomCanvasSize(canvases[i]);
-}
-
+/// main program start
+const estimations = initEstimations();
 const estimate_btn = document.getElementById('estimate-btn');
 estimate_btn.addEventListener('click', function () {
-    
-    clearCanvases();
 
     const quantities = gatherUnitSelections();
     const units = countUnits(quantities);
@@ -163,17 +172,13 @@ estimate_btn.addEventListener('click', function () {
     const blockText = document.getElementById('block-text').value.toLowerCase();
 
     for (let i = 0; i < estimations.length; i++) {
+        estimations[i].clearCanvas();
         const blocks = estimations[i].groupUnits(units);
         estimations[i].drawBreakers(blocks, blockText)
     }
 })
+/// main program end lol
 
-function clearCanvases(){
-    for (let i = 0; i < canvas_objects.length; i++) {
-        const { ctx, size: board } = canvas_objects[i];
-        ctx.clearRect(0, 0, board.width, board.height);
-    }
-}
 
 function gatherUnitSelections(){
     const selects = document.getElementsByClassName('select-position');
@@ -185,9 +190,7 @@ function gatherUnitSelections(){
 }
 
 function countUnits(quantities) {
-
-    // Size to be change according to breaker rating
-    var units = [];
+    var units = []; // Size to be change according to breaker rating
 
     // count the number of each unit
     for (let i = 0; i < quantities.length; i++) {
