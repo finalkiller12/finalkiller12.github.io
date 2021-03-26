@@ -7,6 +7,7 @@ const canvas_size = [
 
 const sizes = [1800, 0, 0, 200, 200, 400, 630, 900, 1800, 1800];
 
+
 const boards = document.getElementsByClassName('boards');
 
 const canvas_objects = [{
@@ -140,15 +141,19 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
     const c = 1 / 60;
     const scaling_factor = m * column.limit + c;
 
+    let offset = { x: 0, y: 0 };
+
     for (let col = 0; col < blocks.length; col++) { // iterate each column
         
-        const start_pos = { x: origin.x + sum(column.widths, col) + col * column.spacing, y: origin.y };
-        let total_height = 0;
+        offset.x = sum(column.widths, col) + col * column.spacing
+        offset.y = 0;
+        const start_pos = { x: origin.x + offset.x, y: origin.y };
 
         for (let j = 0; j < blocks[col].length; j++) { // iterate each unit within the column
             
             const block_height = blocks[col][j] / scaling_factor - vertical_spacing;
-            const current_y = start_pos.y + total_height;
+            const current_y = start_pos.y + offset.y;
+            
 
             // draw the unit
             ctx.fillStyle = "rgba(255,0,0,0.5)";
@@ -166,7 +171,7 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
             ctx.textBaseline = "middle";
             ctx.font = "16px Arial";
             ctx.fillText(textToUse, start_pos.x + (column.widths[col] / 2), current_y + (block_height / 2));
-            total_height += block_height + vertical_spacing; // start the next drawing lower down
+            offset.y += block_height + vertical_spacing; // start the next drawing lower down
         }
     }
 }
