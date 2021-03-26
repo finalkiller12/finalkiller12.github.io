@@ -5,8 +5,18 @@ const canvas_size = [
     { width: 800, height: 300 }
 ];
 
-const sizes = [1800, 0, 0, 200, 200, 400, 630, 900, 1800, 1800];
-
+const breakers = [
+    { name: 'bus-coupler',      height: 1800, width: 80 },
+    { name: 'incoming-feeder',  height: 1800, width: 80 },
+    { name: 'outgoing-feeder',  height: 1800, width: 80 },
+    { name: 'mmcb-100',         height: 200, width: 60 },
+    { name: 'mmcb-250',         height: 200, width: 60 },
+    { name: 'mmcb-400',         height: 400, width: 60 },
+    { name: 'mmcb-630',         height: 630, width: 60 },
+    { name: 'mmcb-900',         height: 900, width: 60 },
+    { name: 'mmcb-1200',        height: 1800, width: 80 },
+    { name: 'mmcb-1600',        height: 1800, width: 80 },
+]
 
 const boards = document.getElementsByClassName('boards');
 
@@ -16,7 +26,7 @@ const canvas_objects = [{
     size: canvas_size[0],
     origin: { x: 10, y: 5 },
     column: { 
-        widths: [40, 40, 60, 60, 60, 60, 60], 
+        widths: [], 
         height: 200,
         limit: 1800,
         spacing: 3
@@ -28,7 +38,7 @@ const canvas_objects = [{
     size: canvas_size[1],
     origin: { x: 10, y: 5 },
     column: { 
-        widths: [60, 60, 60, 60, 60, 60, 60], 
+        widths: [], 
         height: 100,
         limit: 1800,
         spacing: 31.5,
@@ -85,7 +95,7 @@ function countUnits(quantities) {
 
     // count the number of each unit
     for (let i = 0; i < quantities.length; i++) {
-        units.push(...Array(quantities[i]).fill(sizes[i]));
+        units.push(...Array(quantities[i]).fill(breakers[i]));
     }
     return units;
 }
@@ -97,7 +107,9 @@ function groupUnits(units, column_limit, max_columns) {
     // recursively find a placement for the breaker
     function findPlacement(unit, column_idx) {
         
-        if (sum(groups[column_idx].concat(unit)) <= column_limit) {
+        let heightSum = groups[column_idx].map(a => a.height);
+        let potentialCombinedHeight = sum(heightSum.concat(unit.height))
+        if (potentialCombinedHeight <= column_limit) {
             groups[column_idx].push(unit);
         } else { // no space
             if (column_idx == groups.length - 1) { // last group
@@ -145,33 +157,36 @@ function drawBreakers(cv_obj, blocks, block_text = 'height') {
 
     for (let col = 0; col < blocks.length; col++) { // iterate each column
         
-        offset.x = sum(column.widths, col) + col * column.spacing
-        offset.y = 0;
-        const start_pos = { x: origin.x + offset.x, y: origin.y };
-
-        for (let j = 0; j < blocks[col].length; j++) { // iterate each unit within the column
-            
-            const block_height = blocks[col][j] / scaling_factor - vertical_spacing;
-            const current_y = start_pos.y + offset.y;
-            
-
-            // draw the unit
-            ctx.fillStyle = "rgba(255,0,0,0.5)";
-            ctx.fillRect(start_pos.x, current_y, column.widths[col], block_height);
-
-            // write centered text
-            let textToUse = '';
-            if (block_text == 'height') {
-                textToUse = String(blocks[col][j]);
-            } else if (block_text == 'width') {
-                textToUse = String(column.widths[col])*10;
+        if (blocks[col].length > 0){ // skip everything if column is empty
+            if (col > 0){
+                offset.x += blocks[col-1][0].width + column.spacing;
             }
-            ctx.fillStyle = "black";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.font = "16px Arial";
-            ctx.fillText(textToUse, start_pos.x + (column.widths[col] / 2), current_y + (block_height / 2));
-            offset.y += block_height + vertical_spacing; // start the next drawing lower down
+            offset.y = 0;
+            const start_pos = { x: origin.x + offset.x, y: origin.y };
+
+            for (let j = 0; j < blocks[col].length; j++) { // iterate each unit within the column
+                
+                const block_height = blocks[col][j].height / scaling_factor - vertical_spacing;
+                const current_y = start_pos.y + offset.y;
+
+                // draw the unit
+                ctx.fillStyle = "rgba(255,0,0,0.5)";
+                ctx.fillRect(start_pos.x, current_y, blocks[col][j].width, block_height);
+
+                // write centered text
+                let textToUse = '';
+                if (block_text == 'height') {
+                    textToUse = String(blocks[col][j].height);
+                } else if (block_text == 'width') {
+                    textToUse = String(blocks[col][j].width)*10;
+                }
+                ctx.fillStyle = "black";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.font = "16px Arial";
+                ctx.fillText(textToUse, start_pos.x + (blocks[col][j].width / 2), current_y + (block_height / 2));
+                offset.y += block_height + vertical_spacing; // start the next drawing lower down
+            }
         }
     }
 }
