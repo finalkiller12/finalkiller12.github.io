@@ -30,9 +30,9 @@ function initEstimations(){
         origin: { x: 10, y: 5 },
         column: { 
             limit: 1800,
-            spacing: 3
+            spacing: 1
         },
-        max_columns: 7
+        max_columns: 12
     }, {
         name: 'guthrie-2',
         ctx: boards[1].getContext("2d"),
@@ -40,9 +40,9 @@ function initEstimations(){
         origin: { x: 10, y: 5 },
         column: { 
             limit: 1800,
-            spacing: 31.5,
+            spacing: 21.5,
         },
-        max_columns: 7
+        max_columns: 12
     }]
 
     const canvases = document.getElementsByTagName('canvas');
