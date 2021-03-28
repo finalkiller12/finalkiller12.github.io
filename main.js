@@ -2,8 +2,8 @@
 // change these numbers when you want to resize
 // also remember to change .canvas-container's dimensions too
 const canvas_size = [
-    { width: 800, height: 300 },
-    { width: 800, height: 300 }
+    { width: 1400, height: 300 },
+    { width: 1400, height: 300 }
 ];
 
 const breakers = [
@@ -17,6 +17,7 @@ const breakers = [
     { name: 'mmcb-900',         height: 900, width: 60 },
     { name: 'mmcb-1200',        height: 1800, width: 80 },
     { name: 'mmcb-1600',        height: 1800, width: 80 },
+    { name: 'mmcb-5000',        height: 1800, width: 80 },
 ]
 
 function initEstimations(){
@@ -32,7 +33,7 @@ function initEstimations(){
             limit: 1800,
             spacing: 1
         },
-        max_columns: 12
+        max_columns: 15
     }, {
         name: 'guthrie-2',
         ctx: boards[1].getContext("2d"),
@@ -40,9 +41,9 @@ function initEstimations(){
         origin: { x: 10, y: 5 },
         column: { 
             limit: 1800,
-            spacing: 21.5,
+            spacing: 15,
         },
-        max_columns: 12
+        max_columns: 15
     }]
 
     const canvases = document.getElementsByTagName('canvas');
@@ -115,7 +116,7 @@ class CanvasObject {
 
     drawBreakers(blocks, blockText = 'height') {
         const { ctx, column, origin } = this;
-        const vertical_spacing = 2;
+        const vertical_spacing = 1;
     
         // tested scaling factor: 8.9 for limit=1800, 13.4 for limit=2700, 17.8 for limit=3600
         // plug into desmos to find y=mx+c lol
