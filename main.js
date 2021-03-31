@@ -33,7 +33,8 @@ function initEstimations(){
             limit: 1800,
             spacing: 1
         },
-        max_columns: 15
+        max_columns: 15,
+        measurementDisplay: measurements[0]
     }, {
         name: 'guthrie-2',
         ctx: boards[1].getContext("2d"),
@@ -43,7 +44,8 @@ function initEstimations(){
             limit: 1800,
             spacing: 15,
         },
-        max_columns: 15
+        max_columns: 15,
+        measurementDisplay: measurements[1]
     }]
 
     const canvases = document.getElementsByTagName('canvas');
@@ -63,6 +65,7 @@ class CanvasObject {
         this.origin = obj.origin;
         this.column = obj.column;
         this.max_columns = obj.max_columns;
+        this.measurementDisplay = obj.measurementDisplay;
     }
 
     setDomCanvasSize(domCanvas) {
@@ -114,6 +117,23 @@ class CanvasObject {
         return groups;
     }
 
+    calcDrawingWidth(blocks) {
+        let width = 0;
+        for (let i = 0; i < blocks.length; i++) {
+            if (blocks[i].length > 0) { // column not empty
+                width += blocks[i][0].width + this.column.spacing; // column's first unit's width + spacing
+                // this will count extra spacing for last column
+            }
+        }
+        width -= this.column.spacing; // take away extra spacing
+        return width;
+    }
+
+    displayMeasurements(blocks){
+        const width = this.calcDrawingWidth(blocks);
+        this.measurementDisplay.textContent = `Drawing Measurements: Width = ${width}`;
+    }
+
     drawBreakers(blocks, blockText = 'height') {
         const { ctx, column, origin } = this;
         const vertical_spacing = 1;
@@ -163,8 +183,10 @@ class CanvasObject {
 }
 
 /// main program start
-const estimations = initEstimations();
 const estimate_btn = document.getElementById('estimate-btn');
+const measurements = document.getElementsByClassName('measurements');
+
+const estimations = initEstimations();
 estimate_btn.addEventListener('click', function () {
 
     const quantities = gatherUnitSelections();
@@ -175,6 +197,7 @@ estimate_btn.addEventListener('click', function () {
     for (let i = 0; i < estimations.length; i++) {
         estimations[i].clearCanvas();
         const blocks = estimations[i].groupUnits(units);
+        estimations[i].displayMeasurements(blocks);
         estimations[i].drawBreakers(blocks, blockText)
     }
 })

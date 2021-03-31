@@ -76,6 +76,11 @@ body {
   clear: both;
 } 
 
+.measurements-container {
+  font-size: 0.8em;
+  margin-bottom: 15px;
+}
+
 #reference_RoomSize {
   width: 350px;
   position: absolute;
