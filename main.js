@@ -2,8 +2,8 @@
 // change these numbers when you want to resize
 // also remember to change .canvas-container's dimensions too
 const canvas_size = [
-    { width: 1400, height: 300 },
-    { width: 1400, height: 300 }
+    { width: 1040, height: 300 },
+    { width: 1040, height: 300 }
 ];
 
 const breakers = [
@@ -33,7 +33,7 @@ function initEstimations(){
             limit: 1800,
             spacing: 1
         },
-        max_columns: 15
+        max_columns: 11
     }, {
         name: 'guthrie-2',
         ctx: boards[1].getContext("2d"),
@@ -43,7 +43,7 @@ function initEstimations(){
             limit: 1800,
             spacing: 15,
         },
-        max_columns: 15
+        max_columns: 11
     }]
 
     const canvases = document.getElementsByTagName('canvas');
