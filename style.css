@@ -50,7 +50,7 @@ body {
 
 .canvas-container {
   position: relative;
-  width: 800px;
+  width: 1400px;
   height: 300px;
 }
 
@@ -79,13 +79,13 @@ body {
 #reference_RoomSize {
   width: 350px;
   position: absolute;
-  /* margin-left: 200px; */
+  /*margin-left: 80px;*/ 
 }
 
 #reference_2in1 {
   width: 300px;
   position: absolute;
-  /* margin-left: 200px; */
+  /* margin-left: 80px;*/
   margin-top: -65px;
 }
 
