@@ -201,6 +201,18 @@ estimate_btn.addEventListener('click', function () {
         estimations[i].drawBreakers(blocks, blockText)
     }
 })
+
+document.getElementById('random-qty-btn').addEventListener('click', function () {
+    const selects = document.getElementsByClassName('select-position');
+
+    for (let i = 0; i < selects.length; i++) {
+        let value = parseInt(Math.random()*6);
+        if (breakers[i].height == 1800){
+            value = 0; // dont set tallest units cus they dont help with testing
+        }
+        selects[i].value = value;
+    }
+})
 /// main program end lol
 
 
