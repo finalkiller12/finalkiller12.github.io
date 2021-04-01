@@ -3,9 +3,14 @@ body {
 }
 
 .navbar {
-  background-color: #ccc;
-  color: #444;
+  background-color: rgb(36, 41, 46);
+  color: #fff;
   padding-left: .5rem;
+}
+
+.navbar-content {
+  font-size: 30px;
+  padding-left: 12px;
 }
 
 .sidebar {
@@ -46,6 +51,8 @@ body {
 
 .content-wrapper {
   float: left;
+  margin-top: 15px;
+  margin-left: 12px;
 }
 
 .canvas-container {
