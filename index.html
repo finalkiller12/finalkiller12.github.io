@@ -17,7 +17,7 @@
   </header>
 
   <div class='navbar'>
-    <h1>SwitchBoard Sizing Estimation</h1>
+    <span class='navbar-content'>SwitchBoard Sizing Estimation</span>
   </div>
   <div class='sidebar'>
 
@@ -162,9 +162,16 @@
     </div>
 
     <div class='sidebar-group'>
-      <div><b>placeholder</b></div>
-      <div class='estimate-btn-wrapper sidebar-group-content'>
+      <div><b>Start Calculation</b></div>
+      <div class='btn-wrapper sidebar-group-content'>
         <input type="button" value=Estimate class='btn btn-primary' id='estimate-btn'>
+      </div>
+    </div>
+
+    <div class='sidebar-group'>
+      <div><b>Debug</b></div>
+      <div class='btn-wrapper sidebar-group-content'>
+        <input type="button" value='Random Qty' class='btn btn-secondary' id='random-qty-btn'>
       </div>
     </div>
   </div>
@@ -172,9 +179,14 @@
 
     <div class='form-container container'>
       <div class='estimation-container'>
+
         <div class='estimation-header'>
           <div class='estimation-text'>GUTHRIE Estimation (Back Cable Termination <b>- MAX 11 Panel</b>)</div>
         </div>
+        <div class="measurements-container">
+          <span class="measurements">Drawing Measurements: </span>
+        </div>
+        
         <div class='estimations'>
           <div class="canvas-container guthrie-back">
             <canvas id='board-1' class='boards'></canvas>
@@ -185,12 +197,17 @@
         <div class='estimation-header'>
           <div class='estimation-text'>GUTHRIE Estimation (Side Cable Termination <b>- MAX 11 Panel</b>)</div>
         </div>
+        <div class="measurements-container">
+          <span class="measurements">Drawing Measurements: </span>
+        </div>
+
         <div class='estimations'>
           <div class="canvas-container guthrie-side">
             <canvas id='board-2' class='boards'></canvas>
           </div>
           <img id="reference_2in1" src="https://i.postimg.cc/k4hj2GdG/2-in-1.png">
         </div>
+
       </div>
   
       <div class='estimation-container'>

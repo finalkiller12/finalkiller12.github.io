@@ -3,9 +3,14 @@ body {
 }
 
 .navbar {
-  background-color: #ccc;
-  color: #444;
+  background-color: rgb(36, 41, 46);
+  color: #fff;
   padding-left: .5rem;
+}
+
+.navbar-content {
+  font-size: 30px;
+  padding-left: 12px;
 }
 
 .sidebar {
@@ -39,13 +44,15 @@ body {
   text-align: center;
 } 
 
-.estimate-btn-wrapper {
+.btn-wrapper {
   text-align: center;
 }
 
 
 .content-wrapper {
   float: left;
+  margin-top: 15px;
+  margin-left: 12px;
 }
 
 .canvas-container {
@@ -75,6 +82,11 @@ body {
   display: block;
   clear: both;
 } 
+
+.measurements-container {
+  font-size: 0.8em;
+  margin-bottom: 15px;
+}
 
 #reference_RoomSize {
   width: 350px;
