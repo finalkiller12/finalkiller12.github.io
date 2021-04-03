@@ -136,7 +136,7 @@ body.modal-open {
 /* The Close Button */
 .close {
   color: #aaaaaa;
-  float: right;
+  vertical-align: top;
   font-size: 28px;
   font-weight: bold;
 }
