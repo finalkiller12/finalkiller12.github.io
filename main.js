@@ -48,7 +48,7 @@ function initEstimations(){
         measurementDisplay: measurements[1]
     }]
 
-    const canvases = document.getElementsByTagName('canvas');
+    const canvases = document.getElementsByClassName('boards');
     const estimations = []
     for (let i = 0; i < canvas_objects.length; i++){
         estimations.push(new CanvasObject(canvas_objects[i]))
