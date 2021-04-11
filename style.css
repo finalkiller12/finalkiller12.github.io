@@ -77,6 +77,11 @@ body.modal-open {
   top: 0;
 }
 
+.estimation-container {
+  display: inline-block;
+  position: absolute;
+}
+
 .estimations > * {
   float: left;
 }
