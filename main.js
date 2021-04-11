@@ -2,8 +2,8 @@
 // change these numbers when you want to resize
 // also remember to change .canvas-container's dimensions too
 const canvas_size = [
-    { width: 1040, height: 300 },
-    { width: 1040, height: 300 }
+    { width: 1000, height: 300 },
+    { width: 1000, height: 300 }
 ];
 
 const breakers = [
@@ -13,10 +13,10 @@ const breakers = [
     { name: 'mmcb-100',         height: 200, width: 60 },
     { name: 'mmcb-250',         height: 200, width: 60 },
     { name: 'mmcb-400',         height: 400, width: 60 },
-    { name: 'mmcb-630',         height: 630, width: 60 },
+    { name: 'mmcb-630',         height: 600, width: 60 },
     { name: 'mmcb-900',         height: 900, width: 60 },
-    { name: 'mmcb-1200',        height: 1800, width: 80 },
-    { name: 'mmcb-1600',        height: 1800, width: 80 },
+    { name: 'mmcb-1200',        height: 1800, width: 60 },
+    { name: 'mmcb-1600',        height: 1800, width: 60 },
     { name: 'mmcb-5000',        height: 1800, width: 80 },
 ]
 
@@ -31,7 +31,7 @@ function initEstimations(){
         origin: { x: 10, y: 5 },
         column: { 
             limit: 1800,
-            spacing: 1
+            spacing: 0
         },
         max_columns: 11,
         measurementDisplay: measurements[0]
@@ -42,7 +42,7 @@ function initEstimations(){
         origin: { x: 10, y: 5 },
         column: { 
             limit: 1800,
-            spacing: 15,
+            spacing: 10,
         },
         max_columns: 11,
         measurementDisplay: measurements[1]
@@ -121,20 +121,20 @@ class CanvasObject {
         let width = 0;
         for (let i = 0; i < blocks.length; i++) {
             if (blocks[i].length > 0) { // column not empty
-                width += blocks[i][0].width + this.column.spacing; // column's first unit's width + spacing
+                width += blocks[i][0].width + this.column.spacing*2; // column's first unit's width + spacing
                 // this will count extra spacing for last column
             }
         }
-        width -= this.column.spacing; // take away extra spacing
-        return width;
+        
+        return width*10;
     }
 
     displayMeasurements(blocks){
         const width = this.calcDrawingWidth(blocks);
-        this.measurementDisplay.textContent = `Drawing Measurements: Width = ${width}`;
+        this.measurementDisplay.textContent = `Overall Dimension (Including Busbar Panel..etc): Length = 800 , Width = ${width} , Height = 2075`;
     }
 
-    drawBreakers(blocks, blockText = 'height') {
+    drawBreakers(blocks, blockText = 'height', thickness = 1) {
         const { ctx, column, origin } = this;
         const vertical_spacing = 1;
     
@@ -158,9 +158,9 @@ class CanvasObject {
                     
                     const block_height = blocks[col][j].height / scaling_factor - vertical_spacing;
     
-                    // draw the unit
+                    // draw the unit  
                     ctx.fillStyle = "rgba(255,0,0,0.5)";
-                    ctx.fillRect(currentPos.x, currentPos.y, blocks[col][j].width, block_height);
+                    ctx.fillRect(currentPos.x - (thickness), currentPos.y - (thickness), blocks[col][j].width + (thickness*2), block_height + (thickness*2));
     
                     // write centered text
                     let textToUse = '';
