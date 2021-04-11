@@ -2,8 +2,8 @@
 // change these numbers when you want to resize
 // also remember to change .canvas-container's dimensions too
 const canvas_size = [
-    { width: 1040, height: 300 },
-    { width: 1040, height: 300 }
+    { width: 1000, height: 300 },
+    { width: 1000, height: 300 }
 ];
 
 const breakers = [
@@ -15,8 +15,8 @@ const breakers = [
     { name: 'mmcb-400',         height: 400, width: 60 },
     { name: 'mmcb-630',         height: 600, width: 60 },
     { name: 'mmcb-900',         height: 900, width: 60 },
-    { name: 'mmcb-1200',        height: 1800, width: 80 },
-    { name: 'mmcb-1600',        height: 1800, width: 80 },
+    { name: 'mmcb-1200',        height: 1800, width: 60 },
+    { name: 'mmcb-1600',        height: 1800, width: 60 },
     { name: 'mmcb-5000',        height: 1800, width: 80 },
 ]
 
@@ -131,7 +131,7 @@ class CanvasObject {
 
     displayMeasurements(blocks){
         const width = this.calcDrawingWidth(blocks);
-        this.measurementDisplay.textContent = `Drawing Measurements: Length = 800 , Width = ${width} , Height = 2075`;
+        this.measurementDisplay.textContent = `Overall Dimension (Including Busbar Panel..etc): Length = 800 , Width = ${width} , Height = 2075`;
     }
 
     drawBreakers(blocks, blockText = 'height', thickness = 1) {
