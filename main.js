@@ -9,7 +9,7 @@ const canvas_size = [
 const breakers = [
     { name: 'bus-coupler',      height: 1800, width: 80 },
     { name: 'incoming-feeder',  height: 1800, width: 80 },
-    { name: 'outgoing-feeder',  height: 1800, width: 80 },
+    { name: 'relay',            height: 1800, width: 30 },
     { name: 'mmcb-100',         height: 200, width: 60 },
     { name: 'mmcb-250',         height: 200, width: 60 },
     { name: 'mmcb-400',         height: 400, width: 60 },
