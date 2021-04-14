@@ -122,6 +122,50 @@ class CanvasObject {
         return groups;
     }
 
+    insertRelays(groups){
+        let newGroups = groups;
+        let completeCols = [];
+        let incompleteCols = [];
+
+        for (let i = 0; i < newGroups.length; i++){
+            let heightSum = newGroups[i].map(a => a.height);
+            let potentialCombinedHeight = sum(heightSum.concat(relays[1].height)) // add small relay
+            // check for complete column = columns with no space for small relay
+            // these columns need the big relay adjacent to them
+            if (potentialCombinedHeight > this.column.limit) { // small relay does not fit
+                completeCols.push(i);
+            }
+            // check for incomplete column = columns with enough space to add small relay
+            // add the small relay to the group and move it to 2nd position from the top
+            else if (potentialCombinedHeight != relays[1].height){ // non empty column
+                incompleteCols.push(i);
+            }
+        }
+
+        
+        // if (incompleteCols.length > 0){
+            // :;
+            // append to all incompleteCols
+            for (let i = 0; i < incompleteCols.length; i++){
+                newGroups[incompleteCols[i]].push(relays[1])
+            }
+        // }
+
+        // if (completeCols.length > 0){
+            // [] | []
+            // insert to the right of the first completeCol
+            for (let i = completeCols.length-1; i >= 0; i--){
+                // find odd numbered completeCols
+                if (i % 2 == 0){
+                    const newColumn = [ relays[0] ];
+                    newGroups.splice(completeCols[i] + 1, 0, newColumn) // insert big relay to the right
+                }
+            }
+        // }
+
+        return newGroups;
+    }
+
     calcDrawingWidth(blocks) {
         let width = 0;
         for (let i = 0; i < blocks.length; i++) {
@@ -204,8 +248,9 @@ estimate_btn.addEventListener('click', function () {
     for (let i = 0; i < estimations.length; i++) {
         estimations[i].clearCanvas();
         const blocks = estimations[i].groupUnits(units);
-        estimations[i].displayMeasurements(blocks);
-        estimations[i].drawBreakers(blocks, blockText)
+        const blocksWithRelays = estimations[i].insertRelays(blocks);
+        estimations[i].displayMeasurements(blocksWithRelays);
+        estimations[i].drawBreakers(blocksWithRelays, blockText)
     }
 })
 
