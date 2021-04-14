@@ -142,26 +142,21 @@ class CanvasObject {
             }
         }
 
-        
-        // if (incompleteCols.length > 0){
-            // :;
-            // append to all incompleteCols
-            for (let i = 0; i < incompleteCols.length; i++){
-                newGroups[incompleteCols[i]].push(relays[1])
-            }
-        // }
+        // :;
+        // append to all incompleteCols
+        for (let i = 0; i < incompleteCols.length; i++){
+            newGroups[incompleteCols[i]].push(relays[1])
+        }
 
-        // if (completeCols.length > 0){
-            // [] | []
-            // insert to the right of the first completeCol
-            for (let i = completeCols.length-1; i >= 0; i--){
-                // find odd numbered completeCols
-                if (i % 2 == 0){
-                    const newColumn = [ relays[0] ];
-                    newGroups.splice(completeCols[i] + 1, 0, newColumn) // insert big relay to the right
-                }
+        // [] | []
+        // insert to the right of the first completeCol
+        for (let i = completeCols.length-1; i >= 0; i--){
+            // find odd numbered completeCols
+            if (i % 2 == 0){
+                const newColumn = [ relays[0] ];
+                newGroups.splice(completeCols[i] + 1, 0, newColumn) // insert big relay to the right
             }
-        // }
+        }
 
         return newGroups;
     }
