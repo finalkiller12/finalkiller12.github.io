@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <!-- CSS only -->
+  <link href="simple-hint.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -22,7 +23,7 @@
   <div class='sidebar'>
 
     <div class='sidebar-group'>
-      <div><b>Select Quantity</b></div>
+      <div><b>Select Quantity</b><span data-hint="Insert Breaker Rating based on your SLD" class="Hint"> <u><b>(Hint)</b></u></span></div>
       <div id='select-quantity' class='sidebar-group-content'>
         <div class='selection-wrapper'>
           <label for="Bus-Coupler">Bus-Coupler</label>
@@ -47,7 +48,7 @@
           </select>
         </div>
         <div class='selection-wrapper'>
-          <label for="outgoing">Outgoing Feeder</label>
+          <label for="relay">Relay</label>
           <select class="select-position" id="outgoing">
             <option>0</option>
             <option>1</option>
@@ -135,8 +136,8 @@
           </select>
         </div>
         <div class='selection-wrapper'>
-          <label for="ACB-5000">5000 ACB</label>
-          <select class="select-position" id="ACB-5000">
+          <label for="ACB-3000">3000 ACB</label>
+          <select class="select-position" id="ACB-3000">
             <option>0</option>
             <option>1</option>
             <option>2</option>
@@ -149,11 +150,12 @@
     </div>
 
     <div class='sidebar-group'>
-      <div><b>Drawing Options</b></div>
+      <div><b>Drawing Options</b><span data-hint="Display Breaker Height or Breaker Width" class="Hint"> <u><b>(Hint)</b></u></span></div>
       <div id="user-controls" class='sidebar-group-content'>
         <div id='options-drawing'>
           <label for="block-text">Text in drawing</label>
           <select id="block-text">
+            <option>BreakerRating</option>
             <option>Height</option>
             <option>Width</option>
           </select>
@@ -215,7 +217,7 @@
       <div class='estimation-container'>
 
         <div class='estimation-header'>
-          <div class='estimation-text'>GUTHRIE Estimation (Back Cable Termination <b>- MAX 11 Panel</b>)</div>
+          <div class='estimation-text'>GUTHRIE Estimation (<b>Cable End Termination </b>- MAX 11 Panel)</div>
         </div>
         <div class="measurements-container">
           <span class="measurements">Drawing Measurements: </span>
@@ -229,7 +231,7 @@
         </div>
   
         <div class='estimation-header'>
-          <div class='estimation-text'>GUTHRIE Estimation (Side Cable Termination <b>- MAX 11 Panel</b>)</div>
+          <div class='estimation-text'>GUTHRIE Estimation (<b>Cable Front Termination</b> - MAX 11 Panel)</div>
         </div>
         <div class="measurements-container">
           <span class="measurements">Drawing Measurements: </span>
@@ -239,7 +241,7 @@
           <div class="canvas-container guthrie-side">
             <canvas id='board-2' class='boards'></canvas>
           </div>
-          <img id="reference_2in1" src="https://i.postimg.cc/k4hj2GdG/2-in-1.png">
+          <img id="reference_2in1" src="https://i.postimg.cc/9MDmBfQ9/2-in-1.jpg">
         </div>
 
       </div>
@@ -267,8 +269,12 @@
         </div>
         <div class='estimations'>
         </div>
+
+      </div>
+
       </div> 
       -->
+
     </div>
   </div>
 
