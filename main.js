@@ -145,7 +145,7 @@ class CanvasObject {
         // :;
         // append to all incompleteCols
         for (let i = 0; i < incompleteCols.length; i++){
-            newGroups[incompleteCols[i]].push(relays[1])
+            newGroups[incompleteCols[i]].splice(1, 0, relays[1]) // insert in position 2 from the top
         }
 
         // [] | []
