@@ -15,9 +15,9 @@ const breakers = [
     { name: 'MCCB-400',         height: 400, width: 60 },
     { name: 'MCCB-630',         height: 600, width: 60 },
     { name: 'MCCB-900',         height: 900, width: 60 },
-    { name: 'MCCB-1200',        height: 1800, width: 60 },
-    { name: 'MCCB-1600',        height: 1800, width: 60 },
-    { name: 'MCCB-3000',        height: 1800, width: 80 },
+    { name: 'ACB-1200',        height: 1800, width: 60 },
+    { name: 'ACB-1600',        height: 1800, width: 60 },
+    { name: 'ACB-3000',        height: 1800, width: 80 },
 ]
 
 function initEstimations(){
