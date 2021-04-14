@@ -6,6 +6,11 @@ const canvas_size = [
     { width: 1000, height: 300 }
 ];
 
+const relays = [
+    { name: 'Column', height: 1800, width: 60 },
+    { name: 'Cell', height: 400, width: 60 }
+]
+
 const breakers = [
     { name: 'Bus-Coupler',      height: 1800, width: 80},
     { name: 'Incoming',         height: 1800, width: 80},
