@@ -7,17 +7,17 @@ const canvas_size = [
 ];
 
 const breakers = [
-    { name: 'bus-coupler',      height: 1800, width: 80 },
-    { name: 'incoming-feeder',  height: 1800, width: 80 },
-    { name: 'relay',            height: 1800, width: 30 },
-    { name: 'mmcb-100',         height: 200, width: 60 },
-    { name: 'mmcb-250',         height: 200, width: 60 },
-    { name: 'mmcb-400',         height: 400, width: 60 },
-    { name: 'mmcb-630',         height: 600, width: 60 },
-    { name: 'mmcb-900',         height: 900, width: 60 },
-    { name: 'mmcb-1200',        height: 1800, width: 60 },
-    { name: 'mmcb-1600',        height: 1800, width: 60 },
-    { name: 'mmcb-3000',        height: 1800, width: 80 },
+    { name: 'Bus-Coupler',      height: 1800, width: 80},
+    { name: 'Incoming',         height: 1800, width: 80},
+    { name: 'Relay',            height: 1800, width: 30},
+    { name: 'MCCB-100',         height: 200, width: 60 },
+    { name: 'MCCB-250',         height: 200, width: 60 },
+    { name: 'MCCB-400',         height: 400, width: 60 },
+    { name: 'MCCB-630',         height: 600, width: 60 },
+    { name: 'MCCB-900',         height: 900, width: 60 },
+    { name: 'MCCB-1200',        height: 1800, width: 60 },
+    { name: 'MCCB-1600',        height: 1800, width: 60 },
+    { name: 'MCCB-3000',        height: 1800, width: 80 },
 ]
 
 function initEstimations(){
@@ -134,7 +134,7 @@ class CanvasObject {
         this.measurementDisplay.textContent = `Overall Dimension (Including Busbar Panel..etc): Length = 800 , Width = ${width} , Height = 2075`;
     }
 
-    drawBreakers(blocks, blockText = 'height', thickness = 1) {
+    drawBreakers(blocks, blockText = 'name', thickness = 1) {
         const { ctx, column, origin } = this;
         const vertical_spacing = 1;
     
@@ -164,15 +164,17 @@ class CanvasObject {
     
                     // write centered text
                     let textToUse = '';
-                    if (blockText == 'height') {
-                        textToUse = String(blocks[col][j].height);
+                    if (blockText == 'breakerrating') {
+                        textToUse = String(blocks[col][j].name);
                     } else if (blockText == 'width') {
                         textToUse = String(blocks[col][j].width)*10;
+                       } else if (blockText == 'height') {
+                          textToUse = String(blocks[col][j].height);
                     }
                     ctx.fillStyle = "black";
                     ctx.textAlign = "center";
                     ctx.textBaseline = "middle";
-                    ctx.font = "16px Arial";
+                    ctx.font = "10px Arial";
                     ctx.fillText(textToUse, currentPos.x + (blocks[col][j].width / 2), currentPos.y + (block_height / 2));
                     
                     currentPos.y += block_height + vertical_spacing; // start the next drawing lower down
