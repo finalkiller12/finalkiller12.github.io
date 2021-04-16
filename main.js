@@ -2,8 +2,8 @@
 // change these numbers when you want to resize
 // also remember to change .canvas-container's dimensions too
 const canvas_size = [
-    { width: 1000, height: 300 },
-    { width: 1000, height: 300 }
+    { width: 950, height: 300 },
+    { width: 950, height: 300 }
 ];
 
 const breakers = [
@@ -33,7 +33,7 @@ function initEstimations(){
             limit: 1800,
             spacing: 0
         },
-        max_columns: 11,
+        max_columns: 12,
         measurementDisplay: measurements[0]
     }, {
         name: 'guthrie-2',
@@ -44,7 +44,7 @@ function initEstimations(){
             limit: 1800,
             spacing: 10,
         },
-        max_columns: 11,
+        max_columns: 12,
         measurementDisplay: measurements[1]
     }]
 
@@ -155,7 +155,8 @@ class CanvasObject {
                 currentPos.y = 0;
     
                 for (let j = 0; j < blocks[col].length; j++) { // iterate each unit within the column
-                    
+
+                    if (col < 11){
                     const block_height = blocks[col][j].height / scaling_factor - vertical_spacing;
     
                     // draw the unit  
@@ -178,6 +179,12 @@ class CanvasObject {
                     ctx.fillText(textToUse, currentPos.x + (blocks[col][j].width / 2), currentPos.y + (block_height / 2));
                     
                     currentPos.y += block_height + vertical_spacing; // start the next drawing lower down
+                    }
+                    else{
+                        alert("Excceed 11 Panels. Not all Breakers will be shown. Measurement will be incorrect. Please reduce the numbers of breaker")
+                        break;
+                    }
+                
                 }
             }
         }
