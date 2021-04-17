@@ -1,287 +1,134 @@
-<!DOCTYPE html>
-<html lang="en">
 
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <!-- CSS only -->
-  <link href="simple-hint.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-  <link rel="stylesheet" href="style.css">
+<title></title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 
-<body class="">
-  <header>
-    <a href="#"></a>
-  </header>
+<style>
 
-  <div class='navbar'>
-    <span class='navbar-content'>SwitchBoard Sizing Estimation</span>
-  </div>
-  <div class='sidebar'>
+body {
 
-    <div class='sidebar-group'>
-      <div><b>Select Quantity</b><span data-hint="Insert Breaker Rating based on your SLD" class="Hint"> <u><b>(Hint)</b></u></span></div>
-      <div id='select-quantity' class='sidebar-group-content'>
-        <div class='selection-wrapper'>
-          <label for="Bus-Coupler">Bus-Coupler</label>
-          <select class="select-position" id="incoming">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-        <div class='selection-wrapper'>
-          <label for="incoming">Incoming Feeder</label>
-          <select class="select-position" id="incoming">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-        <div class='selection-wrapper'>
-          <label for="relay">Relay</label>
-          <select class="select-position" id="outgoing">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-        <div class='selection-wrapper'>
-          <label for="mmcb-100">100 MCCB</label>
-          <select class="select-position" id="mmcb-100">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-        <div class='selection-wrapper'>
-          <label for="mmcb-250">250 MCCB</label>
-          <select class="select-position" id="mmcb-250">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-        <div class='selection-wrapper'>
-          <label for="mmcb-400">400 MCCB</label>
-          <select class="select-position" id="mmcb-400">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-        <div class='selection-wrapper'>
-          <label for="mmcb-630">630 MCCB</label>
-          <select class="select-position" id="mmcb-630">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-        <div class='selection-wrapper'>
-          <label for="mmcb-900">900 MCCB</label>
-          <select class="select-position" id="mmcb-900">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-        <div class='selection-wrapper'>
-          <label for="ACB-1200">1200 ACB</label>
-          <select class="select-position" id="ACB-1200">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-        <div class='selection-wrapper'>
-          <label for="ACB-1600">1600 ACB</label>
-          <select class="select-position" id="ACB-1600">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-        <div class='selection-wrapper'>
-          <label for="ACB-3000">3000 ACB</label>
-          <select class="select-position" id="ACB-3000">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-      </div>
-    </div>
+	background-image: url('grunge_patterns.jpg');
+	background-attachment: fixed;
+	color: #333;
+}
 
-    <div class='sidebar-group'>
-      <div><b>Drawing Options</b><span data-hint="Display Breaker Height or Breaker Width" class="Hint"> <u><b>(Hint)</b></u></span></div>
-      <div id="user-controls" class='sidebar-group-content'>
-        <div id='options-drawing'>
-          <label for="block-text">Text in drawing</label>
-          <select id="block-text">
-            <option>BreakerRating</option>
-            <option>Height</option>
-            <option>Width</option>
-          </select>
-        </div>
-      </div>
-    </div>
+.box {
+	border-radius: 3px;
+	background: rgba(101, 101, 101, 0.7); margin: auto; padding: 12px;
+}
 
-    <div class='sidebar-group'>
-      <div><b>Start Calculation</b></div>
-      <div class='btn-wrapper sidebar-group-content'>
-        <input type="button" value=Estimate class='btn btn-primary' id='estimate-btn'>
-      </div>
-    </div>
+.lightbox {
+	zoom: 1.5;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(10, 10, 10, 0.8);
+	text-align: center;
+	margin: auto;
 
-    <div class='sidebar-group'>
-      <div><b>Debug</b></div>
-      <div class='btn-wrapper sidebar-group-content'>
-        <input type="button" value='Random Qty' class='btn btn-secondary' id='random-qty-btn'>
-      </div>
-    </div>
+}
 
-    <div class = 'sidebar-group'>
-      <div><b>Virus!!!</b></div>
-      <div class='btn-wrapper sidebar-group-content'>
-        <!-- Trigger/Open The Modal -->
-        <button id="myBtn">DO NOT CLICK</button>
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
-          
-          <!-- <div class="keypress hide">
-              <div class="up" onclick="emit(38)">&#8593;</div>
-              <div class="right" onclick="emit(39)">&#8594;</div>
-              <div class="left" onclick="emit(37)">&#8592;</div>
-              <div class="down" onclick="emit(40)">&#8595;</div>
-          </div> -->
-          <div class="banner" id="selector">
-              <div>
-                  Time :<span id="time">0</span>
-              </div>
-              <div>LousyGames ©</div>
-              <div>
-                  Score :<span id="score">0</span>
-              </div>
-              <div class="touch off" onclick="touch(this)">touch</div>
-          </div>
-          <canvas id="game"></canvas>
-          
-          <span class="close">&times;</span>
-        </div>
-        
-      </div>
-    </div>
+div.horizontal {
+	display: flex;
+	justify-content: center;
+	height: 100%;
+}
 
-  </div>
+div.vertical {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+}
 
-  <div class='content-wrapper'>
+::-webkit-input-placeholder {
+   color: #955;
+   text-align: center;
+}
 
-    <div class='form-container container'>
-      <div class='estimation-container'>
+::-moz-placeholder {
+   color: #955;
+   text-align: center;
+}
 
-        <div class='estimation-header'>
-          <div class='estimation-text'>GUTHRIE Estimation (<b>Cable End Termination </b>- MAX 11 Panel)</div>
-        </div>
-        <div class="measurements-container">
-          <span class="measurements">Drawing Measurements: </span>
-        </div>
-        
-        <div class='estimations'>
-          <div class="canvas-container guthrie-back">
-            <canvas id='board-1' class='boards'></canvas>
-          </div>
-          <img id="reference_RoomSize" class="parentimage" src="https://i.postimg.cc/MpS2tf2Q/Room-Sizing.png">
-        </div>
-  
-        <div class='estimation-header'>
-          <div class='estimation-text'>GUTHRIE Estimation (<b>Cable Front Termination</b> - MAX 11 Panel)</div>
-        </div>
-        <div class="measurements-container">
-          <span class="measurements">Drawing Measurements: </span>
-        </div>
+:-ms-input-placeholder {
+   color: #955;
+   text-align: center;
+}
 
-        <div class='estimations'>
-          <div class="canvas-container guthrie-side">
-            <canvas id='board-2' class='boards'></canvas>
-          </div>
-          <img id="reference_2in1" class="parentimage" src="https://i.postimg.cc/9MDmBfQ9/2-in-1.jpg">
-        </div>
+</style>
 
-      </div>
-  
-      <!-- 
-      <div class='estimation-container'>
-        <div class='estimation-header'>
-          <div class='estimation-text'>GATHERGATES Estimation</div>
-        </div>
-        <div class='estimations'>
-        </div>
-      </div>
-  
-      <div class='estimation-container'>
-        <div class='estimation-header'>
-          <div class='estimation-text'>SIEMENS Estimation</div>
-        </div>
-        <div class='estimations'>
-        </div>
-      </div>
-  
-      <div class='estimation-container'>
-        <div class='estimation-header'>
-          <div class='estimation-text'>SCHNEDIER Estimation</div>
-        </div>
-        <div class='estimations'>
-        </div>
+<body>
 
-      </div>
-
-      </div> 
-      -->
-
-    </div>
-  </div>
+	<div id="loginbox" class="lightbox" >
+		<div class="horizontal">
+			<div class="vertical">
+				<div class="box">
+					<input style="margin: 16px; text-align: center;" id="password" type="password" placeholder="password" /> <br />
+					<button id="loginbutton" type="button">Enter</button>
+					<p id="wrongPassword" style="display: none">wrong password</p>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+
+
+	 <script type="text/javascript" src="https://rawcdn.githack.com/chrisveness/crypto/7067ee62f18c76dd4a9d372a00e647205460b62b/sha1.js"></script>
+
+	<script type="text/javascript">
+	"use strict";
+
+
+	function loadPage(pwd) {
+
+		var hash= pwd;
+		hash= Sha1.hash(pwd);
+		var url= hash + "/index.html";
+
+		$.ajax({
+			url : url,
+			dataType : "html",
+			success : function(data) {
+
+				window.location= url;
+
+			},
+			error : function(xhr, ajaxOptions, thrownError) {
+
+
+				parent.location.hash= hash;
+
+				//$("#wrongPassword").show();
+				$("#password").attr("placeholder","wrong password");
+				$("#password").val("");
+			}
+		});
+	}
+
+
+	$("#loginbutton").on("click", function() {
+		loadPage($("#password").val());
+	});
+	$("#password").keypress(function(e) {
+		if (e.which == 13) {
+
+			loadPage($("#password").val());
+		}
+	});
+	$("#password").focus();
+
+	</script>
 
 </body>
-<script src="main.js"></script>
-<script src="snake.js"></script>
-
 </html>
