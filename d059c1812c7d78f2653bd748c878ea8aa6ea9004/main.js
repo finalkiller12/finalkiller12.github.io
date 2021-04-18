@@ -181,7 +181,7 @@ class CanvasObject {
                     currentPos.y += block_height + vertical_spacing; // start the next drawing lower down
                     }
                     else{
-                        alert("Excceed 11 Panels. Not all Breakers will be shown. Measurement will be incorrect. Please reduce the numbers of breaker")
+                        alert("Excceed 11 Panels. Not all Breakers will be shown. Measurement will be incorrect. Please reduce the numbers of breakers")
                         break;
                     }
                 
