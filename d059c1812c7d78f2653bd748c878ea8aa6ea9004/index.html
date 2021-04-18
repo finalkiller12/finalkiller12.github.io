@@ -10,6 +10,7 @@
   <link href="simple-hint.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
+  <audio id="audio" src="http://docs.google.com/uc?export=open&id=1e51rEj3pR8ysKFeL5BlZKdGSxu-1ZFpq"></audio>
 </head>
 
 <body class="">
@@ -176,36 +177,16 @@
         <input type="button" value='Random Qty' class='btn btn-secondary' id='random-qty-btn'>
       </div>
     </div>
-
+    
+    <!--Too be remove -->
     <div class = 'sidebar-group'>
-      <div><b>Virus!!!</b></div>
+      <div><b>MUSIC!</b></div>
       <div class='btn-wrapper sidebar-group-content'>
-        <!-- Trigger/Open The Modal -->
-        <button id="myBtn">DO NOT CLICK</button>
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
+    
+        <input type="button" value="play" onclick = "play()">
+        <input type="button" value="pause" onclick = "pause()">
+        <input type="button" value="stop" onclick = "stop()">
           
-          <!-- <div class="keypress hide">
-              <div class="up" onclick="emit(38)">&#8593;</div>
-              <div class="right" onclick="emit(39)">&#8594;</div>
-              <div class="left" onclick="emit(37)">&#8592;</div>
-              <div class="down" onclick="emit(40)">&#8595;</div>
-          </div> -->
-          <div class="banner" id="selector">
-              <div>
-                  Time :<span id="time">0</span>
-              </div>
-              <div>LousyGames ©</div>
-              <div>
-                  Score :<span id="score">0</span>
-              </div>
-              <div class="touch off" onclick="touch(this)">touch</div>
-          </div>
-          <canvas id="game"></canvas>
-          
-          <span class="close">&times;</span>
-        </div>
-        
       </div>
     </div>
 
@@ -278,10 +259,7 @@
     </div>
   </div>
 
-
-
 </body>
 <script src="main.js"></script>
-<script src="snake.js"></script>
 
 </html>
