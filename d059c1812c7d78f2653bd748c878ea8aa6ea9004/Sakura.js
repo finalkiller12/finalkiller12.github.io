@@ -81,7 +81,7 @@
         var defaults = {
             blowAnimations: ['blow-soft-left', 'blow-medium-left', 'blow-soft-right', 'blow-medium-right'],
             className: 'sakura',
-            fallSpeed: 1,
+            fallSpeed: 2,
             maxSize: 14,
             minSize: 10,
             newOn: 300,
@@ -91,7 +91,7 @@
         var options = $.extend({}, defaults, options);
 
         // Default or start event
-        if (typeof event === 'play()' || event === 'start') {
+        if (typeof event === 'undefined' || event === 'start') {
 
             // Set the overflow-x CSS property on the target element to prevent horizontal scrollbars
             target.css({ 'overflow-x': 'hidden' });
@@ -175,6 +175,7 @@
     };
 }(jQuery));
 
-$(document).ready(function() {
+function Sakura() {
     $('body').sakura();
-});
+};
+

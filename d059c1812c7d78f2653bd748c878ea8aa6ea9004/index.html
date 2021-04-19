@@ -9,7 +9,7 @@
   <!-- CSS only -->
   <link href="simple-hint.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Sizing.css">
   <link rel="stylesheet" href="Sakura.css">
   <audio id="audio" src="http://docs.google.com/uc?export=open&id=1e51rEj3pR8ysKFeL5BlZKdGSxu-1ZFpq"></audio>
 </head>
@@ -239,11 +239,9 @@
     <div class = 'sidebar-group'>
       <div><b>MUSIC!!</b></div>
       <div class='btn-wrapper sidebar-group-content'>
-    
-        <input type="button" value="play" onclick = "play()">
-        <input type="button" value="pause" onclick = "pause()">
-        <input type="button" value="stop" onclick = "stop()">
-          
+        <input type="button" id=btn.play value="play" onclick = "MusicSakura_start()">
+        <input type="button" id=btn.pause value="pause" onclick = "MusicSakura_pause()">
+        <input type="button" id=btn.stop value="stop" onclick = "MusicSakura_stop()()">
       </div>
     </div>
 
@@ -317,7 +315,12 @@
   </div>
 
 </body>
-<script src="main.js"></script>
-<script>src="Sakura.js"</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+<script src="Sakura.js"></script>
+<script src="Music.js"></script>  
+<script src="Sizing.js"></script>
+
+
 
 </html>
