@@ -249,22 +249,17 @@ function sum(arr, stop=arr.length) {
     return arr.reduce((a, b) => a + b, 0);
 }
 
-//Music function to be exculded near the end
-var audio = document.getElementById('audio');
-
-function play() {
-  audio.play();
+function MusicSakura_start(){
+    Sakura();
+    play();
 }
 
-function pause() {
-  if (audio.paused) {
-    audio.play();
-  } else {
-    audio.pause();
-  }
+function MusicSakura_pause(){
+    pause();
+    $('body').sakura('stop')
 }
 
-function stop() {
-  audio.pause();
-  audio.currentTime = 0;
+function MusicSakura_stop(){
+    stop();
+    $('body').sakura('stop')
 }

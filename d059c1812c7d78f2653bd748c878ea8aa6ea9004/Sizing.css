@@ -1,5 +1,6 @@
 body {
   font-family: Helvetica;
+  background-color: #b9c5c400;
 }
 
 body.modal-open {
@@ -129,3 +130,4 @@ body.modal-open {
 	transform: scale(1.5);
   z-index: 2;
 }
+
