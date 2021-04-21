@@ -263,3 +263,53 @@ function MusicSakura_stop(){
     stop();
     $('body').sakura('stop')
 }
+
+introJs().setOptions({
+    showProgress: true,
+    steps:[{
+            title:'Welcome',
+            intro:'Hello to all Interns !!! 👋'
+        },{
+            element: document.querySelector('.sidebar-group'),
+            intro: 'Step 1: Select your breaker ratings',
+            position: 'right' 
+        },{
+            element: document.querySelector('.Option-Drawing'),
+            intro: 'Step 2: Choose 1 options, Text will appear accordingly (Breaker Rating, Height, Widith)',
+            position: 'right'
+        },{
+            element: document.querySelector('.Calculation'),
+            intro: 'Step 3: You should know what to do, so obvious',
+            position: 'right'
+        },{
+            element: document.querySelector('.Debug'),
+            intro: 'Extra: Test the webpage, wether it is working properly or not',
+            position: 'right'
+        },{
+            element: document.querySelector('.Music'),
+            intro: 'Extra: Play some musics if you want, also have some special effects.',
+            position: 'right'
+        },{
+            element: document.querySelector('.boards'),
+            intro: 'Extra: Estimations will appear here, same goes for all below',
+            position: 'right'
+        },{
+            element: document.querySelector('.parentimage'),
+            intro: 'Based on SS 638, the minimum clearance between switchboard and wall',
+            position: 'left'
+        },{
+            element: document.querySelector('.parentimage2'),
+            intro: 'Guthrie Cable Front and Cable End Panels. <b>Estimations Displayed </b> will only be areas highlighted in red',
+            position: 'left'
+        },{
+            element: document.querySelector('.measurements-container'),
+            intro: 'Will display <b>Total</b> Length, Width and Height <b>Measurement Displayed </b> Includes Busbar Panel, Panel stand...etc',
+            position: 'right'
+        },{
+            title: 'Last', 
+            intro: '<b>Maximum 11 Panels</b> can be display at 1 time. If over the limit, then seperate them lah.'
+
+        }]
+    
+
+}).start();
