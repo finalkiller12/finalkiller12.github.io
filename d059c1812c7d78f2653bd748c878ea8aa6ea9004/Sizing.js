@@ -33,7 +33,7 @@ function initEstimations(){
             limit: 1800,
             spacing: 0
         },
-        max_columns: 12,
+        max_columns: 20,
         measurementDisplay: measurements[0]
     }, {
         name: 'guthrie-2',
@@ -44,7 +44,7 @@ function initEstimations(){
             limit: 1800,
             spacing: 10,
         },
-        max_columns: 12,
+        max_columns: 20,
         measurementDisplay: measurements[1]
     }]
 
@@ -126,7 +126,7 @@ class CanvasObject {
             }
         }
         
-        return width*10;
+        return (width*10)
     }
 
     displayMeasurements(blocks){
@@ -156,7 +156,7 @@ class CanvasObject {
     
                 for (let j = 0; j < blocks[col].length; j++) { // iterate each unit within the column
 
-                    if (col < 11){
+                    if (this.calcDrawingWidth(blocks) < 11000){
                     const block_height = blocks[col][j].height / scaling_factor - vertical_spacing;
     
                     // draw the unit  
@@ -181,8 +181,8 @@ class CanvasObject {
                     currentPos.y += block_height + vertical_spacing; // start the next drawing lower down
                     }
                     else{
-                        alert("Excceed 11 Panels. Not all Breakers will be shown. Measurement will be incorrect. Please reduce the numbers of breakers")
-                        break;
+                        alert("Excceed 11000mm. Not all Breakers will be shown. Measurement will be incorrect. Please reduce the Quantity of breakers");
+                        return false;
                     }
                 
                 }
@@ -268,30 +268,30 @@ introJs().setOptions({
     showProgress: true,
     steps:[{
             title:'Welcome',
-            intro:'Hello to all Interns !!! 👋'
+            intro:'Please follow the guide for 1st timer'
         },{
             element: document.querySelector('.sidebar-group'),
-            intro: 'Step 1: Select your breaker ratings',
+            intro: 'Select your breaker ratings',
             position: 'right' 
         },{
             element: document.querySelector('.Option-Drawing'),
-            intro: 'Step 2: Choose 1 options, Text will appear accordingly (Breaker Rating, Height, Widith)',
+            intro: 'Choose 1 options, Text will appear accordingly (Breaker Rating, Height, Widith)',
             position: 'right'
         },{
             element: document.querySelector('.Calculation'),
-            intro: 'Step 3: You should know what to do, so obvious',
+            intro: 'You should know what to do, so obvious',
             position: 'right'
         },{
             element: document.querySelector('.Debug'),
-            intro: 'Extra: Test the webpage, wether it is working properly or not',
+            intro: 'Test the webpage, whether it is working properly or not',
             position: 'right'
         },{
             element: document.querySelector('.Music'),
-            intro: 'Extra: Play some musics if you want, also have some special effects.',
+            intro: 'Play some musics if you want, also have some special effects.',
             position: 'right'
         },{
             element: document.querySelector('.boards'),
-            intro: 'Extra: Estimations will appear here, same goes for all below',
+            intro: 'Estimations will appear here, same goes for the rest below',
             position: 'right'
         },{
             element: document.querySelector('.parentimage'),
@@ -306,8 +306,11 @@ introJs().setOptions({
             intro: 'Will display <b>Total</b> Length, Width and Height <b>Measurement Displayed </b> Includes Busbar Panel, Panel stand...etc',
             position: 'right'
         },{
-            title: 'Last', 
-            intro: '<b>Maximum 11 Panels</b> can be display at 1 time. If over the limit, then seperate them lah.'
+            title: 'Important', 
+            intro: '<b>Maximum displaying width is 11000mm</b>. If over the limit, estimation and measurements will be incorrect. Please split them up'
+        },{
+            title: 'End', 
+            intro: 'Refresh the page if you wanna see the user guide again. Thanks'
 
         }]
     
