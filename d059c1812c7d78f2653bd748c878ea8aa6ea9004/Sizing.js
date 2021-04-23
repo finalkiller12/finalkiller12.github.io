@@ -6,6 +6,11 @@ const canvas_size = [
     { width: 950, height: 300 }
 ];
 
+const relays = [
+    { name: 'Column', height: 1800, width: 60 },
+    { name: 'Cell', height: 400, width: 60 }
+]
+
 const breakers = [
     { name: 'Bus-Coupler',      height: 1800, width: 80},
     { name: 'Incoming',         height: 1800, width: 80},
@@ -117,6 +122,60 @@ class CanvasObject {
         return groups;
     }
 
+    insertRelays(groups){
+        let newGroups = groups;
+        let completeCols = [];
+        let incompleteCols = [];
+
+        for (let i = 0; i < newGroups.length; i++){
+            let heightSum = newGroups[i].map(a => a.height);
+            let potentialCombinedHeight = sum(heightSum.concat(relays[1].height)) // add small relay
+            // check for complete column = columns with no space for small relay
+            // these columns need the big relay adjacent to them
+            if (potentialCombinedHeight > this.column.limit) { // small relay does not fit
+                completeCols.push(i);
+            }
+            // check for incomplete column = columns with enough space to add small relay
+            // add the small relay to the group and move it to 2nd position from the top
+            else if (potentialCombinedHeight != relays[1].height){ // non empty column
+                incompleteCols.push(i);
+            }
+        }
+
+        // :;
+        // append to all incompleteCols
+        for (let i = 0; i < incompleteCols.length; i++){
+            let index = incompleteCols[i];
+
+            // if columnOnLeft will have a big relay appear to its right,
+            //      do not insert
+
+            if (index % 2 == 0){
+                newGroups[index].splice(1, 0, relays[1]) // insert in position 2 from the top
+            }
+        }
+
+        // [] | []
+        // insert to the right of the first completeCol
+        for (let i = completeCols.length-1; i >= 0; i--){
+            // find odd numbered (even indexes) completeCols
+            if (i % 2 == 0){
+                // do not insert if both neighbours for the relay would be single-cell blocks
+                if (i + 1 < newGroups.length){ // ensure i + 1 is reachable
+                    if (newGroups[i].length == 1 && newGroups[i+1].length == 1){
+                        continue;
+                    }
+                }
+                const newColumn = [ relays[0] ];
+                newGroups.splice(completeCols[i] + 1, 0, newColumn) // insert big relay to the right
+            }
+        }
+
+        // loop 
+
+        return newGroups;
+    }
+
     calcDrawingWidth(blocks) {
         let width = 0;
         for (let i = 0; i < blocks.length; i++) {
@@ -206,8 +265,9 @@ estimate_btn.addEventListener('click', function () {
     for (let i = 0; i < estimations.length; i++) {
         estimations[i].clearCanvas();
         const blocks = estimations[i].groupUnits(units);
-        estimations[i].displayMeasurements(blocks);
-        estimations[i].drawBreakers(blocks, blockText)
+        const blocksWithRelays = estimations[i].insertRelays(blocks);
+        estimations[i].displayMeasurements(blocksWithRelays);
+        estimations[i].drawBreakers(blocksWithRelays, blockText)
     }
 })
 
