@@ -9,7 +9,6 @@ const canvas_size = [
 const breakers = [
     { name: 'Bus-Coupler',      height: 1800, width: 80},
     { name: 'Incoming',         height: 1800, width: 80},
-    { name: 'Relay',            height: 1800, width: 30},
     { name: 'MCCB-100',         height: 200, width: 60 },
     { name: 'MCCB-250',         height: 200, width: 60 },
     { name: 'MCCB-400',         height: 400, width: 60 },
@@ -279,14 +278,15 @@ introJs().setOptions({
             position: 'right'
         },{
             element: document.querySelector('.Calculation'),
-            intro: 'You should know what to do, so obvious',
+            intro: 'Click to display estimation',
             position: 'right'
         },{
             element: document.querySelector('.Debug'),
-            intro: 'Test the webpage, whether it is working properly or not',
+            intro: 'Randomly generate breakers and display it',
             position: 'right'
         },{
             element: document.querySelector('.Music'),
+            title:'Extra',
             intro: 'Play some musics if you want, also have some special effects.',
             position: 'right'
         },{
@@ -294,12 +294,12 @@ introJs().setOptions({
             intro: 'Estimations will appear here, same goes for the rest below',
             position: 'right'
         },{
-            element: document.querySelector('.parentimage'),
-            intro: 'Based on SS 638, the minimum clearance between switchboard and wall',
-            position: 'left'
-        },{
             element: document.querySelector('.parentimage2'),
             intro: 'Guthrie Cable Front and Cable End Panels. <b>Estimations Displayed </b> will only be areas highlighted in red',
+            position: 'left'
+        },{
+            element: document.querySelector('.parentimage'),
+            intro: 'Based on SS638, the minimum clearance between switchboard and wall',
             position: 'left'
         },{
             element: document.querySelector('.measurements-container'),
@@ -311,8 +311,6 @@ introJs().setOptions({
         },{
             title: 'End', 
             intro: 'Refresh the page if you wanna see the user guide again. Thanks'
-
         }]
     
-
 }).start();
