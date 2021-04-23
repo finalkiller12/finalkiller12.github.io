@@ -160,6 +160,12 @@ class CanvasObject {
         for (let i = completeCols.length-1; i >= 0; i--){
             // find odd numbered (even indexes) completeCols
             if (i % 2 == 0){
+                // do not insert if both neighbours for the relay would be single-cell blocks
+                if (i + 1 < newGroups.length){ // ensure i + 1 is reachable
+                    if (newGroups[i].length == 1 && newGroups[i+1].length == 1){
+                        continue;
+                    }
+                }
                 const newColumn = [ relays[0] ];
                 newGroups.splice(completeCols[i] + 1, 0, newColumn) // insert big relay to the right
             }
