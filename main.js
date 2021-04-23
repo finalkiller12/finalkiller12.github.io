@@ -145,15 +145,12 @@ class CanvasObject {
         // :;
         // append to all incompleteCols
         for (let i = 0; i < incompleteCols.length; i++){
-            var index = incompleteCols[i];
-            var columnOnLeft = index - 1;
+            let index = incompleteCols[i];
 
             // if columnOnLeft will have a big relay appear to its right,
             //      do not insert
-            
-            // var isCompleteCol = completeCols.indexOf(columnOnLeft) == -1;
-            var isEvenIndex = columnOnLeft % 2 == 0;
-            if (!isEvenIndex){
+
+            if (index % 2 == 0){
                 newGroups[index].splice(1, 0, relays[1]) // insert in position 2 from the top
             }
         }
