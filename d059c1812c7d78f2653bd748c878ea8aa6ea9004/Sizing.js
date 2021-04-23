@@ -6,10 +6,14 @@ const canvas_size = [
     { width: 950, height: 300 }
 ];
 
+const relays = [
+    { name: 'Relay', height: 1800, width: 30 },
+    { name: 'Relay', height: 400, width: 60 }
+]
+
 const breakers = [
     { name: 'Bus-Coupler',      height: 1800, width: 80},
     { name: 'Incoming',         height: 1800, width: 80},
-    { name: 'Relay',            height: 1800, width: 30},
     { name: 'MCCB-100',         height: 200, width: 60 },
     { name: 'MCCB-250',         height: 200, width: 60 },
     { name: 'MCCB-400',         height: 400, width: 60 },
@@ -35,7 +39,7 @@ function initEstimations(){
         },
         max_columns: 20,
         measurementDisplay: measurements[0]
-    }, {
+    }/*, {
         name: 'guthrie-2',
         ctx: boards[1].getContext("2d"),
         size: canvas_size[1],
@@ -46,7 +50,7 @@ function initEstimations(){
         },
         max_columns: 20,
         measurementDisplay: measurements[1]
-    }]
+    }*/]
 
     const canvases = document.getElementsByClassName('boards');
     const estimations = []
@@ -115,6 +119,60 @@ class CanvasObject {
         console.log(groups);
     
         return groups;
+    }
+
+    insertRelays(groups){
+        let newGroups = groups;
+        let completeCols = [];
+        let incompleteCols = [];
+
+        for (let i = 0; i < newGroups.length; i++){
+            let heightSum = newGroups[i].map(a => a.height);
+            let potentialCombinedHeight = sum(heightSum.concat(relays[1].height)) // add small relay
+            // check for complete column = columns with no space for small relay
+            // these columns need the big relay adjacent to them
+            if (potentialCombinedHeight > this.column.limit) { // small relay does not fit
+                completeCols.push(i);
+            }
+            // check for incomplete column = columns with enough space to add small relay
+            // add the small relay to the group and move it to 2nd position from the top
+            else if (potentialCombinedHeight != relays[1].height){ // non empty column
+                incompleteCols.push(i);
+            }
+        }
+
+        // :;
+        // append to all incompleteCols
+        for (let i = 0; i < incompleteCols.length; i++){
+            let index = incompleteCols[i];
+
+            // if columnOnLeft will have a big relay appear to its right,
+            //      do not insert
+
+            if (index % 2 == 0){
+                newGroups[index].splice(1, 0, relays[1]) // insert in position 2 from the top
+            }
+        }
+
+        // [] | []
+        // insert to the right of the first completeCol
+        for (let i = completeCols.length-1; i >= 0; i--){
+            // find odd numbered (even indexes) completeCols
+            if (i % 2 == 0){
+                // do not insert if both neighbours for the relay would be single-cell blocks
+                if (i + 1 < newGroups.length){ // ensure i + 1 is reachable
+                    if (newGroups[i].length == 1 && newGroups[i+1].length == 1){
+                        continue;
+                    }
+                }
+                const newColumn = [ relays[0] ];
+                newGroups.splice(completeCols[i] + 1, 0, newColumn) // insert big relay to the right
+            }
+        }
+
+        // loop 
+
+        return newGroups;
     }
 
     calcDrawingWidth(blocks) {
@@ -206,8 +264,9 @@ estimate_btn.addEventListener('click', function () {
     for (let i = 0; i < estimations.length; i++) {
         estimations[i].clearCanvas();
         const blocks = estimations[i].groupUnits(units);
-        estimations[i].displayMeasurements(blocks);
-        estimations[i].drawBreakers(blocks, blockText)
+        const blocksWithRelays = estimations[i].insertRelays(blocks);
+        estimations[i].displayMeasurements(blocksWithRelays);
+        estimations[i].drawBreakers(blocksWithRelays, blockText)
     }
 })
 
@@ -279,14 +338,15 @@ introJs().setOptions({
             position: 'right'
         },{
             element: document.querySelector('.Calculation'),
-            intro: 'You should know what to do, so obvious',
+            intro: 'Click to display estimation',
             position: 'right'
         },{
             element: document.querySelector('.Debug'),
-            intro: 'Test the webpage, whether it is working properly or not',
+            intro: 'Randomly generate breakers and display it',
             position: 'right'
         },{
             element: document.querySelector('.Music'),
+            title:'Extra',
             intro: 'Play some musics if you want, also have some special effects.',
             position: 'right'
         },{
@@ -294,12 +354,12 @@ introJs().setOptions({
             intro: 'Estimations will appear here, same goes for the rest below',
             position: 'right'
         },{
-            element: document.querySelector('.parentimage'),
-            intro: 'Based on SS 638, the minimum clearance between switchboard and wall',
-            position: 'left'
-        },{
             element: document.querySelector('.parentimage2'),
             intro: 'Guthrie Cable Front and Cable End Panels. <b>Estimations Displayed </b> will only be areas highlighted in red',
+            position: 'left'
+        },{
+            element: document.querySelector('.parentimage'),
+            intro: 'Based on SS638, the minimum clearance between switchboard and wall',
             position: 'left'
         },{
             element: document.querySelector('.measurements-container'),
@@ -311,8 +371,6 @@ introJs().setOptions({
         },{
             title: 'End', 
             intro: 'Refresh the page if you wanna see the user guide again. Thanks'
-
         }]
     
-
 }).start();
