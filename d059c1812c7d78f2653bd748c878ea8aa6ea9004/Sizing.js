@@ -7,8 +7,8 @@ const canvas_size = [
 ];
 
 const relays = [
-    { name: 'Column', height: 1800, width: 60 },
-    { name: 'Cell', height: 400, width: 60 }
+    { name: 'Relay', height: 1800, width: 30 },
+    { name: 'Relay', height: 400, width: 60 }
 ]
 
 const breakers = [
@@ -39,7 +39,7 @@ function initEstimations(){
         },
         max_columns: 20,
         measurementDisplay: measurements[0]
-    }, {
+    }/*, {
         name: 'guthrie-2',
         ctx: boards[1].getContext("2d"),
         size: canvas_size[1],
@@ -50,7 +50,7 @@ function initEstimations(){
         },
         max_columns: 20,
         measurementDisplay: measurements[1]
-    }]
+    }*/]
 
     const canvases = document.getElementsByClassName('boards');
     const estimations = []
