@@ -145,18 +145,30 @@ class CanvasObject {
         // :;
         // append to all incompleteCols
         for (let i = 0; i < incompleteCols.length; i++){
-            newGroups[incompleteCols[i]].splice(1, 0, relays[1]) // insert in position 2 from the top
+            var index = incompleteCols[i];
+            var columnOnLeft = index - 1;
+
+            // if columnOnLeft will have a big relay appear to its right,
+            //      do not insert
+            
+            // var isCompleteCol = completeCols.indexOf(columnOnLeft) == -1;
+            var isEvenIndex = columnOnLeft % 2 == 0;
+            if (!isEvenIndex){
+                newGroups[index].splice(1, 0, relays[1]) // insert in position 2 from the top
+            }
         }
 
         // [] | []
         // insert to the right of the first completeCol
         for (let i = completeCols.length-1; i >= 0; i--){
-            // find odd numbered completeCols
+            // find odd numbered (even indexes) completeCols
             if (i % 2 == 0){
                 const newColumn = [ relays[0] ];
                 newGroups.splice(completeCols[i] + 1, 0, newColumn) // insert big relay to the right
             }
         }
+
+        // loop 
 
         return newGroups;
     }
