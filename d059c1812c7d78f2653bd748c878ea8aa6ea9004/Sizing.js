@@ -2,8 +2,8 @@
 // change these numbers when you want to resize
 // also remember to change .canvas-container's dimensions too
 const canvas_size = [
-    { width: 950, height: 300 },
-    { width: 950, height: 300 }
+    { width: 1000, height: 300 },
+    { width: 1000, height: 300 }
 ];
 
 const relays = [
@@ -214,7 +214,7 @@ class CanvasObject {
     
                 for (let j = 0; j < blocks[col].length; j++) { // iterate each unit within the column
 
-                    if (this.calcDrawingWidth(blocks) < 11000){
+                    if (this.calcDrawingWidth(blocks) < 9700){
                     const block_height = blocks[col][j].height / scaling_factor - vertical_spacing;
     
                     // draw the unit  
@@ -239,7 +239,7 @@ class CanvasObject {
                     currentPos.y += block_height + vertical_spacing; // start the next drawing lower down
                     }
                     else{
-                        alert("Excceed 11000mm. Not all Breakers will be shown. Measurement will be incorrect. Please reduce the Quantity of breakers");
+                        alert("Excceed 10000mm wdith. Not all Breakers will be shown. Measurement will be incorrect. Please reduce the Quantity of breakers");
                         return false;
                     }
                 
@@ -270,6 +270,7 @@ estimate_btn.addEventListener('click', function () {
     }
 })
 
+
 document.getElementById('random-qty-btn').addEventListener('click', function () {
     const selects = document.getElementsByClassName('select-position');
 
@@ -282,6 +283,15 @@ document.getElementById('random-qty-btn').addEventListener('click', function () 
     }
 })
 /// main program end lol
+
+document.getElementById('reset-btn').addEventListener('click', function() {
+
+    const listBox = document.getElementsByClassName('select-position');
+    for (let i = 0; i < listBox.length; i++) {  
+        listBox[i].selectedIndex = 0;
+    }
+    estimate_btn.click();
+})
 
 
 function gatherUnitSelections(){
@@ -367,9 +377,9 @@ introJs().setOptions({
             position: 'right'
         },{
             title: 'Important', 
-            intro: '<b>Maximum displaying width is 11000mm</b>. If over the limit, estimation and measurements will be incorrect. Please split them up'
+            intro: '<b>Maximum displaying width is 10000mm</b>. If over the limit, estimation and measurements will be incorrect. Please split them up'
         },{
-            title: 'End', 
+            title: 'End',
             intro: 'Refresh the page if you wanna see the user guide again. Thanks'
         }]
     
