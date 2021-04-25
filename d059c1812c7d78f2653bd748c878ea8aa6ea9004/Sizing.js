@@ -3,7 +3,9 @@
 // also remember to change .canvas-container's dimensions too
 const canvas_size = [
     { width: 1000, height: 300 },
-    { width: 1000, height: 300 }
+    { width: 1000, height: 300 },
+    { width: 1000, height: 300 },
+
 ];
 
 const relays = [
@@ -24,12 +26,25 @@ const breakers = [
     { name: 'ACB-3000',        height: 1800, width: 80 },
 ]
 
+/*const Breakers= [
+    { name1: 'Bus-Coupler',      height1: 1800, width1: 30},
+    { name1: 'Incoming',         height1: 1800, width1: 30},
+    { name1: 'MCCB-100',         height1: 200, width1: 30 },
+    { name1: 'MCCB-250',         height1: 200, width1: 30 },
+    { name1: 'MCCB-400',         height1: 400, width1: 30 },
+    { name1: 'MCCB-630',         height1: 600, width1: 30 },
+    { name1: 'MCCB-900',         height1: 900, width1: 30 },
+    { name1: 'ACB-1200',        height1: 1800, width1: 30 },
+    { name1: 'ACB-1600',        height1: 1800, width1: 30 },
+    { name1: 'ACB-3000',        height1: 1800, width1: 30 },
+]*/
+
 function initEstimations(){
 
     const boards = document.getElementsByClassName('boards');
 
     const canvas_objects = [{
-        name: 'guthrie-1',
+        name: 'guthrie',
         ctx: boards[0].getContext("2d"),
         size: canvas_size[0],
         origin: { x: 10, y: 5 },
@@ -39,8 +54,8 @@ function initEstimations(){
         },
         max_columns: 20,
         measurementDisplay: measurements[0]
-    }/*, {
-        name: 'guthrie-2',
+    },{
+        name: 'xyz',
         ctx: boards[1].getContext("2d"),
         size: canvas_size[1],
         origin: { x: 10, y: 5 },
@@ -50,7 +65,19 @@ function initEstimations(){
         },
         max_columns: 20,
         measurementDisplay: measurements[1]
-    }*/]
+
+    },{   
+        name: 'xyz',
+        ctx: boards[2].getContext("2d"),
+        size: canvas_size[2],
+        origin: { x: 10, y: 5 },
+        column: { 
+            limit: 1800,
+            spacing: 10,
+        },
+        max_columns: 20,
+        measurementDisplay: measurements[1]
+    }]
 
     const canvases = document.getElementsByClassName('boards');
     const estimations = []
