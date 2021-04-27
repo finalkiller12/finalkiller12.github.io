@@ -376,54 +376,58 @@ function MusicSakura_stop(){
     $('body').sakura('stop')
 }
 
-introJs().setOptions({
-    showProgress: true,
-    steps:[{
-            title:'Welcome',
-            intro:'Please follow the guide for 1st timer'
-        },{
-            element: document.querySelector('.sidebar-group'),
-            intro: 'Select your breaker ratings',
-            position: 'right' 
-        },{
-            element: document.querySelector('.Option-Drawing'),
-            intro: 'Choose 1 options, Text will appear accordingly (Breaker Rating, Height, Widith)',
-            position: 'right'
-        },{
-            element: document.querySelector('.Calculation'),
-            intro: 'Click to display estimation',
-            position: 'right'
-        },{
-            element: document.querySelector('.Debug'),
-            intro: 'Randomly generate breakers and display it',
-            position: 'right'
-        },{
-            element: document.querySelector('.Music'),
-            title:'Extra',
-            intro: 'Play some musics if you want, also have some special effects.',
-            position: 'right'
-        },{
-            element: document.querySelector('.boards'),
-            intro: 'Estimations will appear here, same goes for the rest below',
-            position: 'right'
-        },{
-            element: document.querySelector('.parentimage2'),
-            intro: 'Guthrie Cable Front and Cable End Panels. <b>Estimations Displayed </b> will only be areas highlighted in red',
-            position: 'left'
-        },{
-            element: document.querySelector('.parentimage'),
-            intro: 'Based on SS638, the minimum clearance between switchboard and wall',
-            position: 'left'
-        },{
-            element: document.querySelector('.measurements-container'),
-            intro: 'Will display <b>Total</b> Length, Width and Height <b>Measurement Displayed </b> Includes Busbar Panel, Panel stand...etc',
-            position: 'right'
-        },{
-            title: 'Important', 
-            intro: '<b>Maximum displaying width is 10000mm</b>. If over the limit, estimation and measurements will be incorrect. Please split them up'
-        },{
-            title: 'End',
-            intro: 'Refresh the page if you wanna see the user guide again. Thanks'
-        }]
-    
-}).start();
+if (localStorage['intro-done'] == undefined){
+    localStorage['intro-done'] = true;
+
+    introJs().setOptions({
+        showProgress: true,
+        steps:[{
+                title:'Welcome',
+                intro:'Please follow the guide for 1st timer'
+            },{
+                element: document.querySelector('.sidebar-group'),
+                intro: 'Select your breaker ratings',
+                position: 'right' 
+            },{
+                element: document.querySelector('.Option-Drawing'),
+                intro: 'Choose 1 options, Text will appear accordingly (Breaker Rating, Height, Widith)',
+                position: 'right'
+            },{
+                element: document.querySelector('.Calculation'),
+                intro: 'Click to display estimation',
+                position: 'right'
+            },{
+                element: document.querySelector('.Debug'),
+                intro: 'Randomly generate breakers and display it',
+                position: 'right'
+            },{
+                element: document.querySelector('.Music'),
+                title:'Extra',
+                intro: 'Play some musics if you want, also have some special effects.',
+                position: 'right'
+            },{
+                element: document.querySelector('.boards'),
+                intro: 'Estimations will appear here, same goes for the rest below',
+                position: 'right'
+            },{
+                element: document.querySelector('.parentimage2'),
+                intro: 'Guthrie Cable Front and Cable End Panels. <b>Estimations Displayed </b> will only be areas highlighted in red',
+                position: 'left'
+            },{
+                element: document.querySelector('.parentimage'),
+                intro: 'Based on SS638, the minimum clearance between switchboard and wall',
+                position: 'left'
+            },{
+                element: document.querySelector('.measurements-container'),
+                intro: 'Will display <b>Total</b> Length, Width and Height <b>Measurement Displayed </b> Includes Busbar Panel, Panel stand...etc',
+                position: 'right'
+            },{
+                title: 'Important', 
+                intro: '<b>Maximum displaying width is 10000mm</b>. If over the limit, estimation and measurements will be incorrect. Please split them up'
+            },{
+                title: 'End',
+                intro: 'Refresh the page if you wanna see the user guide again. Thanks'
+            }]
+        
+    }).start();
+}
