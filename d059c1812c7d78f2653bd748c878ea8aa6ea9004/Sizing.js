@@ -13,31 +13,44 @@ const relays = [
     { name: 'Relay', height: 400, width: 60 }
 ]
 
-const breakers = [
-    { name: 'Bus-Coupler',      height: 1800, width: 80},
-    { name: 'Incoming',         height: 1800, width: 80},
-    { name: 'MCCB-100',         height: 200, width: 60 },
-    { name: 'MCCB-250',         height: 200, width: 60 },
-    { name: 'MCCB-400',         height: 400, width: 60 },
-    { name: 'MCCB-630',         height: 600, width: 60 },
-    { name: 'MCCB-900',         height: 900, width: 60 },
-    { name: 'ACB-1200',        height: 1800, width: 60 },
-    { name: 'ACB-1600',        height: 1800, width: 60 },
-    { name: 'ACB-3000',        height: 1800, width: 80 },
-]
-
-/*const Breakers= [
-    { name1: 'Bus-Coupler',      height1: 1800, width1: 30},
-    { name1: 'Incoming',         height1: 1800, width1: 30},
-    { name1: 'MCCB-100',         height1: 200, width1: 30 },
-    { name1: 'MCCB-250',         height1: 200, width1: 30 },
-    { name1: 'MCCB-400',         height1: 400, width1: 30 },
-    { name1: 'MCCB-630',         height1: 600, width1: 30 },
-    { name1: 'MCCB-900',         height1: 900, width1: 30 },
-    { name1: 'ACB-1200',        height1: 1800, width1: 30 },
-    { name1: 'ACB-1600',        height1: 1800, width1: 30 },
-    { name1: 'ACB-3000',        height1: 1800, width1: 30 },
-]*/
+const breakers = {
+    guthrie: [
+        { name: 'Bus-Coupler',      height: 1800, width: 80},
+        { name: 'Incoming',         height: 1800, width: 80},
+        { name: 'MCCB-100',         height: 200, width: 60 },
+        { name: 'MCCB-250',         height: 200, width: 60 },
+        { name: 'MCCB-400',         height: 400, width: 60 },
+        { name: 'MCCB-630',         height: 600, width: 60 },
+        { name: 'MCCB-900',         height: 900, width: 60 },
+        { name: 'ACB-1200',        height: 1800, width: 60 },
+        { name: 'ACB-1600',        height: 1800, width: 60 },
+        { name: 'ACB-3000',        height: 1800, width: 80 },
+    ],
+    xyz: [
+        { name: 'Bus-Coupler',      height: 1800, width: 30},
+        { name: 'Incoming',         height: 1800, width: 30},
+        { name: 'MCCB-100',         height: 200, width: 30 },
+        { name: 'MCCB-250',         height: 200, width: 30 },
+        { name: 'MCCB-400',         height: 400, width: 30 },
+        { name: 'MCCB-630',         height: 600, width: 30 },
+        { name: 'MCCB-900',         height: 900, width: 30 },
+        { name: 'ACB-1200',        height: 1800, width: 30 },
+        { name: 'ACB-1600',        height: 1800, width: 30 },
+        { name: 'ACB-3000',        height: 1800, width: 30 },
+    ],
+    xyza: [
+        { name: 'Bus-Coupler',      height: 1800, width: 30},
+        { name: 'Incoming',         height: 1800, width: 30},
+        { name: 'MCCB-100',         height: 200, width: 30 },
+        { name: 'MCCB-250',         height: 200, width: 30 },
+        { name: 'MCCB-400',         height: 400, width: 30 },
+        { name: 'MCCB-630',         height: 600, width: 30 },
+        { name: 'MCCB-900',         height: 900, width: 30 },
+        { name: 'ACB-1200',        height: 1800, width: 30 },
+        { name: 'ACB-1600',        height: 1800, width: 30 },
+        { name: 'ACB-3000',        height: 1800, width: 30 },
+    ]
+}
 
 function initEstimations(){
 
@@ -67,7 +80,7 @@ function initEstimations(){
         measurementDisplay: measurements[1]
 
     },{   
-        name: 'xyz',
+        name: 'xyza',
         ctx: boards[2].getContext("2d"),
         size: canvas_size[2],
         origin: { x: 10, y: 5 },
@@ -76,7 +89,7 @@ function initEstimations(){
             spacing: 10,
         },
         max_columns: 20,
-        measurementDisplay: measurements[1]
+        measurementDisplay: measurements[2]
     }]
 
     const canvases = document.getElementsByClassName('boards');
@@ -284,12 +297,12 @@ const estimations = initEstimations();
 estimate_btn.addEventListener('click', function () {
 
     const quantities = gatherUnitSelections();
-    const units = countUnits(quantities);
-
+ 
     const blockText = document.getElementById('block-text').value.toLowerCase();
 
     for (let i = 0; i < estimations.length; i++) {
         estimations[i].clearCanvas();
+        const units = countUnits(quantities, estimations[i].name);
         const blocks = estimations[i].groupUnits(units);
         const blocksWithRelays = estimations[i].insertRelays(blocks);
         estimations[i].displayMeasurements(blocksWithRelays);
@@ -303,7 +316,7 @@ document.getElementById('random-qty-btn').addEventListener('click', function () 
 
     for (let i = 0; i < selects.length; i++) {
         let value = parseInt(Math.random()*6);
-        if (breakers[i].height == 1800){
+        if (breakers['guthrie'][i].height == 1800){
             value = 0; // dont set tallest units cus they dont help with testing
         }
         selects[i].value = value;
@@ -330,12 +343,12 @@ function gatherUnitSelections(){
     return values;
 }
 
-function countUnits(quantities) {
+function countUnits(quantities, supplierName) {
     var units = []; // Size to be change according to breaker rating
 
     // count the number of each unit
     for (let i = 0; i < quantities.length; i++) {
-        units.push(...Array(quantities[i]).fill(breakers[i]));
+        units.push(...Array(quantities[i]).fill( breakers[supplierName][i] ));
     }
     return units;
 }
