@@ -9,8 +9,8 @@ const canvas_size = [
 ];
 
 const relays = [
-    { name: 'Relay', height: 1800, width: 30 },
-    { name: 'Relay', height: 400, width: 60 }
+    { name: 'Relay', height: 1800,  width: 30 },
+    { name: 'Relay', height: 400,   width: 60 }
 ]
 
 const breakers = {
@@ -289,51 +289,6 @@ class CanvasObject {
     }
 }
 
-/// main program start
-const estimate_btn = document.getElementById('estimate-btn');
-const measurements = document.getElementsByClassName('measurements');
-
-const estimations = initEstimations();
-estimate_btn.addEventListener('click', function () {
-
-    const quantities = gatherUnitSelections();
- 
-    const blockText = document.getElementById('block-text').value.toLowerCase();
-
-    for (let i = 0; i < estimations.length; i++) {
-        estimations[i].clearCanvas();
-        const units = countUnits(quantities, estimations[i].name);
-        const blocks = estimations[i].groupUnits(units);
-        const blocksWithRelays = estimations[i].insertRelays(blocks);
-        estimations[i].displayMeasurements(blocksWithRelays);
-        estimations[i].drawBreakers(blocksWithRelays, blockText)
-    }
-})
-
-
-document.getElementById('random-qty-btn').addEventListener('click', function () {
-    const selects = document.getElementsByClassName('select-position');
-
-    for (let i = 0; i < selects.length; i++) {
-        let value = parseInt(Math.random()*6);
-        if (breakers['guthrie'][i].height == 1800){
-            value = 0; // dont set tallest units cus they dont help with testing
-        }
-        selects[i].value = value;
-    }
-})
-/// main program end lol
-
-document.getElementById('reset-btn').addEventListener('click', function() {
-
-    const listBox = document.getElementsByClassName('select-position');
-    for (let i = 0; i < listBox.length; i++) {  
-        listBox[i].selectedIndex = 0;
-    }
-    estimate_btn.click();
-})
-
-
 function gatherUnitSelections(){
     const selects = document.getElementsByClassName('select-position');
     let values = [];
@@ -357,6 +312,54 @@ function sum(arr, stop=arr.length) {
     arr = arr.slice(0, stop)
     return arr.reduce((a, b) => a + b, 0);
 }
+
+/// main program start
+const estimate_btn = document.getElementById('estimate-btn');
+const measurements = document.getElementsByClassName('measurements');
+
+const estimations = initEstimations();
+estimate_btn.addEventListener('click', function () {
+
+    const quantities = gatherUnitSelections();
+ 
+    const blockText = document.getElementById('block-text').value.toLowerCase();
+
+    for (let i = 0; i < estimations.length; i++) {
+        estimations[i].clearCanvas();
+        const units = countUnits(quantities, estimations[i].name);
+        const blocks = estimations[i].groupUnits(units);
+        const blocksWithRelays = estimations[i].insertRelays(blocks);
+        estimations[i].displayMeasurements(blocksWithRelays);
+        estimations[i].drawBreakers(blocksWithRelays, blockText)
+    }
+})
+/// main program end lol
+
+// button events
+
+document.getElementById('random-qty-btn').addEventListener('click', function () {
+    const selects = document.getElementsByClassName('select-position');
+
+    for (let i = 0; i < selects.length; i++) {
+        let value = parseInt(Math.random()*6);
+        if (breakers['guthrie'][i].height == 1800){
+            value = 0; // dont set tallest units cus they dont help with testing
+        }
+        selects[i].value = value;
+    }
+})
+
+document.getElementById('reset-btn').addEventListener('click', function() {
+
+    const listBox = document.getElementsByClassName('select-position');
+    for (let i = 0; i < listBox.length; i++) {  
+        listBox[i].selectedIndex = 0;
+    }
+    estimate_btn.click();
+})
+
+
+// aesthetic stuff
 
 function MusicSakura_start(){
     Sakura();
