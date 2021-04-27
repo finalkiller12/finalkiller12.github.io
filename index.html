@@ -8,10 +8,14 @@
 </head>
 <style>
 
-body {
+/* body {
 	background-image: url('https://i.postimg.cc/Y2nCnBYF/download.png');
   background-size: fill;
   background-repeat: no-repeat;
+} */
+
+#logo {
+	width: 200px;
 }
 
 .lightbox {
@@ -64,7 +68,10 @@ div.vertical {
 		<div class="horizontal">
 			<div class="vertical">
 				<div class="box">
-					<input style="margin: 16px; text-align: center;" id="password" type="password" placeholder="Enter Password" /> <br />
+					<img src='https://i.postimg.cc/Y2nCnBYF/download.png' id="logo" />
+					<br />
+					<input style="margin: 16px; text-align: center;" id="password" type="password" placeholder="Enter Password" /> 
+					<br />
 					<button id="loginbutton" type="button">Enter</button>
 					<p id="wrongPassword" style="display: none">wrong password</p>
 				</div>
