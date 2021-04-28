@@ -387,15 +387,6 @@ document.getElementById('random-qty-btn').addEventListener('click', function () 
     }
 })
 
-document.getElementById('load-btn').addEventListener('click', function () {
-    const arr = JSON.parse(localStorage['quantities']);
-    const selects = document.getElementsByClassName('select-position');
-
-    for (let i = 0; i < selects.length; i++) {
-        selects[i].value = arr[i];
-    }
-})
-
 document.getElementById('reset-btn').addEventListener('click', function() {
 
     const listBox = document.getElementsByClassName('select-position');
