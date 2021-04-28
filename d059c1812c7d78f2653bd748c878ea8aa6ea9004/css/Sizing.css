@@ -100,13 +100,13 @@ body.modal-open {
 
 #reference_RoomSize {
   width: 350px;
-  position: absolute;
+  position: relative;
   /*margin-left: 80px;*/ 
 }
 
 #reference_2in1 {
   width: 300px;
-  position: absolute;
+  position: relative;
   /* margin-left: 80px;*/
   margin-top: -65px;
 }

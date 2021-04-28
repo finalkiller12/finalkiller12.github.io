@@ -380,6 +380,21 @@ document.getElementById('Intro-btn').addEventListener('click', function() {
     startTour();
 })
 
+document.getElementById('Save-btn').addEventListener('click', function() {
+    const preSetSaveToh = gatherUnitSelections();
+    localStorage['quantities'] = JSON.stringify(preSetSaveToh);
+})  
+
+document.getElementById('Load-btn').addEventListener('click', function(){
+    const preSetLoadToh = JSON.parse(localStorage['quantities']);
+    const selects = document.getElementsByClassName('select-position');
+
+    for (let i = 0; i < selects.length; i++) {
+        selects[i].value = preSetLoadToh[i];
+    }
+    estimate_btn.click();
+})  
+
 // aesthetic stuff
 
 function MusicSakura_start(){
