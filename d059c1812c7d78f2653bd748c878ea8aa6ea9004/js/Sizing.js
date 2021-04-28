@@ -15,8 +15,6 @@ const relays = [
 
 const breakers = {
     guthrie: [
-        { name: 'Bus-Coupler',      height: 1800, width: 80},
-        { name: 'Incoming',         height: 1800, width: 80},
         { name: 'MCCB-100',         height: 200, width: 60 },
         { name: 'MCCB-250',         height: 200, width: 60 },
         { name: 'MCCB-400',         height: 400, width: 60 },
@@ -27,28 +25,24 @@ const breakers = {
         { name: 'ACB-3000',        height: 1800, width: 80 },
     ],
     xyz: [
-        { name: 'Bus-Coupler',      height: 1800, width: 30},
-        { name: 'Incoming',         height: 1800, width: 30},
-        { name: 'MCCB-100',         height: 200, width: 30 },
-        { name: 'MCCB-250',         height: 200, width: 30 },
-        { name: 'MCCB-400',         height: 400, width: 30 },
-        { name: 'MCCB-630',         height: 600, width: 30 },
-        { name: 'MCCB-900',         height: 900, width: 30 },
-        { name: 'ACB-1200',        height: 1800, width: 30 },
-        { name: 'ACB-1600',        height: 1800, width: 30 },
-        { name: 'ACB-3000',        height: 1800, width: 30 },
+        { name: 'MCCB-100',         height: 300, width: 60 },
+        { name: 'MCCB-250',         height: 200, width: 60 },
+        { name: 'MCCB-400',         height: 400, width: 60 },
+        { name: 'MCCB-630',         height: 600, width: 60 },
+        { name: 'MCCB-900',         height: 900, width: 60 },
+        { name: 'ACB-1200',        height:  900, width: 60 },
+        { name: 'ACB-1600',        height: 1800, width: 60 },
+        { name: 'ACB-3000',        height: 1800, width: 60 },
     ],
     xyza: [
-        { name: 'Bus-Coupler',      height: 1800, width: 30},
-        { name: 'Incoming',         height: 1800, width: 30},
-        { name: 'MCCB-100',         height: 200, width: 30 },
-        { name: 'MCCB-250',         height: 200, width: 30 },
-        { name: 'MCCB-400',         height: 400, width: 30 },
-        { name: 'MCCB-630',         height: 600, width: 30 },
-        { name: 'MCCB-900',         height: 900, width: 30 },
-        { name: 'ACB-1200',        height: 1800, width: 30 },
-        { name: 'ACB-1600',        height: 1800, width: 30 },
-        { name: 'ACB-3000',        height: 1800, width: 30 },
+        { name: 'MCCB-100',         height: 300, width: 60 },
+        { name: 'MCCB-250',         height: 200, width: 60 },
+        { name: 'MCCB-400',         height: 400, width: 60 },
+        { name: 'MCCB-630',         height: 600, width: 60 },
+        { name: 'MCCB-900',         height: 900, width: 60 },
+        { name: 'ACB-1200',        height:  900, width: 60 },
+        { name: 'ACB-1600',        height: 1800, width: 60 },
+        { name: 'ACB-3000',        height: 1800, width: 60 },
     ]
 }
 
@@ -74,7 +68,7 @@ function initEstimations(){
         origin: { x: 10, y: 5 },
         column: { 
             limit: 1800,
-            spacing: 10,
+            spacing: 0,
         },
         max_columns: 20,
         measurementDisplay: measurements[1]
@@ -86,7 +80,7 @@ function initEstimations(){
         origin: { x: 10, y: 5 },
         column: { 
             limit: 1800,
-            spacing: 10,
+            spacing: 0,
         },
         max_columns: 20,
         measurementDisplay: measurements[2]
@@ -215,6 +209,29 @@ class CanvasObject {
         return newGroups;
     }
 
+    emptySpace(blocks){
+        for (let i=0; i < blocks.length; i++){
+            if (blocks[i].length > 0){
+                // map returns a list
+                // reduce sums up the list
+                let colSum = blocks[i].map(a => a.height).reduce((a, b) => a + b, 0)
+
+                if(colSum < this.column.limit){
+                    const avaiableSpace = this.column.limit - colSum;
+
+                    const customBlock = {
+                        name: 'Empty',
+                        width: blocks[i][0].width,
+                        height: avaiableSpace
+                    };
+
+                    blocks[i].push(customBlock);
+                }
+            }
+        }
+
+        return blocks;
+    }
     calcDrawingWidth(blocks) {
         let width = 0;
         for (let i = 0; i < blocks.length; i++) {
@@ -329,7 +346,8 @@ estimate_btn.addEventListener('click', function () {
         const units = countUnits(quantities, estimations[i].name);
         const blocks = estimations[i].groupUnits(units);
         const blocksWithRelays = estimations[i].insertRelays(blocks);
-        estimations[i].displayMeasurements(blocksWithRelays);
+        const paddedBlocks = estimations[i].emptySpace(blocksWithRelays);
+        estimations[i].displayMeasurements(paddedBlocks);
         estimations[i].drawBreakers(blocksWithRelays, blockText)
     }
 })
@@ -358,6 +376,9 @@ document.getElementById('reset-btn').addEventListener('click', function() {
     estimate_btn.click();
 })
 
+document.getElementById('Intro-btn').addEventListener('click', function() {
+    startTour();
+})
 
 // aesthetic stuff
 
@@ -376,9 +397,7 @@ function MusicSakura_stop(){
     $('body').sakura('stop')
 }
 
-if (localStorage['intro-done'] == undefined){
-    localStorage['intro-done'] = true;
-
+function startTour(){
     introJs().setOptions({
         showProgress: true,
         steps:[{
@@ -401,13 +420,12 @@ if (localStorage['intro-done'] == undefined){
                 intro: 'Randomly generate breakers and display it',
                 position: 'right'
             },{
-                element: document.querySelector('.Music'),
-                title:'Extra',
-                intro: 'Play some musics if you want, also have some special effects.',
-                position: 'right'
-            },{
                 element: document.querySelector('.boards'),
                 intro: 'Estimations will appear here, same goes for the rest below',
+                position: 'right'
+            },{
+                element: document.querySelector('.measurements-container'),
+                intro: 'Will display <b>Total</b> Length, Width and Height <b>Measurement Displayed </b> Includes Busbar Panel, Panel stand...etc',
                 position: 'right'
             },{
                 element: document.querySelector('.parentimage2'),
@@ -418,16 +436,25 @@ if (localStorage['intro-done'] == undefined){
                 intro: 'Based on SS638, the minimum clearance between switchboard and wall',
                 position: 'left'
             },{
-                element: document.querySelector('.measurements-container'),
-                intro: 'Will display <b>Total</b> Length, Width and Height <b>Measurement Displayed </b> Includes Busbar Panel, Panel stand...etc',
+                element: document.querySelector('.Tour'),
+                title: 'End',
+                intro: 'Click this if you wanna see the user guide again. Thanks',
+                position:'right'
+            },{
+                element: document.querySelector('.Music'),
+                title:'Extra',
+                intro: 'Play some musics if you want, also have some special effects.',
                 position: 'right'
             },{
                 title: 'Important', 
                 intro: '<b>Maximum displaying width is 10000mm</b>. If over the limit, estimation and measurements will be incorrect. Please split them up'
-            },{
-                title: 'End',
-                intro: 'Refresh the page if you wanna see the user guide again. Thanks'
             }]
-        
+
     }).start();
+}
+
+if (localStorage['intro-done'] == undefined){
+    localStorage['intro-done'] = true;
+
+    startTour();
 }
