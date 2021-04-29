@@ -32,12 +32,14 @@ body.modal-open {
 .sidebar-group > div:first-child {
   background-color: white;
   padding-left: 5px;
+  
 }
 
 .sidebar-group-content {
   padding-top: 10px;
   padding-bottom: 10px;
   box-shadow: 1px 1px 2px #aaa;
+  text-align: center;
 }
 
 .selection-wrapper {
@@ -100,13 +102,13 @@ body.modal-open {
 
 #reference_RoomSize {
   width: 350px;
-  position: relative;
+  position: absolute;
   /*margin-left: 80px;*/ 
 }
 
 #reference_2in1 {
   width: 300px;
-  position: relative;
+  position: absolute;
   /* margin-left: 80px;*/
   margin-top: -65px;
 }

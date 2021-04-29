@@ -433,6 +433,11 @@ function startTour(){
                 intro: 'Based on SS638, the minimum clearance between switchboard and wall',
                 position: 'left'
             },{
+                element: document.querySelector('.Save'),
+                title: 'Note',
+                intro: 'Can save 1 x preset combination and load even after reloading page, without needing to select it 1 by 1. Saving another preset will delete the previous 1.',
+                position:'right'
+            },{
                 element: document.querySelector('.Tour'),
                 title: 'End',
                 intro: 'Click this if you wanna see the user guide again. Thanks',
