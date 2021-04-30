@@ -459,18 +459,16 @@ function startTour(){
                 intro: 'Can save 1 x preset combination and load even after reloading page, without needing to select it 1 by 1. Saving another preset will delete the previous 1.',
                 position:'right'
             },{
-                element: document.querySelector('.Tour'),
-                title: 'End',
-                intro: 'Click this if you wanna see the user guide again. Thanks',
-                position:'right'
+                title: 'Important',
+                intro: 'Click on `Take a Tour` if you wanna see the guide again. Thanks',
+            },{
+                title: 'Important', 
+                intro: '<b>Maximum displaying width is 10000mm</b>. If over the limit, estimation and measurements will be incorrect. Please split them up'        
             },{
                 element: document.querySelector('.Music'),
                 title:'Extra',
                 intro: 'Play some musics if you want, also have some special effects.',
                 position: 'right'
-            },{
-                title: 'Important', 
-                intro: '<b>Maximum displaying width is 10000mm</b>. If over the limit, estimation and measurements will be incorrect. Please split them up'
             }]
 
     }).start();
