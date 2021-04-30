@@ -2,9 +2,9 @@
 // change these numbers when you want to resize
 // also remember to change .canvas-container's dimensions too
 const canvas_size = [
-    { width: 1000, height: 300 },
-    { width: 1000, height: 300 },
-    { width: 1000, height: 300 },
+    { width: 2000, height: 280 },
+    { width: 2000, height: 280 },
+    { width: 2000, height: 280 },
 
 ];
 
@@ -274,7 +274,7 @@ class CanvasObject {
     
                 for (let j = 0; j < blocks[col].length; j++) { // iterate each unit within the column
 
-                    if (this.calcDrawingWidth(blocks) < 9700){
+                    /*if (this.calcDrawingWidth(blocks) < 9700){*/
                     const block_height = blocks[col][j].height / scaling_factor - vertical_spacing;
     
                     // draw the unit  
@@ -297,11 +297,11 @@ class CanvasObject {
                     ctx.fillText(textToUse, currentPos.x + (blocks[col][j].width / 2), currentPos.y + (block_height / 2));
                     
                     currentPos.y += block_height + vertical_spacing; // start the next drawing lower down
-                    }
-                    else{
+                
+                    /*else{
                         alert("Excceed 10000mm wdith. Not all Breakers will be shown. Measurement will be incorrect. Please reduce the Quantity of breakers");
                         return false;
-                    }
+                    }*/
                 
                 }
             }

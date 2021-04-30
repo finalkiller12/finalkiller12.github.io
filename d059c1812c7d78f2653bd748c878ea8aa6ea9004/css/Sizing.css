@@ -55,6 +55,7 @@ body.modal-open {
   position: relative;
   width: 1000px;
   height: 300px;
+  overflow-x: scroll;
 }
 
 .canvas-container > canvas:first-child {
