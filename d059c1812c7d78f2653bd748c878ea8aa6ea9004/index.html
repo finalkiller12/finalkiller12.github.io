@@ -8,7 +8,9 @@
   <title>Document</title>
   <!-- CSS only -->
   <link href="css/simple-hint.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="css/Sizing.css">
   <link rel="stylesheet" href="css/Sakura.css">
   <link rel="stylesheet" href="css/Intro.css">
@@ -20,22 +22,42 @@
     <a href="#"></a>
   </header>
 
-  <div class='navbar' data-intro="Hello World">
-    <span class='navbar-content'>SwitchBoard Sizing Estimation</span>
-  </div>
+ <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">SwitchBoard Estimation</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="Tour" id = 'Intro-btn'><a href="#">Start Tour</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Select Quantity<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <div class="Option-Drawing">
+            <div id='options-drawing'>
+              <select id="block-text">
+                <option>BreakerRating</option>
+                <option>Height</option>
+                <option>Width</option>
+              </select>
+            </div>
+          </div>
+        </li>
+
+        <li><a href="#">Page 3</a></li>
+      
+    </div>
+  </nav>
+
   <div class='sidebar'>
 
     <div class='sidebar-group'>
-      <div class='Tour'>
-        <div><b>Take a Tour</b></div>
-        <div class='sidebar-group-content'>
-          <input type="button" value='Start Intro' class='btn btn-secondary' id='Intro-btn'>
-        </div>
-      </div>
-    </div>
-
-    <div class='sidebar-group'>
-      <div><b>Select Quantity</b><span data-hint="Insert Breaker Rating based on your SLD" class="hint"> <u><b>(Hint)</b></u></span></div>
+      <div><b>Select Quantity</b><!--<span data-hint="Insert Breaker Rating based on your SLD" class="hint"> <u><b>(Hint)</b></u></span>--></div>
       <div id='select-quantity' class='sidebar-group-content'>
         <div class='selection-wrapper'>
           <label for="mmcb-100">100 MCCB</label>
@@ -168,20 +190,7 @@
       </div>
     </div>
 
-    <div class='sidebar-group'>
-      <div class="Option-Drawing">
-        <div><b>Drawing Options</b><span data-hint="Either display rating, height or width of Breaker" class="hint"> <u><b>(Hint)</b></u></span></div>
-        <div id="user-controls" class='sidebar-group-content'>
-          <div id='options-drawing'>
-            <select id="block-text">
-              <option>BreakerRating</option>
-              <option>Height</option>
-              <option>Width</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
+
 
     <div class='sidebar-group'>
       <div class='Calculation'>
@@ -231,7 +240,7 @@
       <div class='estimation-container'>
 
         <div class='estimation-header'>
-          <div class='estimation-text'>GUTHRIE Estimation (<b>Cable End Termination </b>)</div>
+          <div class='estimation-text'>GUTHRIE Estimation <b>Cable End Termination (Form 3B)</b></div>
         </div>
         <div class="measurements-container">
           <span class="measurements">Drawing Measurements: </span>
@@ -276,7 +285,6 @@
 
 
 <script src="js/intro.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 
 <script src="js/Sakura.js"></script>
 <script src="js/Music.js"></script>  

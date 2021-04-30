@@ -15,8 +15,9 @@ const relays = [
 
 const breakers = {
     guthrie: [
-        { name: 'MCCB-100',         height: 200, width: 60 },
-        { name: 'MCCB-250',         height: 200, width: 60 },
+    
+        { name: 'MCCB-100',         height: 400, width: 60 },
+        { name: 'MCCB-250',         height: 400, width: 60 },
         { name: 'MCCB-400',         height: 400, width: 60 },
         { name: 'MCCB-630',         height: 600, width: 60 },
         { name: 'MCCB-900',         height: 900, width: 60 },

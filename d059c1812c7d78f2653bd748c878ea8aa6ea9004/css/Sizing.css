@@ -7,15 +7,9 @@ body.modal-open {
   overflow: hidden;
 }
 
-.navbar {
-  background-color: rgb(36, 41, 46);
-  color: #fff;
-  padding-left: .5rem;
-}
-
-.navbar-content {
-  font-size: 30px;
-  padding-left: 12px;
+.Option-Drawing {
+  background-color: rgb(31, 30, 30);
+  padding-top: 15px;
 }
 
 .sidebar {
