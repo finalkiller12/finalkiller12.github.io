@@ -179,7 +179,7 @@ class CanvasObject {
     insertRelays(groups){
         let newGroups = groups.filter(x => x.length != 0);
         let singleBlockCols = newGroups.filter(x => x.length == 1 && sum(x.map(y => y.height)) == this.column.limit);
-        let multiBlockCols = newGroups.filter(x => x.length >= 1);
+        let multiBlockCols = newGroups.filter(x => x.length > 1);
 
         let justInserted = false;
         for (let i = 0; i < multiBlockCols.length; i++){
@@ -242,6 +242,8 @@ class CanvasObject {
 
         for (let i = 0; i < blocks.length; i++) {
             if (blocks[i].length > 0) { // column not empty
+                
+
                     if(blocks[i][0].width != 81) {
                         width += blocks[i][0].width + this.column.spacing*2; // column's first unit's width + spacing
                         // this will count extra spacing for last column
@@ -252,6 +254,7 @@ class CanvasObject {
                     widthTotal = width_81 + width;
             }
         }
+        
         return (widthTotal*10)
     }
 
