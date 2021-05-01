@@ -27,9 +27,9 @@ const breakers = {
         { name: 'ACB-2000',        height: 1800, width: 80 },
         { name: 'ACB-2500',        height: 1800, width: 80 },
         { name: 'ACB-3200',        height: 1800, width: 80 },
-        { name: 'ACB-4000',        height: 1800, width: 120 },
-        { name: 'ACB-5000',        height: 1800, width: 120 },
-        { name: 'ACB-6300',        height: 1800, width: 120 },
+        { name: 'ACB-4000',        height: 1800, width: 81 }, //Reduce width from 120 --> 81
+        { name: 'ACB-5000',        height: 1800, width: 81 }, //As it take up to much space and looks weird when drawn tgt
+        { name: 'ACB-6300',        height: 1800, width: 81 }, //Display of text and measurement for 'wdith' will +39 to calculation to get 120
     ],
     xyz: [
         { name: 'MCCB-100',         height: 400, width: 60 },
@@ -44,9 +44,9 @@ const breakers = {
         { name: 'ACB-2000',        height: 1800, width: 80 },
         { name: 'ACB-2500',        height: 1800, width: 80 },
         { name: 'ACB-3200',        height: 1800, width: 80 },
-        { name: 'ACB-4000',        height: 1800, width: 120 },
-        { name: 'ACB-5000',        height: 1800, width: 120 },
-        { name: 'ACB-6300',        height: 1800, width: 120 },
+        { name: 'ACB-4000',        height: 1800, width: 81 },
+        { name: 'ACB-5000',        height: 1800, width: 81 },
+        { name: 'ACB-6300',        height: 1800, width: 81 },
     ],
     xyza: [
         { name: 'MCCB-100',         height: 400, width: 60 },
@@ -61,9 +61,9 @@ const breakers = {
         { name: 'ACB-2000',        height: 1800, width: 80 },
         { name: 'ACB-2500',        height: 1800, width: 80 },
         { name: 'ACB-3200',        height: 1800, width: 80 },
-        { name: 'ACB-4000',        height: 1800, width: 120 },
-        { name: 'ACB-5000',        height: 1800, width: 120 },
-        { name: 'ACB-6300',        height: 1800, width: 120 },
+        { name: 'ACB-4000',        height: 1800, width: 81 },
+        { name: 'ACB-5000',        height: 1800, width: 81 },
+        { name: 'ACB-6300',        height: 1800, width: 81 },
     ]
 }
 
@@ -277,6 +277,7 @@ class CanvasObject {
                     /*if (this.calcDrawingWidth(blocks) < 9700){*/
                     const block_height = blocks[col][j].height / scaling_factor - vertical_spacing;
                     
+                    
                     // draw the unit  
                     ctx.fillStyle = "rgba(255,0,0,0.5)";
                     ctx.fillRect(currentPos.x - (thickness), currentPos.y - (thickness), blocks[col][j].width + (thickness*2), block_height + (thickness*2));
@@ -285,10 +286,18 @@ class CanvasObject {
                     let textToUse = '';
                     if (blockText == 'breakerrating') {
                         textToUse = String(blocks[col][j].name);
-                    } else if (blockText == 'width') {
-                        textToUse = String(blocks[col][j].width)*10;
-                       } else if (blockText == 'height') {
-                          textToUse = String(blocks[col][j].height);
+                    } 
+                    else if (blockText == 'width') {                               //Reduce width from 120 --> 81
+                        if(blocks[col][j].width == 81){                            //As it take up to much space and looks weird when drawn tgt
+                            textToUse = String((blocks[col][j].width)+39)*10;      //Display of text and measurement for 'wdith' will +39 to calculation to get 120
+                        }
+                        else{
+                            textToUse = String(blocks[col][j].width)*10;
+                        }
+                        
+                    }       
+                    else if (blockText == 'height') {
+                        textToUse = String(blocks[col][j].height);
                     }
                     ctx.fillStyle = "black";
                     ctx.textAlign = "center";
@@ -361,7 +370,7 @@ estimate_btn.addEventListener('click', function () {
 document.getElementById('random-qty-btn').addEventListener('click', function () {
     const selects = document.getElementsByClassName('select-position');
 
-    for (let i = 0; i < 15; i++) { //15 because there is 15 outgoing breakers, if not a error occur, but not affect anything
+    for (let i = 0; i < 16; i++) { //15 because there is 15 outgoing breakers, if not a error occur, but not affect anything
         let value = parseInt(Math.random()*6);
         if (breakers['guthrie'][i].height == 1800){
             value = 0; // dont set tallest units cus they dont help with testing
