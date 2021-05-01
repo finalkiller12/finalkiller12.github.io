@@ -276,11 +276,11 @@ class CanvasObject {
 
                     /*if (this.calcDrawingWidth(blocks) < 9700){*/
                     const block_height = blocks[col][j].height / scaling_factor - vertical_spacing;
-    
+                    
                     // draw the unit  
                     ctx.fillStyle = "rgba(255,0,0,0.5)";
                     ctx.fillRect(currentPos.x - (thickness), currentPos.y - (thickness), blocks[col][j].width + (thickness*2), block_height + (thickness*2));
-    
+                    
                     // write centered text
                     let textToUse = '';
                     if (blockText == 'breakerrating') {
@@ -361,7 +361,7 @@ estimate_btn.addEventListener('click', function () {
 document.getElementById('random-qty-btn').addEventListener('click', function () {
     const selects = document.getElementsByClassName('select-position');
 
-    for (let i = 0; i < selects.length; i++) {
+    for (let i = 0; i < 15; i++) { //15 because there is 15 outgoing breakers, if not a error occur, but not affect anything
         let value = parseInt(Math.random()*6);
         if (breakers['guthrie'][i].height == 1800){
             value = 0; // dont set tallest units cus they dont help with testing
@@ -460,10 +460,7 @@ function startTour(){
                 position:'right'
             },{
                 title: 'Important',
-                intro: 'Click on `Take a Tour` if you wanna see the guide again. Thanks',
-            },{
-                title: 'Important', 
-                intro: '<b>Maximum displaying width is 10000mm</b>. If over the limit, estimation and measurements will be incorrect. Please split them up'        
+                intro: 'Click on `Take a Tour` if you wanna see the guide again. Thanks',    
             },{
                 element: document.querySelector('.Music'),
                 title:'Extra',
