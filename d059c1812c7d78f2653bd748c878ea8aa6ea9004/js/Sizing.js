@@ -237,14 +237,22 @@ class CanvasObject {
     }
     calcDrawingWidth(blocks) {
         let width = 0;
+        let width_81 = 0;
+        let widthTotal = 0;
+
         for (let i = 0; i < blocks.length; i++) {
             if (blocks[i].length > 0) { // column not empty
-                width += blocks[i][0].width + this.column.spacing*2; // column's first unit's width + spacing
-                // this will count extra spacing for last column
+                    if(blocks[i][0].width != 81) {
+                        width += blocks[i][0].width + this.column.spacing*2; // column's first unit's width + spacing
+                        // this will count extra spacing for last column
+                    }
+                    else{
+                        width_81 += blocks[i][0].width + 39;
+                    }
+                    widthTotal = width_81 + width;
             }
         }
-        
-        return (width*10)
+        return (widthTotal*10)
     }
 
     displayMeasurements(blocks){
@@ -370,7 +378,7 @@ estimate_btn.addEventListener('click', function () {
 document.getElementById('random-qty-btn').addEventListener('click', function () {
     const selects = document.getElementsByClassName('select-position');
 
-    for (let i = 0; i < 16; i++) { //15 because there is 15 outgoing breakers, if not a error occur, but not affect anything
+    for (let i = 0; i < 15; i++) { //15 because there is 15 outgoing breakers, if not a error occur, but not affect anything
         let value = parseInt(Math.random()*6);
         if (breakers['guthrie'][i].height == 1800){
             value = 0; // dont set tallest units cus they dont help with testing
