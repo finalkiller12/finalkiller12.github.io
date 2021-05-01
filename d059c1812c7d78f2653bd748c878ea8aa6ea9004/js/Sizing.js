@@ -179,7 +179,7 @@ class CanvasObject {
     insertRelays(groups){
         let newGroups = groups.filter(x => x.length != 0);
         let singleBlockCols = newGroups.filter(x => x.length == 1 && sum(x.map(y => y.height)) == this.column.limit);
-        let multiBlockCols = newGroups.filter(x => x.length > 1);
+        let multiBlockCols = newGroups.filter(x => x.length > 1 || sum(x.map(y => y.height))!= this.column.limit);
 
         let justInserted = false;
         for (let i = 0; i < multiBlockCols.length; i++){
