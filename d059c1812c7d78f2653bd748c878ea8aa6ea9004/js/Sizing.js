@@ -64,6 +64,16 @@ const breakers = {
         { name: 'ACB-4000',        height: 1800, width: 81 },
         { name: 'ACB-5000',        height: 1800, width: 81 },
         { name: 'ACB-6300',        height: 1800, width: 81 },
+    ],
+    incoming: [
+        { name: '1250 ACB', display: 'Incoming\n1250 ACB',      height: 1800, width: 70 },
+        { name: '1600 ACB', display: 'Incoming\n1600 ACB',      height: 1800, width: 70 },
+        { name: '2000 ACB', display: 'Incoming\n2000 ACB',      height: 1800, width: 80 },
+        { name: '2500 ACB', display: 'Incoming\n2500 ACB',      height: 1800, width: 80 },
+        { name: '3200 ACB', display: 'Incoming\n3200 ACB',      height: 1800, width: 80 },
+        { name: '4000 ACB', display: 'Incoming\n4000 ACB',      height: 1800, width: 81 },
+        { name: '5000 ACB', display: 'Incoming\n5000 ACB',      height: 1800, width: 81 },
+        { name: '6300 ACB', display: 'Incoming\n6300 ACB',      height: 1800, width: 81 },
     ]
 }
 
@@ -235,6 +245,55 @@ class CanvasObject {
 
         return blocks;
     }
+
+    insertIncoming(blocks, incoming){
+        /*
+        if only 1 incoming selected
+        
+            single and multi    > place in between them
+            only multi          > place where no relays will be adjacent
+            only 1 block        > place on right
+
+        if 2 incoming (normally same size) selected
+
+            a busbar (coupler) of the same size need to be inserted in the middle of both incoming
+        */
+
+        let content;
+
+        if (incoming.length == 1){ // second selection is empty
+            content = [ [incoming[0]] ];
+        }
+        else {
+            let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
+            content = [ [incoming[0]], [busbar], [incoming[1]] ];
+        }
+
+        const singleBlockCols = blocks.filter(x => x.length == 1 && sum(x.map(y => y.height)) == this.column.limit && x[0].name != 'Relay');
+        const multiBlockCols = blocks.filter(x => x.length > 1 || sum(x.map(y => y.height))!= this.column.limit || x[0].name == 'Relay');
+
+        if (blocks.length == 1){
+            blocks = blocks.concat(content);
+        } else if (singleBlockCols.length == 0){
+            let index;
+            for (let i = 1; i < blocks.length; i++){
+                if (blocks[i-1][0].name != 'Relay' && blocks[i][0].name != 'Relay'){
+                    // note: doesnt check for small relay
+                    index = i;
+                    break;
+                }
+            }
+            console.log(`inserting at index: ${index}`);
+            if (index != undefined){
+                blocks.splice(index, 0, ...content)
+            }
+        } else {
+            blocks = singleBlockCols.concat(content, multiBlockCols);
+        }
+
+        return blocks;
+    }
+
     calcDrawingWidth(blocks) {
         let width = 0;
         let width_81 = 0;
@@ -296,14 +355,18 @@ class CanvasObject {
                     // write centered text
                     let textToUse = '';
                     if (blockText == 'breakerrating') {
-                        textToUse = String(blocks[col][j].name);
+                        if (blocks[col][j].display == undefined){
+                            textToUse = blocks[col][j].name;
+                        } else {
+                            textToUse = blocks[col][j].display;
+                        }
                     } 
                     else if (blockText == 'width') {                               //Reduce width from 120 --> 81
                         if(blocks[col][j].width == 81){                            //As it take up to much space and looks weird when drawn tgt
-                            textToUse = String((blocks[col][j].width)+39)*10;      //Display of text and measurement for 'wdith' will +39 to calculation to get 120
+                            textToUse = String( ((blocks[col][j].width)+39)*10 );      //Display of text and measurement for 'wdith' will +39 to calculation to get 120
                         }
                         else{
-                            textToUse = String(blocks[col][j].width)*10;
+                            textToUse = String( blocks[col][j].width*10 );
                         }
                         
                     }       
@@ -314,7 +377,8 @@ class CanvasObject {
                     ctx.textAlign = "center";
                     ctx.textBaseline = "middle";
                     ctx.font = "10px Arial";
-                    ctx.fillText(textToUse, currentPos.x + (blocks[col][j].width / 2), currentPos.y + (block_height / 2));
+                    // ctx.fillText(textToUse, currentPos.x + (blocks[col][j].width / 2), currentPos.y + (block_height / 2));
+                    fillTextMultiLine(ctx, textToUse, currentPos.x + (blocks[col][j].width / 2), currentPos.y + (block_height / 2));
                     
                     currentPos.y += block_height + vertical_spacing; // start the next drawing lower down
                 
@@ -327,6 +391,25 @@ class CanvasObject {
             }
         }
     }
+}
+
+// https://stackoverflow.com/questions/5026961/html5-canvas-ctx-filltext-wont-do-line-breaks
+function fillTextMultiLine(ctx, text, x, y) {
+    var lineHeight = ctx.measureText("M").width * 1.4;
+    var lines = text.split("\n");
+    for (var i = 0; i < lines.length; ++i) {
+      ctx.fillText(lines[i], x, y);
+      y += lineHeight;
+    }
+  }
+
+function gatherUnitIncoming(){
+    const selects = document.getElementsByClassName('incoming-position');
+    let values = [];
+    for (let i = 0; i < selects.length; i++) {
+        values.push(selects[i].value);
+    }
+    return values;
 }
 
 function gatherUnitSelections(){
@@ -361,17 +444,30 @@ const estimations = initEstimations();
 estimate_btn.addEventListener('click', function () {
 
     const quantities = gatherUnitSelections();
+    const incoming = gatherUnitIncoming();
+    const incomingUnits = incoming.map(unit => {
+        return breakers.incoming.filter(obj => {return obj.name == unit})[0];
+    }).filter(unit => { return unit != undefined});
  
     const blockText = document.getElementById('block-text').value.toLowerCase();
 
     for (let i = 0; i < estimations.length; i++) {
         estimations[i].clearCanvas();
+
         const units = countUnits(quantities, estimations[i].name);
         const blocks = estimations[i].groupUnits(units);
         const blocksWithRelays = estimations[i].insertRelays(blocks);
         const paddedBlocks = estimations[i].emptySpace(blocksWithRelays);
-        estimations[i].displayMeasurements(paddedBlocks);
-        estimations[i].drawBreakers(blocksWithRelays, blockText)
+
+        let finalBlocks;
+        if (incomingUnits.length > 0){
+            finalBlocks = estimations[i].insertIncoming(paddedBlocks, incomingUnits);
+        } else {
+            finalBlocks = paddedBlocks;
+        }
+
+        estimations[i].displayMeasurements(finalBlocks);
+        estimations[i].drawBreakers(finalBlocks, blockText);
     }
 })
 /// main program end lol
@@ -391,11 +487,16 @@ document.getElementById('random-qty-btn').addEventListener('click', function () 
 })
 
 document.getElementById('reset-btn').addEventListener('click', function() {
+    const outgoingSelects = document.getElementsByClassName('select-position');
+    const incomingSelects = document.getElementsByClassName('incoming-position');
 
-    const listBox = document.getElementsByClassName('select-position');
-    for (let i = 0; i < listBox.length; i++) {  
-        listBox[i].selectedIndex = 0;
+    for (let i = 0; i < outgoingSelects.length; i++) {  
+        outgoingSelects[i].selectedIndex = 0;
     }
+    for (let i = 0; i < incomingSelects.length; i++) {  
+        incomingSelects[i].selectedIndex = 0;
+    } 
+
     estimate_btn.click();
 })
 
@@ -404,17 +505,26 @@ document.getElementById('Intro-btn').addEventListener('click', function() {
 })
 
 document.getElementById('Save-btn').addEventListener('click', function() {
-    const preSetSaveToh = gatherUnitSelections();
-    localStorage['quantities'] = JSON.stringify(preSetSaveToh);
+    const data = {
+        outgoing: gatherUnitSelections(),
+        incoming: gatherUnitIncoming()
+    }
+    localStorage['quantities'] = JSON.stringify(data);
+    
 })  
 
 document.getElementById('Load-btn').addEventListener('click', function(){
-    const preSetLoadToh = JSON.parse(localStorage['quantities']);
-    const selects = document.getElementsByClassName('select-position');
+    const data = JSON.parse(localStorage['quantities']);
+    const outgoingSelects = document.getElementsByClassName('select-position');
+    const incomingSelects = document.getElementsByClassName('incoming-position');
 
-    for (let i = 0; i < selects.length; i++) {
-        selects[i].value = preSetLoadToh[i];
+    for (let i = 0; i < outgoingSelects.length; i++) {
+        outgoingSelects[i].value = data.outgoing[i];
     }
+    for (let i = 0; i < incomingSelects.length; i++) {
+        incomingSelects[i].value = data.incoming[i];
+    }
+
     estimate_btn.click();
 })  
 
