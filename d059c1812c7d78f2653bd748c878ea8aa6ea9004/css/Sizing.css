@@ -51,6 +51,10 @@ body.modal-open {
   margin-left: 12px;
 }
 
+.content-wrapper > div:first-child{
+  position: absolute;
+}
+
 .canvas-container {
   position: relative;
   width: 1000px;
