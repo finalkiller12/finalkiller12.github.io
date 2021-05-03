@@ -7,11 +7,6 @@ body.modal-open {
   overflow: hidden;
 }
 
-.Option-Drawing {
-  background-color: rgb(31, 30, 30);
-  padding-top: 15px;
-}
-
 .sidebar {
   width: 180px;
   height: 100vh;
@@ -19,7 +14,6 @@ body.modal-open {
 }
 
 .sidebar-group {
-  margin-top: 20px;
   background-color: #eee;
 }
 
@@ -34,6 +28,7 @@ body.modal-open {
   padding-bottom: 10px;
   box-shadow: 1px 1px 2px #aaa;
   text-align: center;
+  background-color: #eee;
 }
 
 .selection-wrapper {
@@ -56,10 +51,15 @@ body.modal-open {
   margin-left: 12px;
 }
 
+.content-wrapper > div:first-child{
+  position: absolute;
+}
+
 .canvas-container {
   position: relative;
   width: 1000px;
   height: 300px;
+  overflow-x: scroll;
 }
 
 .canvas-container > canvas:first-child {

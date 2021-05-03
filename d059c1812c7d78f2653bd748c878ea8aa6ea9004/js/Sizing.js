@@ -2,9 +2,9 @@
 // change these numbers when you want to resize
 // also remember to change .canvas-container's dimensions too
 const canvas_size = [
-    { width: 1000, height: 300 },
-    { width: 1000, height: 300 },
-    { width: 1000, height: 300 },
+    { width: 2000, height: 280 },
+    { width: 2000, height: 280 },
+    { width: 2000, height: 280 },
 
 ];
 
@@ -15,35 +15,65 @@ const relays = [
 
 const breakers = {
     guthrie: [
-    
         { name: 'MCCB-100',         height: 400, width: 60 },
+        { name: 'MCCB-160',         height: 400, width: 60 },
         { name: 'MCCB-250',         height: 400, width: 60 },
         { name: 'MCCB-400',         height: 400, width: 60 },
         { name: 'MCCB-630',         height: 600, width: 60 },
-        { name: 'MCCB-900',         height: 900, width: 60 },
-        { name: 'ACB-1200',        height: 1800, width: 60 },
-        { name: 'ACB-1600',        height: 1800, width: 60 },
-        { name: 'ACB-3000',        height: 1800, width: 80 },
+        { name: 'MCCB-800',         height: 600, width: 60 },
+        { name: 'MCCB-1000',        height: 600, width: 60 },
+        { name: 'ACB-1250',        height: 1800, width: 70 },
+        { name: 'ACB-1600',        height: 1800, width: 70 },
+        { name: 'ACB-2000',        height: 1800, width: 80 },
+        { name: 'ACB-2500',        height: 1800, width: 80 },
+        { name: 'ACB-3200',        height: 1800, width: 80 },
+        { name: 'ACB-4000',        height: 1800, width: 81 }, //Reduce width from 120 --> 81
+        { name: 'ACB-5000',        height: 1800, width: 81 }, //As it take up to much space and looks weird when drawn tgt
+        { name: 'ACB-6300',        height: 1800, width: 81 }, //Display of text and measurement for 'wdith' will +39 to calculation to get 120
     ],
     xyz: [
-        { name: 'MCCB-100',         height: 300, width: 60 },
-        { name: 'MCCB-250',         height: 200, width: 60 },
+        { name: 'MCCB-100',         height: 400, width: 60 },
+        { name: 'MCCB-160',         height: 400, width: 60 },
+        { name: 'MCCB-250',         height: 400, width: 60 },
         { name: 'MCCB-400',         height: 400, width: 60 },
         { name: 'MCCB-630',         height: 600, width: 60 },
-        { name: 'MCCB-900',         height: 900, width: 60 },
-        { name: 'ACB-1200',        height:  900, width: 60 },
-        { name: 'ACB-1600',        height: 1800, width: 60 },
-        { name: 'ACB-3000',        height: 1800, width: 60 },
+        { name: 'MCCB-800',         height: 600, width: 60 },
+        { name: 'MCCB-1000',        height: 600, width: 60 },
+        { name: 'ACB-1250',        height: 1800, width: 70 },
+        { name: 'ACB-1600',        height: 1800, width: 70 },
+        { name: 'ACB-2000',        height: 1800, width: 80 },
+        { name: 'ACB-2500',        height: 1800, width: 80 },
+        { name: 'ACB-3200',        height: 1800, width: 80 },
+        { name: 'ACB-4000',        height: 1800, width: 81 },
+        { name: 'ACB-5000',        height: 1800, width: 81 },
+        { name: 'ACB-6300',        height: 1800, width: 81 },
     ],
     xyza: [
-        { name: 'MCCB-100',         height: 300, width: 60 },
-        { name: 'MCCB-250',         height: 200, width: 60 },
+        { name: 'MCCB-100',         height: 400, width: 60 },
+        { name: 'MCCB-160',         height: 400, width: 60 },
+        { name: 'MCCB-250',         height: 400, width: 60 },
         { name: 'MCCB-400',         height: 400, width: 60 },
         { name: 'MCCB-630',         height: 600, width: 60 },
-        { name: 'MCCB-900',         height: 900, width: 60 },
-        { name: 'ACB-1200',        height:  900, width: 60 },
-        { name: 'ACB-1600',        height: 1800, width: 60 },
-        { name: 'ACB-3000',        height: 1800, width: 60 },
+        { name: 'MCCB-800',         height: 600, width: 60 },
+        { name: 'MCCB-1000',        height: 600, width: 60 },
+        { name: 'ACB-1250',        height: 1800, width: 70 },
+        { name: 'ACB-1600',        height: 1800, width: 70 },
+        { name: 'ACB-2000',        height: 1800, width: 80 },
+        { name: 'ACB-2500',        height: 1800, width: 80 },
+        { name: 'ACB-3200',        height: 1800, width: 80 },
+        { name: 'ACB-4000',        height: 1800, width: 81 },
+        { name: 'ACB-5000',        height: 1800, width: 81 },
+        { name: 'ACB-6300',        height: 1800, width: 81 },
+    ],
+    incoming: [
+        { name: '1250 ACB', display: 'Incoming\n1250 ACB',      height: 1800, width: 70 },
+        { name: '1600 ACB', display: 'Incoming\n1600 ACB',      height: 1800, width: 70 },
+        { name: '2000 ACB', display: 'Incoming\n2000 ACB',      height: 1800, width: 80 },
+        { name: '2500 ACB', display: 'Incoming\n2500 ACB',      height: 1800, width: 80 },
+        { name: '3200 ACB', display: 'Incoming\n3200 ACB',      height: 1800, width: 80 },
+        { name: '4000 ACB', display: 'Incoming\n4000 ACB',      height: 1800, width: 81 },
+        { name: '5000 ACB', display: 'Incoming\n5000 ACB',      height: 1800, width: 81 },
+        { name: '6300 ACB', display: 'Incoming\n6300 ACB',      height: 1800, width: 81 },
     ]
 }
 
@@ -159,7 +189,7 @@ class CanvasObject {
     insertRelays(groups){
         let newGroups = groups.filter(x => x.length != 0);
         let singleBlockCols = newGroups.filter(x => x.length == 1 && sum(x.map(y => y.height)) == this.column.limit);
-        let multiBlockCols = newGroups.filter(x => x.length > 1);
+        let multiBlockCols = newGroups.filter(x => x.length > 1 || sum(x.map(y => y.height))!= this.column.limit);
 
         let justInserted = false;
         for (let i = 0; i < multiBlockCols.length; i++){
@@ -215,16 +245,76 @@ class CanvasObject {
 
         return blocks;
     }
+
+    insertIncoming(blocks, incoming){
+        /*
+        if only 1 incoming selected
+        
+            single and multi    > place in between them
+            only multi          > place where no relays will be adjacent
+            only 1 block        > place on right
+
+        if 2 incoming (normally same size) selected
+
+            a busbar (coupler) of the same size need to be inserted in the middle of both incoming
+        */
+
+        let content;
+
+        if (incoming.length == 1){ // second selection is empty
+            content = [ [incoming[0]] ];
+        }
+        else {
+            let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
+            content = [ [incoming[0]], [busbar], [incoming[1]] ];
+        }
+
+        const singleBlockCols = blocks.filter(x => x.length == 1 && sum(x.map(y => y.height)) == this.column.limit && x[0].name != 'Relay');
+        const multiBlockCols = blocks.filter(x => x.length > 1 || sum(x.map(y => y.height))!= this.column.limit || x[0].name == 'Relay');
+
+        if (blocks.length == 1){
+            blocks = blocks.concat(content);
+        } else if (singleBlockCols.length == 0){
+            let index;
+            for (let i = 1; i < blocks.length; i++){
+                if (blocks[i-1][0].name != 'Relay' && blocks[i][0].name != 'Relay'){
+                    // note: doesnt check for small relay
+                    index = i;
+                    break;
+                }
+            }
+            console.log(`inserting at index: ${index}`);
+            if (index != undefined){
+                blocks.splice(index, 0, ...content)
+            }
+        } else {
+            blocks = singleBlockCols.concat(content, multiBlockCols);
+        }
+
+        return blocks;
+    }
+
     calcDrawingWidth(blocks) {
         let width = 0;
+        let width_81 = 0;
+        let widthTotal = 0;
+
         for (let i = 0; i < blocks.length; i++) {
             if (blocks[i].length > 0) { // column not empty
-                width += blocks[i][0].width + this.column.spacing*2; // column's first unit's width + spacing
-                // this will count extra spacing for last column
+                
+
+                    if(blocks[i][0].width != 81) {
+                        width += blocks[i][0].width + this.column.spacing*2; // column's first unit's width + spacing
+                        // this will count extra spacing for last column
+                    }
+                    else{
+                        width_81 += blocks[i][0].width + 39;
+                    }
+                    widthTotal = width_81 + width;
             }
         }
         
-        return (width*10)
+        return (widthTotal*10)
     }
 
     displayMeasurements(blocks){
@@ -254,39 +344,72 @@ class CanvasObject {
     
                 for (let j = 0; j < blocks[col].length; j++) { // iterate each unit within the column
 
-                    if (this.calcDrawingWidth(blocks) < 9700){
+                    /*if (this.calcDrawingWidth(blocks) < 9700){*/
                     const block_height = blocks[col][j].height / scaling_factor - vertical_spacing;
-    
+                    
+                    
                     // draw the unit  
                     ctx.fillStyle = "rgba(255,0,0,0.5)";
                     ctx.fillRect(currentPos.x - (thickness), currentPos.y - (thickness), blocks[col][j].width + (thickness*2), block_height + (thickness*2));
-    
+                    
                     // write centered text
                     let textToUse = '';
                     if (blockText == 'breakerrating') {
-                        textToUse = String(blocks[col][j].name);
-                    } else if (blockText == 'width') {
-                        textToUse = String(blocks[col][j].width)*10;
-                       } else if (blockText == 'height') {
-                          textToUse = String(blocks[col][j].height);
+                        if (blocks[col][j].display == undefined){
+                            textToUse = blocks[col][j].name;
+                        } else {
+                            textToUse = blocks[col][j].display;
+                        }
+                    } 
+                    else if (blockText == 'width') {                               //Reduce width from 120 --> 81
+                        if(blocks[col][j].width == 81){                            //As it take up to much space and looks weird when drawn tgt
+                            textToUse = String( ((blocks[col][j].width)+39)*10 );      //Display of text and measurement for 'wdith' will +39 to calculation to get 120
+                        }
+                        else{
+                            textToUse = String( blocks[col][j].width*10 );
+                        }
+                        
+                    }       
+                    else if (blockText == 'height') {
+                        textToUse = String(blocks[col][j].height);
                     }
                     ctx.fillStyle = "black";
                     ctx.textAlign = "center";
                     ctx.textBaseline = "middle";
                     ctx.font = "10px Arial";
-                    ctx.fillText(textToUse, currentPos.x + (blocks[col][j].width / 2), currentPos.y + (block_height / 2));
+                    // ctx.fillText(textToUse, currentPos.x + (blocks[col][j].width / 2), currentPos.y + (block_height / 2));
+                    fillTextMultiLine(ctx, textToUse, currentPos.x + (blocks[col][j].width / 2), currentPos.y + (block_height / 2));
                     
                     currentPos.y += block_height + vertical_spacing; // start the next drawing lower down
-                    }
-                    else{
+                
+                    /*else{
                         alert("Excceed 10000mm wdith. Not all Breakers will be shown. Measurement will be incorrect. Please reduce the Quantity of breakers");
                         return false;
-                    }
+                    }*/
                 
                 }
             }
         }
     }
+}
+
+// https://stackoverflow.com/questions/5026961/html5-canvas-ctx-filltext-wont-do-line-breaks
+function fillTextMultiLine(ctx, text, x, y) {
+    var lineHeight = ctx.measureText("M").width * 1.4;
+    var lines = text.split("\n");
+    for (var i = 0; i < lines.length; ++i) {
+      ctx.fillText(lines[i], x, y);
+      y += lineHeight;
+    }
+  }
+
+function gatherUnitIncoming(){
+    const selects = document.getElementsByClassName('incoming-position');
+    let values = [];
+    for (let i = 0; i < selects.length; i++) {
+        values.push(selects[i].value);
+    }
+    return values;
 }
 
 function gatherUnitSelections(){
@@ -321,17 +444,30 @@ const estimations = initEstimations();
 estimate_btn.addEventListener('click', function () {
 
     const quantities = gatherUnitSelections();
+    const incoming = gatherUnitIncoming();
+    const incomingUnits = incoming.map(unit => {
+        return breakers.incoming.filter(obj => {return obj.name == unit})[0];
+    }).filter(unit => { return unit != undefined});
  
     const blockText = document.getElementById('block-text').value.toLowerCase();
 
     for (let i = 0; i < estimations.length; i++) {
         estimations[i].clearCanvas();
+
         const units = countUnits(quantities, estimations[i].name);
         const blocks = estimations[i].groupUnits(units);
         const blocksWithRelays = estimations[i].insertRelays(blocks);
         const paddedBlocks = estimations[i].emptySpace(blocksWithRelays);
-        estimations[i].displayMeasurements(paddedBlocks);
-        estimations[i].drawBreakers(blocksWithRelays, blockText)
+
+        let finalBlocks;
+        if (incomingUnits.length > 0){
+            finalBlocks = estimations[i].insertIncoming(paddedBlocks, incomingUnits);
+        } else {
+            finalBlocks = paddedBlocks;
+        }
+
+        estimations[i].displayMeasurements(finalBlocks);
+        estimations[i].drawBreakers(finalBlocks, blockText);
     }
 })
 /// main program end lol
@@ -341,7 +477,7 @@ estimate_btn.addEventListener('click', function () {
 document.getElementById('random-qty-btn').addEventListener('click', function () {
     const selects = document.getElementsByClassName('select-position');
 
-    for (let i = 0; i < selects.length; i++) {
+    for (let i = 0; i < 15; i++) { //15 because there is 15 outgoing breakers, if not a error occur, but not affect anything
         let value = parseInt(Math.random()*6);
         if (breakers['guthrie'][i].height == 1800){
             value = 0; // dont set tallest units cus they dont help with testing
@@ -351,11 +487,16 @@ document.getElementById('random-qty-btn').addEventListener('click', function () 
 })
 
 document.getElementById('reset-btn').addEventListener('click', function() {
+    const outgoingSelects = document.getElementsByClassName('select-position');
+    const incomingSelects = document.getElementsByClassName('incoming-position');
 
-    const listBox = document.getElementsByClassName('select-position');
-    for (let i = 0; i < listBox.length; i++) {  
-        listBox[i].selectedIndex = 0;
+    for (let i = 0; i < outgoingSelects.length; i++) {  
+        outgoingSelects[i].selectedIndex = 0;
     }
+    for (let i = 0; i < incomingSelects.length; i++) {  
+        incomingSelects[i].selectedIndex = 0;
+    } 
+
     estimate_btn.click();
 })
 
@@ -364,17 +505,26 @@ document.getElementById('Intro-btn').addEventListener('click', function() {
 })
 
 document.getElementById('Save-btn').addEventListener('click', function() {
-    const preSetSaveToh = gatherUnitSelections();
-    localStorage['quantities'] = JSON.stringify(preSetSaveToh);
+    const data = {
+        outgoing: gatherUnitSelections(),
+        incoming: gatherUnitIncoming()
+    }
+    localStorage['quantities'] = JSON.stringify(data);
+    
 })  
 
 document.getElementById('Load-btn').addEventListener('click', function(){
-    const preSetLoadToh = JSON.parse(localStorage['quantities']);
-    const selects = document.getElementsByClassName('select-position');
+    const data = JSON.parse(localStorage['quantities']);
+    const outgoingSelects = document.getElementsByClassName('select-position');
+    const incomingSelects = document.getElementsByClassName('incoming-position');
 
-    for (let i = 0; i < selects.length; i++) {
-        selects[i].value = preSetLoadToh[i];
+    for (let i = 0; i < outgoingSelects.length; i++) {
+        outgoingSelects[i].value = data.outgoing[i];
     }
+    for (let i = 0; i < incomingSelects.length; i++) {
+        incomingSelects[i].value = data.incoming[i];
+    }
+
     estimate_btn.click();
 })  
 
@@ -439,18 +589,13 @@ function startTour(){
                 intro: 'Can save 1 x preset combination and load even after reloading page, without needing to select it 1 by 1. Saving another preset will delete the previous 1.',
                 position:'right'
             },{
-                element: document.querySelector('.Tour'),
-                title: 'End',
-                intro: 'Click this if you wanna see the user guide again. Thanks',
-                position:'right'
+                title: 'Important',
+                intro: 'Click on `Take a Tour` if you wanna see the guide again. Thanks',    
             },{
                 element: document.querySelector('.Music'),
                 title:'Extra',
                 intro: 'Play some musics if you want, also have some special effects.',
                 position: 'right'
-            },{
-                title: 'Important', 
-                intro: '<b>Maximum displaying width is 10000mm</b>. If over the limit, estimation and measurements will be incorrect. Please split them up'
             }]
 
     }).start();
