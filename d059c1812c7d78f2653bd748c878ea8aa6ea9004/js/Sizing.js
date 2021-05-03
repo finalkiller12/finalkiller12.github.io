@@ -368,7 +368,7 @@ class CanvasObject {
                         else{
                             textToUse = String( blocks[col][j].width*10 );
                         }
-                        
+                       
                     }       
                     else if (blockText == 'height') {
                         textToUse = String(blocks[col][j].height);
@@ -550,59 +550,78 @@ function startTour(){
         showProgress: true,
         steps:[{
                 title:'Welcome',
-                intro:'Please follow the guide for 1st timer'
+                intro:'Please follow the guide for 1st timer <br/><br/> <b>2 mintues</b> of your time only.'
             },{
-                element: document.querySelector('.sidebar-group'),
-                intro: 'Select your breaker ratings',
+                title:'Remainder',
+                intro: 'This is for reference only',
+            },{
+                element: document.querySelectorAll('.sidebar-group')[0],
+                title:'Outgoing Breakers',
+                intro: 'Based on your SLD,<br/> select your <b>Outgoing</b> breaker ratings.',
+                position: 'right' 
+            },{
+                element: document.querySelectorAll('.sidebar-group')[1], 
+                title:'Incoming Supply',
+                intro: 'Based on your SLD,<br/> select your <b>Incoming</b> breaker ratings. <br/><br/><b>Note:</b><br/>If 2 incoming are selected, <br/><b>Bus-Coupler</b> will be insert automactically. <br/><br/>Else no Bus-coupler',
                 position: 'right' 
             },{
                 element: document.querySelector('.Option-Drawing'),
-                intro: 'Choose 1 options, Text will appear accordingly (Breaker Rating, Height, Widith)',
+                title:'Text in drawing',
+                intro: 'Choose 1 options <br/> Text will appear accordingly <br/>(Breaker Rating, Height, Width) <br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display the new text change.',
                 position: 'right'
             },{
                 element: document.querySelector('.Calculation'),
-                intro: 'Click to display estimation',
-                position: 'right'
-            },{
-                element: document.querySelector('.Debug'),
-                intro: 'Randomly generate breakers and display it',
-                position: 'right'
-            },{
-                element: document.querySelector('.boards'),
-                intro: 'Estimations will appear here, same goes for the rest below',
-                position: 'right'
-            },{
-                element: document.querySelector('.measurements-container'),
-                intro: 'Will display <b>Total</b> Length, Width and Height <b>Measurement Displayed </b> Includes Busbar Panel, Panel stand...etc',
+                title:'Estimation',
+                intro: 'Click <b> Draw </b> to display drawing. <br/> Click <b> Reset </b> to clear all, reset everything to 0.',
                 position: 'right'
             },{
                 element: document.querySelector('.parentimage2'),
-                intro: 'Guthrie Cable Front and Cable End Panels. <b>Estimations Displayed </b> will only be areas highlighted in red',
+                title:'Switchboard Panel',
+                intro: 'Guthrie Cable Front and Cable End Panels. <br/><br/><b>Estimated drawings </b> will only be areas highlighted in red.',
                 position: 'left'
+            },{
+                element: document.querySelector('.measurements-container'),
+                title:'Measurement',
+                intro: 'Will display <b>Total</b> Length, Width and Height <b><br/><br/>Measurement Displayed </b> Includes Busbar Panel, Panel stand...etc.',
+                position: 'right'
             },{
                 element: document.querySelector('.parentimage'),
-                intro: 'Based on SS638, the minimum clearance between switchboard and wall',
-                position: 'left'
+                title:'Singapore Standard',
+                intro: 'Based on SS638,<br/><br/><b>Minimum clearance</b> between switchboard and wall are indicated in the image.<br/><br/> Can use it for references.',
+                position: 'left'            
+            },{
+                element: document.querySelector('.Debug'),
+                title:'Random Generator',
+                intro: 'Generate random numbers of outgoing breakers <br/>(100 MCCB - 1000MCCB) <br/><br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display it.',
+                position: 'right'
             },{
                 element: document.querySelector('.Save'),
-                title: 'Note',
-                intro: 'Can save 1 x preset combination and load even after reloading page, without needing to select it 1 by 1. Saving another preset will delete the previous 1.',
+                title: 'Caution',
+                intro: 'Able to <b>save 1 x combination</b>,<br/> and <b>load</b> it even after refreshing the page. Without needing to select it 1 by 1 all over again. <br/><br/> <b>Note:</b><br/> Saving another combination will delete the previous 1.',
                 position:'right'
-            },{
-                title: 'Important',
-                intro: 'Click on `Take a Tour` if you wanna see the guide again. Thanks',    
             },{
                 element: document.querySelector('.Music'),
                 title:'Extra',
                 intro: 'Play some musics if you want, also have some special effects.',
                 position: 'right'
+            },{
+                title: 'Important',
+                intro: 'Click on <b>`Start Tour`</b> at the top header if you wanna see the guide again. Thanks.',    
+            },{
+                title: 'Very Important',
+                intro: '<b>Assumptions:</b><br/> ACB already have relays on their panels. <br/><br/> Thus, no relays will be insert beside them.',    
+            },{
+                title:'Last Remainder',
+                intro: 'This is for reference only, acutal dimension might differ slightly.',
             }]
 
     }).start();
 }
 
-if (localStorage['intro-done'] == undefined){
+startTour();
+
+/*if (localStorage['intro-done'] == undefined){
     localStorage['intro-done'] = true;
 
     startTour();
-}
+}*/
