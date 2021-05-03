@@ -21,7 +21,7 @@ const breakers = {
         { name: 'MCCB-400',         height: 400, width: 60 },
         { name: 'MCCB-630',         height: 600, width: 60 },
         { name: 'MCCB-800',         height: 600, width: 60 },
-        { name: 'MCCB-1000',        height: 600, width: 60 },
+        { name: 'ACB-1000',        height: 1800, width: 60 },
         { name: 'ACB-1250',        height: 1800, width: 70 },
         { name: 'ACB-1600',        height: 1800, width: 70 },
         { name: 'ACB-2000',        height: 1800, width: 80 },
@@ -38,7 +38,7 @@ const breakers = {
         { name: 'MCCB-400',         height: 400, width: 60 },
         { name: 'MCCB-630',         height: 600, width: 60 },
         { name: 'MCCB-800',         height: 600, width: 60 },
-        { name: 'MCCB-1000',        height: 600, width: 60 },
+        { name: 'ACB-1000',        height: 1800, width: 60 },
         { name: 'ACB-1250',        height: 1800, width: 70 },
         { name: 'ACB-1600',        height: 1800, width: 70 },
         { name: 'ACB-2000',        height: 1800, width: 80 },
@@ -55,7 +55,7 @@ const breakers = {
         { name: 'MCCB-400',         height: 400, width: 60 },
         { name: 'MCCB-630',         height: 600, width: 60 },
         { name: 'MCCB-800',         height: 600, width: 60 },
-        { name: 'MCCB-1000',        height: 600, width: 60 },
+        { name: 'ACB-1000',        height: 1800, width: 60 },
         { name: 'ACB-1250',        height: 1800, width: 70 },
         { name: 'ACB-1600',        height: 1800, width: 70 },
         { name: 'ACB-2000',        height: 1800, width: 80 },
@@ -264,9 +264,17 @@ class CanvasObject {
         if (incoming.length == 1){ // second selection is empty
             content = [ [incoming[0]] ];
         }
-        else {
+        else if (incoming.length == 2){
             let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
             content = [ [incoming[0]], [busbar], [incoming[1]] ];
+        }
+        else if (incoming.length == 3){
+            let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
+            content = [ [incoming[0]], [busbar], [incoming[1]], [busbar], [incoming[2]]];
+        }
+        else {
+            let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
+            content = [ [incoming[0]], [busbar], [incoming[1]], [busbar],[incoming[2]], [busbar], [incoming[3]]];
         }
 
         const singleBlockCols = blocks.filter(x => x.length == 1 && sum(x.map(y => y.height)) == this.column.limit && x[0].name != 'Relay');
@@ -274,7 +282,8 @@ class CanvasObject {
 
         if (blocks.length == 1){
             blocks = blocks.concat(content);
-        } else if (singleBlockCols.length == 0){
+        } 
+        else if (singleBlockCols.length == 0){
             let index;
             for (let i = 1; i < blocks.length; i++){
                 if (blocks[i-1][0].name != 'Relay' && blocks[i][0].name != 'Relay'){
@@ -287,10 +296,11 @@ class CanvasObject {
             if (index != undefined){
                 blocks.splice(index, 0, ...content)
             }
-        } else {
+        } 
+        else{
             blocks = singleBlockCols.concat(content, multiBlockCols);
         }
-
+            
         return blocks;
     }
 
