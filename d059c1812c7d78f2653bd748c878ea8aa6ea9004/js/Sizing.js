@@ -653,9 +653,19 @@ var btn = document.getElementById("myBtn");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
+let isFirstModalClick = true;
 // When the user clicks the button, open the modal 
 btn.onclick = function() {
-  modal.style.display = "block";
+    modal.style.display = "block";
+
+    if (isFirstModalClick){
+        isFirstModalClick = false;
+
+        let script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "https://onedrive.live.com/embed?resid=8E98B898C211FF23%21813&authkey=%21APXH2PE-7R7_VkU&em=3&wdItem=%22'Sheet1'!A1%3AE26%22&wdDivId=%22myExcelDiv%22&wdAllowInteractivity=0"; 
+        document.getElementsByTagName("head")[0].appendChild(script);
+    }
 }
 
 // When the user clicks on <span> (x), close the modal
