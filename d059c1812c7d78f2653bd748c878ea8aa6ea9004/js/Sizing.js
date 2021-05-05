@@ -644,18 +644,21 @@ startTour();
     startTour();
 }*/
 
-// Get the modal
+// Get the modal Results
 var modal = document.getElementById("myModal");
+var modal2 = document.getElementById("catModal");
 
 // Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+var result = document.getElementById("result-Btn");
+var catalogue = document.getElementById("catalogue-Btn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
+var span2 = document.getElementsByClassName("close")[1];
 
-let isFirstModalClick = true;
 // When the user clicks the button, open the modal 
-btn.onclick = function() {
+let isFirstModalClick = true;
+result.onclick = function() {
     modal.style.display = "block";
 
     if (isFirstModalClick){
@@ -668,14 +671,29 @@ btn.onclick = function() {
     }
 }
 
+// When the user clicks the button, open the modal 
+catalogue.onclick = function() {
+    modal2.style.display = "block";
+}
+
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
 }
+span2.onclick = function() {
+    modal2.style.display = "none";
+  }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  if (event.target == modal) {
+  if (event.target == modal)  {
     modal.style.display = "none";
-  }
+    }
+  if (event.target == modal2) {
+    modal2.style.display = "none";
+    }
 }
+
+
+
+
