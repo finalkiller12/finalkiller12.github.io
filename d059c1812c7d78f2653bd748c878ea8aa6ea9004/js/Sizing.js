@@ -2,9 +2,9 @@
 // change these numbers when you want to resize
 // also remember to change .canvas-container's dimensions too
 const canvas_size = [
-    { width: 1000, height: 300 },
-    { width: 1000, height: 300 },
-    { width: 1000, height: 300 },
+    { width: 2000, height: 280 },
+    { width: 2000, height: 280 },
+    { width: 2000, height: 280 },
 
 ];
 
@@ -15,34 +15,65 @@ const relays = [
 
 const breakers = {
     guthrie: [
-        { name: 'MCCB-100',         height: 200, width: 60 },
-        { name: 'MCCB-250',         height: 200, width: 60 },
+        { name: 'MCCB-100',         height: 400, width: 60 },
+        { name: 'MCCB-160',         height: 400, width: 60 },
+        { name: 'MCCB-250',         height: 400, width: 60 },
         { name: 'MCCB-400',         height: 400, width: 60 },
         { name: 'MCCB-630',         height: 600, width: 60 },
-        { name: 'MCCB-900',         height: 900, width: 60 },
-        { name: 'ACB-1200',        height: 1800, width: 60 },
-        { name: 'ACB-1600',        height: 1800, width: 60 },
-        { name: 'ACB-3000',        height: 1800, width: 80 },
+        { name: 'MCCB-800',         height: 600, width: 60 },
+        { name: 'ACB-1000',        height: 1800, width: 60 },
+        { name: 'ACB-1250',        height: 1800, width: 70 },
+        { name: 'ACB-1600',        height: 1800, width: 70 },
+        { name: 'ACB-2000',        height: 1800, width: 80 },
+        { name: 'ACB-2500',        height: 1800, width: 80 },
+        { name: 'ACB-3200',        height: 1800, width: 80 },
+        { name: 'ACB-4000',        height: 1800, width: 81 }, //Reduce width from 120 --> 81
+        { name: 'ACB-5000',        height: 1800, width: 81 }, //As it take up to much space and looks weird when drawn tgt
+        { name: 'ACB-6300',        height: 1800, width: 81 }, //Display of text and measurement for 'wdith' will +39 to calculation to get 120
     ],
     xyz: [
-        { name: 'MCCB-100',         height: 300, width: 60 },
-        { name: 'MCCB-250',         height: 200, width: 60 },
+        { name: 'MCCB-100',         height: 400, width: 60 },
+        { name: 'MCCB-160',         height: 400, width: 60 },
+        { name: 'MCCB-250',         height: 400, width: 60 },
         { name: 'MCCB-400',         height: 400, width: 60 },
         { name: 'MCCB-630',         height: 600, width: 60 },
-        { name: 'MCCB-900',         height: 900, width: 60 },
-        { name: 'ACB-1200',        height:  900, width: 60 },
-        { name: 'ACB-1600',        height: 1800, width: 60 },
-        { name: 'ACB-3000',        height: 1800, width: 60 },
+        { name: 'MCCB-800',         height: 600, width: 60 },
+        { name: 'ACB-1000',        height: 1800, width: 60 },
+        { name: 'ACB-1250',        height: 1800, width: 70 },
+        { name: 'ACB-1600',        height: 1800, width: 70 },
+        { name: 'ACB-2000',        height: 1800, width: 80 },
+        { name: 'ACB-2500',        height: 1800, width: 80 },
+        { name: 'ACB-3200',        height: 1800, width: 80 },
+        { name: 'ACB-4000',        height: 1800, width: 81 },
+        { name: 'ACB-5000',        height: 1800, width: 81 },
+        { name: 'ACB-6300',        height: 1800, width: 81 },
     ],
     xyza: [
-        { name: 'MCCB-100',         height: 300, width: 60 },
-        { name: 'MCCB-250',         height: 200, width: 60 },
+        { name: 'MCCB-100',         height: 400, width: 60 },
+        { name: 'MCCB-160',         height: 400, width: 60 },
+        { name: 'MCCB-250',         height: 400, width: 60 },
         { name: 'MCCB-400',         height: 400, width: 60 },
         { name: 'MCCB-630',         height: 600, width: 60 },
-        { name: 'MCCB-900',         height: 900, width: 60 },
-        { name: 'ACB-1200',        height:  900, width: 60 },
-        { name: 'ACB-1600',        height: 1800, width: 60 },
-        { name: 'ACB-3000',        height: 1800, width: 60 },
+        { name: 'MCCB-800',         height: 600, width: 60 },
+        { name: 'ACB-1000',        height: 1800, width: 60 },
+        { name: 'ACB-1250',        height: 1800, width: 70 },
+        { name: 'ACB-1600',        height: 1800, width: 70 },
+        { name: 'ACB-2000',        height: 1800, width: 80 },
+        { name: 'ACB-2500',        height: 1800, width: 80 },
+        { name: 'ACB-3200',        height: 1800, width: 80 },
+        { name: 'ACB-4000',        height: 1800, width: 81 },
+        { name: 'ACB-5000',        height: 1800, width: 81 },
+        { name: 'ACB-6300',        height: 1800, width: 81 },
+    ],
+    incoming: [
+        { name: '1250 ACB', display: 'Incoming\n1250 ACB',      height: 1800, width: 70 },
+        { name: '1600 ACB', display: 'Incoming\n1600 ACB',      height: 1800, width: 70 },
+        { name: '2000 ACB', display: 'Incoming\n2000 ACB',      height: 1800, width: 80 },
+        { name: '2500 ACB', display: 'Incoming\n2500 ACB',      height: 1800, width: 80 },
+        { name: '3200 ACB', display: 'Incoming\n3200 ACB',      height: 1800, width: 80 },
+        { name: '4000 ACB', display: 'Incoming\n4000 ACB',      height: 1800, width: 81 },
+        { name: '5000 ACB', display: 'Incoming\n5000 ACB',      height: 1800, width: 81 },
+        { name: '6300 ACB', display: 'Incoming\n6300 ACB',      height: 1800, width: 81 },
     ]
 }
 
@@ -158,7 +189,7 @@ class CanvasObject {
     insertRelays(groups){
         let newGroups = groups.filter(x => x.length != 0);
         let singleBlockCols = newGroups.filter(x => x.length == 1 && sum(x.map(y => y.height)) == this.column.limit);
-        let multiBlockCols = newGroups.filter(x => x.length > 1);
+        let multiBlockCols = newGroups.filter(x => x.length > 1 || sum(x.map(y => y.height))!= this.column.limit);
 
         let justInserted = false;
         for (let i = 0; i < multiBlockCols.length; i++){
@@ -214,16 +245,87 @@ class CanvasObject {
 
         return blocks;
     }
+
+    insertIncoming(blocks, incoming){
+        /*
+        if only 1 incoming selected
+        
+            single and multi    > place in between them
+            only multi          > place where no relays will be adjacent
+            only 1 block        > place on right
+
+        if 2 incoming (normally same size) selected
+
+            a busbar (coupler) of the same size need to be inserted in the middle of both incoming
+        */
+
+        let content;
+
+        if (incoming.length == 1){ // second selection is empty
+            content = [ [incoming[0]] ];
+        }
+        else if (incoming.length == 2){
+            let busbar = { name: 'Bus-Coupler', height: incoming[0].height, width: incoming[0].width }; 
+            content = [ [incoming[0]], [busbar], [incoming[1]] ];
+        }
+        /*
+        else if (incoming.length == 3){
+            let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
+            content = [ [incoming[0]], [busbar], [incoming[1]], [busbar], [incoming[2]]];
+        }
+        else {
+            let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
+            content = [ [incoming[0]], [busbar], [incoming[1]], [busbar],[incoming[2]], [busbar], [incoming[3]]];
+        }
+        */
+        const singleBlockCols = blocks.filter(x => x.length == 1 && sum(x.map(y => y.height)) == this.column.limit && x[0].name != 'Relay');
+        const multiBlockCols = blocks.filter(x => x.length > 1 || sum(x.map(y => y.height))!= this.column.limit || x[0].name == 'Relay');
+
+        if (blocks.length == 1){
+            blocks = blocks.concat(content);
+        } 
+        else if (singleBlockCols.length == 0){
+            let index;
+            for (let i = 1; i < blocks.length; i++){
+                if (blocks[i-1][0].name != 'Relay' && blocks[i][0].name != 'Relay'){
+                    // note: doesnt check for small relay
+                    index = i;
+                    break;
+                }
+            }
+            console.log(`inserting at index: ${index}`);
+            if (index != undefined){
+                blocks.splice(index, 0, ...content)
+            }
+        } 
+        else{
+            blocks = singleBlockCols.concat(content, multiBlockCols);
+        }
+            
+        return blocks;
+    }
+
     calcDrawingWidth(blocks) {
         let width = 0;
+        let width_81 = 0;
+        let widthTotal = 0;
+
         for (let i = 0; i < blocks.length; i++) {
             if (blocks[i].length > 0) { // column not empty
-                width += blocks[i][0].width + this.column.spacing*2; // column's first unit's width + spacing
-                // this will count extra spacing for last column
+                
+
+                    if(blocks[i][0].width != 81) {
+                        width += blocks[i][0].width + this.column.spacing*2; // column's first unit's width + spacing
+                        // this will count extra spacing for last column
+                    }
+                    else{
+                        width_81 += blocks[i][0].width + 39;
+                    }
+                    widthTotal = width_81 + width;
             }
         }
         
-        return (width*10)
+        return (widthTotal*10)
     }
 
     displayMeasurements(blocks){
@@ -253,39 +355,72 @@ class CanvasObject {
     
                 for (let j = 0; j < blocks[col].length; j++) { // iterate each unit within the column
 
-                    if (this.calcDrawingWidth(blocks) < 9700){
+                    /*if (this.calcDrawingWidth(blocks) < 9700){*/
                     const block_height = blocks[col][j].height / scaling_factor - vertical_spacing;
-    
+                    
+                    
                     // draw the unit  
                     ctx.fillStyle = "rgba(255,0,0,0.5)";
                     ctx.fillRect(currentPos.x - (thickness), currentPos.y - (thickness), blocks[col][j].width + (thickness*2), block_height + (thickness*2));
-    
+                    
                     // write centered text
                     let textToUse = '';
                     if (blockText == 'breakerrating') {
-                        textToUse = String(blocks[col][j].name);
-                    } else if (blockText == 'width') {
-                        textToUse = String(blocks[col][j].width)*10;
-                       } else if (blockText == 'height') {
-                          textToUse = String(blocks[col][j].height);
+                        if (blocks[col][j].display == undefined){
+                            textToUse = blocks[col][j].name;
+                        } else {
+                            textToUse = blocks[col][j].display;
+                        }
+                    } 
+                    else if (blockText == 'width') {                               //Reduce width from 120 --> 81
+                        if(blocks[col][j].width == 81){                            //As it take up to much space and looks weird when drawn tgt
+                            textToUse = String( ((blocks[col][j].width)+39)*10 );      //Display of text and measurement for 'wdith' will +39 to calculation to get 120
+                        }
+                        else{
+                            textToUse = String( blocks[col][j].width*10 );
+                        }
+                       
+                    }       
+                    else if (blockText == 'height') {
+                        textToUse = String(blocks[col][j].height);
                     }
                     ctx.fillStyle = "black";
                     ctx.textAlign = "center";
                     ctx.textBaseline = "middle";
                     ctx.font = "10px Arial";
-                    ctx.fillText(textToUse, currentPos.x + (blocks[col][j].width / 2), currentPos.y + (block_height / 2));
+                    // ctx.fillText(textToUse, currentPos.x + (blocks[col][j].width / 2), currentPos.y + (block_height / 2));
+                    fillTextMultiLine(ctx, textToUse, currentPos.x + (blocks[col][j].width / 2), currentPos.y + (block_height / 2));
                     
                     currentPos.y += block_height + vertical_spacing; // start the next drawing lower down
-                    }
-                    else{
+                
+                    /*else{
                         alert("Excceed 10000mm wdith. Not all Breakers will be shown. Measurement will be incorrect. Please reduce the Quantity of breakers");
                         return false;
-                    }
+                    }*/
                 
                 }
             }
         }
     }
+}
+
+// https://stackoverflow.com/questions/5026961/html5-canvas-ctx-filltext-wont-do-line-breaks
+function fillTextMultiLine(ctx, text, x, y) {
+    var lineHeight = ctx.measureText("M").width * 1.4;
+    var lines = text.split("\n");
+    for (var i = 0; i < lines.length; ++i) {
+      ctx.fillText(lines[i], x, y);
+      y += lineHeight;
+    }
+  }
+
+function gatherUnitIncoming(){
+    const selects = document.getElementsByClassName('incoming-position');
+    let values = [];
+    for (let i = 0; i < selects.length; i++) {
+        values.push(selects[i].value);
+    }
+    return values;
 }
 
 function gatherUnitSelections(){
@@ -320,17 +455,30 @@ const estimations = initEstimations();
 estimate_btn.addEventListener('click', function () {
 
     const quantities = gatherUnitSelections();
+    const incoming = gatherUnitIncoming();
+    const incomingUnits = incoming.map(unit => {
+        return breakers.incoming.filter(obj => {return obj.name == unit})[0];
+    }).filter(unit => { return unit != undefined});
  
     const blockText = document.getElementById('block-text').value.toLowerCase();
 
     for (let i = 0; i < estimations.length; i++) {
         estimations[i].clearCanvas();
+
         const units = countUnits(quantities, estimations[i].name);
         const blocks = estimations[i].groupUnits(units);
         const blocksWithRelays = estimations[i].insertRelays(blocks);
         const paddedBlocks = estimations[i].emptySpace(blocksWithRelays);
-        estimations[i].displayMeasurements(paddedBlocks);
-        estimations[i].drawBreakers(blocksWithRelays, blockText)
+
+        let finalBlocks;
+        if (incomingUnits.length > 0){
+            finalBlocks = estimations[i].insertIncoming(paddedBlocks, incomingUnits);
+        } else {
+            finalBlocks = paddedBlocks;
+        }
+
+        estimations[i].displayMeasurements(finalBlocks);
+        estimations[i].drawBreakers(finalBlocks, blockText);
     }
 })
 /// main program end lol
@@ -338,23 +486,35 @@ estimate_btn.addEventListener('click', function () {
 // button events
 
 document.getElementById('random-qty-btn').addEventListener('click', function () {
-    const selects = document.getElementsByClassName('select-position');
-
-    for (let i = 0; i < selects.length; i++) {
+    const outgoingSelects = document.getElementsByClassName('select-position');
+    const incomingSelects = document.getElementsByClassName('incoming-position');
+ 
+    for (let i = 0; i < outgoingSelects.length; i++) {
         let value = parseInt(Math.random()*6);
         if (breakers['guthrie'][i].height == 1800){
             value = 0; // dont set tallest units cus they dont help with testing
         }
-        selects[i].value = value;
+        outgoingSelects[i].value = value;
+    }
+
+    const incomingNames= breakers.incoming.map(x => x.name);
+    for (let i = 0; i < incomingSelects.length; i++) {
+        let value = incomingNames[Math.floor(Math.random() * incomingNames.length)]; // random value in array
+        incomingSelects[i].value = value;
     }
 })
 
 document.getElementById('reset-btn').addEventListener('click', function() {
+    const outgoingSelects = document.getElementsByClassName('select-position');
+    const incomingSelects = document.getElementsByClassName('incoming-position');
 
-    const listBox = document.getElementsByClassName('select-position');
-    for (let i = 0; i < listBox.length; i++) {  
-        listBox[i].selectedIndex = 0;
+    for (let i = 0; i < outgoingSelects.length; i++) {  
+        outgoingSelects[i].selectedIndex = 0;
     }
+    for (let i = 0; i < incomingSelects.length; i++) {  
+        incomingSelects[i].selectedIndex = 0;
+    } 
+
     estimate_btn.click();
 })
 
@@ -363,17 +523,26 @@ document.getElementById('Intro-btn').addEventListener('click', function() {
 })
 
 document.getElementById('Save-btn').addEventListener('click', function() {
-    const preSetSaveToh = gatherUnitSelections();
-    localStorage['quantities'] = JSON.stringify(preSetSaveToh);
+    const data = {
+        outgoing: gatherUnitSelections(),
+        incoming: gatherUnitIncoming()
+    }
+    localStorage['quantities'] = JSON.stringify(data);
+    
 })  
 
 document.getElementById('Load-btn').addEventListener('click', function(){
-    const preSetLoadToh = JSON.parse(localStorage['quantities']);
-    const selects = document.getElementsByClassName('select-position');
+    const data = JSON.parse(localStorage['quantities']);
+    const outgoingSelects = document.getElementsByClassName('select-position');
+    const incomingSelects = document.getElementsByClassName('incoming-position');
 
-    for (let i = 0; i < selects.length; i++) {
-        selects[i].value = preSetLoadToh[i];
+    for (let i = 0; i < outgoingSelects.length; i++) {
+        outgoingSelects[i].value = data.outgoing[i];
     }
+    for (let i = 0; i < incomingSelects.length; i++) {
+        incomingSelects[i].value = data.incoming[i];
+    }
+
     estimate_btn.click();
 })  
 
@@ -399,48 +568,54 @@ function startTour(){
         showProgress: true,
         steps:[{
                 title:'Welcome',
-                intro:'Please follow the guide for 1st timer'
+                intro:'Please follow the guide for 1st timer <br/><br/> <b>2 mintues</b> of your time only.'
             },{
-                element: document.querySelector('.sidebar-group'),
-                intro: 'Select your breaker ratings',
+                title:'Remainder',
+                intro: 'This is for reference only',
+            },{
+                element: document.querySelectorAll('.sidebar-group')[0],
+                title:'Outgoing Breakers',
+                intro: 'Based on your SLD,<br/> select your <b>Outgoing</b> breaker ratings.',
+                position: 'right' 
+            },{
+                element: document.querySelectorAll('.sidebar-group')[1], 
+                title:'Incoming Supply',
+                intro: 'Based on your SLD,<br/> select your <b>Incoming</b> breaker ratings. <br/><br/><b>Note:</b><br/>If 2 incoming are selected, <br/><b>Bus-Coupler</b> will be insert automactically. <br/><br/>Else no Bus-coupler',
                 position: 'right' 
             },{
                 element: document.querySelector('.Option-Drawing'),
-                intro: 'Choose 1 options, Text will appear accordingly (Breaker Rating, Height, Widith)',
+                title:'Text in drawing',
+                intro: 'Choose 1 options <br/> Text will appear accordingly <br/>(Breaker Rating, Height, Width) <br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display the new text change.',
                 position: 'right'
             },{
                 element: document.querySelector('.Calculation'),
-                intro: 'Click to display estimation',
-                position: 'right'
-            },{
-                element: document.querySelector('.Debug'),
-                intro: 'Randomly generate breakers and display it',
-                position: 'right'
-            },{
-                element: document.querySelector('.boards'),
-                intro: 'Estimations will appear here, same goes for the rest below',
-                position: 'right'
-            },{
-                element: document.querySelector('.measurements-container'),
-                intro: 'Will display <b>Total</b> Length, Width and Height <b>Measurement Displayed </b> Includes Busbar Panel, Panel stand...etc',
+                title:'Estimation',
+                intro: 'Click <b> Draw </b> to display drawing. <br/> Click <b> Reset </b> to clear all, reset everything to 0.',
                 position: 'right'
             },{
                 element: document.querySelector('.parentimage2'),
-                intro: 'Guthrie Cable Front and Cable End Panels. <b>Estimations Displayed </b> will only be areas highlighted in red',
+                title:'Switchboard Panel',
+                intro: 'Guthrie Cable Front and Cable End Panels. <br/><br/><b>Estimated drawings </b> will only be areas highlighted in red.',
                 position: 'left'
+            },{
+                element: document.querySelector('.measurements-container'),
+                title:'Measurement',
+                intro: 'Will display <b>Total</b> Length, Width and Height <b><br/><br/>Measurement Displayed </b> Includes Busbar Panel, Panel stand...etc.',
+                position: 'right'
             },{
                 element: document.querySelector('.parentimage'),
-                intro: 'Based on SS638, the minimum clearance between switchboard and wall',
-                position: 'left'
+                title:'Singapore Standard',
+                intro: 'Based on SS638,<br/><br/><b>Minimum clearance</b> between switchboard and wall are indicated in the image.<br/><br/> Can use it for references.',
+                position: 'left'            
+            },{
+                element: document.querySelector('.Debug'),
+                title:'Random Generator',
+                intro: 'Generate random numbers of outgoing breakers <br/>(100 MCCB - 1000MCCB) <br/><br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display it.',
+                position: 'right'
             },{
                 element: document.querySelector('.Save'),
-                title: 'Note',
-                intro: 'Can save 1 x preset combination and load even after reloading page, without needing to select it 1 by 1. Saving another preset will delete the previous 1.',
-                position:'right'
-            },{
-                element: document.querySelector('.Tour'),
-                title: 'End',
-                intro: 'Click this if you wanna see the user guide again. Thanks',
+                title: 'Caution',
+                intro: 'Able to <b>save 1 x combination</b>,<br/> and <b>load</b> it even after refreshing the page. Without needing to select it 1 by 1 all over again. <br/><br/> <b>Note:</b><br/> Saving another combination will delete the previous 1.',
                 position:'right'
             },{
                 element: document.querySelector('.Music'),
@@ -448,15 +623,59 @@ function startTour(){
                 intro: 'Play some musics if you want, also have some special effects.',
                 position: 'right'
             },{
-                title: 'Important', 
-                intro: '<b>Maximum displaying width is 10000mm</b>. If over the limit, estimation and measurements will be incorrect. Please split them up'
+                title: 'Important',
+                intro: 'Click on <b>`Start Tour`</b> at the top header if you wanna see the guide again. Thanks.',    
+            },{
+                title: 'Very Important',
+                intro: '<b>Assumptions:</b><br/> ACB already have relays on their panels. <br/><br/> Thus, no relays will be insert beside them.',    
+            },{
+                title:'Last Remainder',
+                intro: 'This is for reference only, acutal dimension might differ slightly.',
             }]
 
     }).start();
 }
 
-if (localStorage['intro-done'] == undefined){
+startTour();
+
+/*if (localStorage['intro-done'] == undefined){
     localStorage['intro-done'] = true;
 
     startTour();
+}*/
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+let isFirstModalClick = true;
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+
+    if (isFirstModalClick){
+        isFirstModalClick = false;
+
+        let script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "https://onedrive.live.com/embed?resid=8E98B898C211FF23%21813&authkey=%21APXH2PE-7R7_VkU&em=3&wdItem=%22'Sheet1'!A1%3AE26%22&wdDivId=%22myExcelDiv%22&wdAllowInteractivity=0"; 
+        document.getElementsByTagName("head")[0].appendChild(script);
+    }
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 }
