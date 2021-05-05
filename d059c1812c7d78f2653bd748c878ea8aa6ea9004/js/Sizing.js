@@ -265,9 +265,10 @@ class CanvasObject {
             content = [ [incoming[0]] ];
         }
         else if (incoming.length == 2){
-            let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
+            let busbar = { name: 'Bus-Coupler', height: incoming[0].height, width: incoming[0].width }; 
             content = [ [incoming[0]], [busbar], [incoming[1]] ];
         }
+        /*
         else if (incoming.length == 3){
             let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
             content = [ [incoming[0]], [busbar], [incoming[1]], [busbar], [incoming[2]]];
@@ -276,7 +277,7 @@ class CanvasObject {
             let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
             content = [ [incoming[0]], [busbar], [incoming[1]], [busbar],[incoming[2]], [busbar], [incoming[3]]];
         }
-
+        */
         const singleBlockCols = blocks.filter(x => x.length == 1 && sum(x.map(y => y.height)) == this.column.limit && x[0].name != 'Relay');
         const multiBlockCols = blocks.filter(x => x.length > 1 || sum(x.map(y => y.height))!= this.column.limit || x[0].name == 'Relay');
 
@@ -485,14 +486,21 @@ estimate_btn.addEventListener('click', function () {
 // button events
 
 document.getElementById('random-qty-btn').addEventListener('click', function () {
-    const selects = document.getElementsByClassName('select-position');
-
-    for (let i = 0; i < 15; i++) { //15 because there is 15 outgoing breakers, if not a error occur, but not affect anything
+    const outgoingSelects = document.getElementsByClassName('select-position');
+    const incomingSelects = document.getElementsByClassName('incoming-position');
+ 
+    for (let i = 0; i < outgoingSelects.length; i++) {
         let value = parseInt(Math.random()*6);
         if (breakers['guthrie'][i].height == 1800){
             value = 0; // dont set tallest units cus they dont help with testing
         }
-        selects[i].value = value;
+        outgoingSelects[i].value = value;
+    }
+
+    const incomingNames= breakers.incoming.map(x => x.name);
+    for (let i = 0; i < incomingSelects.length; i++) {
+        let value = incomingNames[Math.floor(Math.random() * incomingNames.length)]; // random value in array
+        incomingSelects[i].value = value;
     }
 })
 
