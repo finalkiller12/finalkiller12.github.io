@@ -160,8 +160,11 @@ body {
   margin: 0 auto;
   padding: 2px;
   border: 1px solid #888;
-  width: 40%;
+  width: 700px;
+}
 
+#myExcelDiv {
+  margin: 0 auto;
 }
 
 /* The Close Button */
@@ -179,14 +182,7 @@ body {
   cursor: pointer;
 }
 
-#button{
-  display:block;
-  margin:20px auto;
-  padding:10px 30px;
-  background-color:#eee;
-  border:solid #ccc 1px;
-  cursor: pointer;
-}
+
 #overlay{	
   position: fixed;
   top: 0;
@@ -208,7 +204,8 @@ body {
   border: 4px #ddd solid;
   border-top: 4px #2e93e6 solid;
   border-radius: 50%;
-  animation: sp-anime 0.8s infinite linear;
+  animation: sp-anime 5s infinite linear;
+
 }
 @keyframes sp-anime {
   100% { 

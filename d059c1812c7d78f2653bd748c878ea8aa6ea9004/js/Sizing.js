@@ -610,7 +610,7 @@ function startTour(){
             },{
                 element: document.querySelector('.Debug'),
                 title:'Random Generator',
-                intro: 'Generate random numbers of outgoing breakers <br/>(100 MCCB - 1000MCCB) <br/><br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display it.',
+                intro: 'Generate random numbers of outgoing breakers <br/>(100 MCCB - 1000MCCB) & <br/> incoming breakers <br/><br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display it.',
                 position: 'right'
             },{
                 element: document.querySelector('.Save'),
@@ -646,15 +646,15 @@ startTour();
 
 // Get the modal Results
 var modal = document.getElementById("myModal");
-var modal2 = document.getElementById("catModal");
+//var modal2 = document.getElementById("catModal");
 
 // Get the button that opens the modal
 var result = document.getElementById("result-Btn");
-var catalogue = document.getElementById("catalogue-Btn");
+//var catalogue = document.getElementById("catalogue-Btn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
-var span2 = document.getElementsByClassName("close")[1];
+//var span2 = document.getElementsByClassName("close")[1];
 
 // When the user clicks the button, open the modal 
 let isFirstModalClick = true;
@@ -666,51 +666,63 @@ result.onclick = function() {
 
         let script = document.createElement("script");
         script.type = "text/javascript";
+
         script.src = "https://onedrive.live.com/embed?resid=8E98B898C211FF23%21813&authkey=%21APXH2PE-7R7_VkU&em=3&wdItem=%22'Sheet1'!A1%3AE26%22&wdDivId=%22myExcelDiv%22&wdAllowInteractivity=0"; 
         document.getElementsByTagName("head")[0].appendChild(script);
     }
 }
 
 // When the user clicks the button, open the modal 
-catalogue.onclick = function() {
-    modal2.style.display = "block";
-}
+//catalogue.onclick = function() {
+//    modal2.style.display = "block";
+//}
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
 }
-span2.onclick = function() {
-    modal2.style.display = "none";
-  }
+//span2.onclick = function() {
+//    modal2.style.display = "none";
+//  }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal)  {
     modal.style.display = "none";
     }
-  if (event.target == modal2) {
-    modal2.style.display = "none";
-    }
+//  if (event.target == modal2) {
+//    modal2.style.display = "none";
+//   }
 }
 
-jQuery(function($){
+  jQuery(function($){
+    // runs on page load
     $(document).ajaxSend(function() {
       $("#overlay").fadeIn(300);　
     });
           
+    let firstExcelLoad = true;
     $('#result-Btn').click(function(){
-      $.ajax({
-        type: 'GET',
-        success: function(data){
-          console.log(data);
+        // only trigger for the load event, disable itself afterwards
+        if (!firstExcelLoad){
+            return 
+        } else {
+            firstExcelLoad = false;
         }
-      }).done(function() {
-        setTimeout(function(){
-          $("#overlay").fadeOut(3500);
-        },500);
-      });
+        $.ajax({
+            type: 'GET',
+            success: function(data){
+            console.log(data);
+            }
+        }).done(function() {
+            var checkExist = setInterval(function() {
+                if ($('iframe').length) {
+                    clearInterval(checkExist);
+                    // stop loading animation here
+                    $("#overlay").fadeOut('fast');
+                }
+             }, 100); // check every 100ms
+        });
     });	
   });
-
 
