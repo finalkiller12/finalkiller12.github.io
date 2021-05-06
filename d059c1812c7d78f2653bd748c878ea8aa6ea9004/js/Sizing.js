@@ -694,13 +694,23 @@ window.onclick = function(event) {
     }
 }
 
-$(document).ready(function() {
- 
-    setTimeout(function(){
-        $('body').addClass('loaded');
-        $('h1').css('color','#222222');
-    }, 3000);
- 
-});
+jQuery(function($){
+    $(document).ajaxSend(function() {
+      $("#overlay").fadeIn(300);　
+    });
+          
+    $('#result-Btn').click(function(){
+      $.ajax({
+        type: 'GET',
+        success: function(data){
+          console.log(data);
+        }
+      }).done(function() {
+        setTimeout(function(){
+          $("#overlay").fadeOut(3500);
+        },500);
+      });
+    });	
+  });
 
 
