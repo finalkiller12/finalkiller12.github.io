@@ -330,7 +330,7 @@ class CanvasObject {
 
     displayMeasurements(blocks){
         const width = this.calcDrawingWidth(blocks);
-        this.measurementDisplay.textContent = `Overall Dimension (Including Busbar Panel..etc): Length = 800 , Width = ${width} , Height = 2075`;
+        this.measurementDisplay.textContent = `Overall Dimension (Including Busbar Panel..etc): Depth = 800 , Width = ${width} , Height = 2275`;
     }
 
     drawBreakers(blocks, blockText = 'name', thickness = 1) {
@@ -571,7 +571,7 @@ function startTour(){
                 intro:'Please follow the guide for 1st timer <br/><br/> <b>2 mintues</b> of your time only.'
             },{
                 title:'Remainder',
-                intro: 'This is for reference only',
+                intro: 'Reference taken from Guthrie and Gathergates. <br/><br/><b>Note:</b><br/> Strictly for <b>Form 3B</b> only',
             },{
                 element: document.querySelectorAll('.sidebar-group')[0],
                 title:'Outgoing Breakers',
