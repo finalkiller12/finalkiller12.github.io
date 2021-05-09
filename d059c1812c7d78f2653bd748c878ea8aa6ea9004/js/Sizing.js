@@ -610,19 +610,19 @@ function startTour(){
             },{
                 element: document.querySelector('.Debug'),
                 title:'Random Generator',
-                intro: 'Generate random numbers of outgoing breakers <br/>(100 MCCB - 1000MCCB) & <br/> incoming breakers <br/><br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display it.',
+                intro: 'Generate random numbers of outgoing breakers <br/>(100 MCCB - 800MCCB) & <br/> incoming breakers <br/><br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display it.',
                 position: 'right'
             },{
                 element: document.querySelector('.Save'),
                 title: 'Caution',
                 intro: 'Able to <b>save 1 x combination</b>,<br/> and <b>load</b> it even after refreshing the page. Without needing to select it 1 by 1 all over again. <br/><br/> <b>Note:</b><br/> Saving another combination will delete the previous 1.',
                 position:'right'
-            },{
+            }/*,{
                 element: document.querySelector('.Music'),
                 title:'Extra',
                 intro: 'Play some musics if you want, also have some special effects.',
                 position: 'right'
-            },{
+            }*/,{
                 title: 'Important',
                 intro: 'Click on <b>`Start Tour`</b> at the top header if you wanna see the guide again. Thanks.',    
             },{
@@ -646,15 +646,15 @@ startTour();
 
 // Get the modal Results
 var modal = document.getElementById("myModal");
-var modal2 = document.getElementById("catModal");
+//var modal2 = document.getElementById("catModal");
 
 // Get the button that opens the modal
 var result = document.getElementById("result-Btn");
-var catalogue = document.getElementById("catalogue-Btn");
+//var catalogue = document.getElementById("catalogue-Btn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
-var span2 = document.getElementsByClassName("close")[1];
+//var span2 = document.getElementsByClassName("close")[1];
 
 // When the user clicks the button, open the modal 
 let isFirstModalClick = true;
@@ -672,27 +672,27 @@ result.onclick = function() {
     }
 }
 
-// When the user clicks the button, open the modal 
+/* When the user clicks the button, open the modal 
 catalogue.onclick = function() {
     modal2.style.display = "block";
-}
+}*/
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
 }
-span2.onclick = function() {
+/*span2.onclick = function() {
     modal2.style.display = "none";
-  }
+  }*/
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal)  {
     modal.style.display = "none";
     }
-  if (event.target == modal2) {
+  /*if (event.target == modal2) {
     modal2.style.display = "none";
-   }
+   }*/
 }
 
   jQuery(function($){
