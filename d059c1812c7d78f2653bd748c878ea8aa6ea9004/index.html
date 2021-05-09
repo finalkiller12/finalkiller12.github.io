@@ -8,7 +8,9 @@
   <title>Document</title>
   <!-- CSS only -->
   <link href="css/simple-hint.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="css/Sizing.css">
   <link rel="stylesheet" href="css/Sakura.css">
   <link rel="stylesheet" href="css/Intro.css">
@@ -20,25 +22,53 @@
     <a href="#"></a>
   </header>
 
-  <div class='navbar' data-intro="Hello World">
-    <span class='navbar-content'>SwitchBoard Sizing Estimation</span>
-  </div>
-  <div class='sidebar'>
-
-    <div class='sidebar-group'>
-      <div class='Tour'>
-        <div><b>Take a Tour</b></div>
-        <div class='sidebar-group-content'>
-          <input type="button" value='Start Intro' class='btn btn-secondary' id='Intro-btn'>
-        </div>
+ <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">SwitchBoard Estimation</a>
       </div>
-    </div>
+      <ul class="nav navbar-nav">
+        <li class="Tour" id = 'Intro-btn'><a href="#">Start Tour</a></li>
+            
+      </ul> 
+     <div class="nav navbar-nav">
+        <!-- Trigger/Open The Modal -->
+        <li class="resultsBtn" id = 'result-Btn'><a href="#">Simulation Results</a></li>
+          <!-- Trigger/Open The Modal --> 
+          <!-- The Modal -->
+          <div id="myModal" class="modal">
+            <div id="overlay">
+              <div class="cv-spinner">
+                <span class="spinner"></span>
+              </div>
+            </div>
+            
+            <div class="modal-content">     
+              <span class="close">&times;</span>
+              <div id="myExcelDiv" style="width: 632px; height: 550px"></div>
+              
+            </div>
+          </div>
+        
+        <!--
+        <li class="catalougeBtn" id = 'catalogue-Btn'><a href="#">Catalogue</a></li>
+          <div id="catModal" class="modal">
+            <div class="modal2-content">
+              <span class="close">&times;</span>
+              <embed src='Guthrie Catalogue.pdf' width="100%" height="650px" >
+            </div>
+          </div> 
+        -->
+      </div> 
+    </div> 
+  </nav>
 
+  <div class='sidebar'>
     <div class='sidebar-group'>
-      <div><b>Select Quantity</b><span data-hint="Insert Breaker Rating based on your SLD" class="hint"> <u><b>(Hint)</b></u></span></div>
+      <div><b>Outgoing Breaker</b><!--<span data-hint="Insert Breaker Rating based on your SLD" class="hint"> <u><b>(Hint)</b></u></span>--></div>
       <div id='select-quantity' class='sidebar-group-content'>
         <div class='selection-wrapper'>
-          <label for="mmcb-100">100 MCCB</label>
+          <label for="mmcb-100">100 TPN MCCB</label>
           <select class="select-position" id="mmcb-100">
             <option value ='0'>0</option>
             <option>1</option>
@@ -54,7 +84,23 @@
           </select>
         </div>
         <div class='selection-wrapper'>
-          <label for="mmcb-250">250 MCCB</label>
+          <label for="mmcb-160">160 TPN MCCB</label>
+          <select class="select-position" id="mmcb-160">
+            <option value ='0'>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
+        </div>
+        <div class='selection-wrapper'>
+          <label for="mmcb-250">250 TPN MCCB</label>
           <select class="select-position" id="mmcb-250">
             <option value ='0'>0</option>
             <option>1</option>
@@ -70,7 +116,7 @@
           </select>
         </div>
         <div class='selection-wrapper'>
-          <label for="mmcb-400">400 MCCB</label>
+          <label for="mmcb-400">400 TPN MCCB</label>
           <select class="select-position" id="mmcb-400">
             <option value ='0'>0</option>
             <option>1</option>
@@ -86,7 +132,7 @@
           </select>
         </div>
         <div class='selection-wrapper'>
-          <label for="mmcb-630">630 MCCB</label>
+          <label for="mmcb-630">630 TPN MCCB</label>
           <select class="select-position" id="mmcb-630">
             <option value ='0'>0</option>
             <option>1</option>
@@ -102,8 +148,8 @@
           </select>
         </div>
         <div class='selection-wrapper'>
-          <label for="mmcb-900">900 MCCB</label>
-          <select class="select-position" id="mmcb-900">
+          <label for="mmcb-800">800 TPN MCCB</label>
+          <select class="select-position" id="mmcb-800">
             <option value ='0'>0</option>
             <option>1</option>
             <option>2</option>
@@ -118,8 +164,8 @@
           </select>
         </div>
         <div class='selection-wrapper'>
-          <label for="ACB-1200">1200 ACB</label>
-          <select class="select-position" id="ACB-1200">
+          <label for="mmcb-1000">1000 TPN ACB</label>
+          <select class="select-position" id="ACB-1000">
             <option value ='0'>0</option>
             <option>1</option>
             <option>2</option>
@@ -134,7 +180,23 @@
           </select>
         </div>
         <div class='selection-wrapper'>
-          <label for="ACB-1600">1600 ACB</label>
+          <label for="ACB-1200">1250 TPN ACB</label>
+          <select class="select-position" id="ACB-1250">
+            <option value ='0'>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
+        </div>
+        <div class='selection-wrapper'>
+          <label for="ACB-1600">1600 TPN ACB</label>
           <select class="select-position" id="ACB-1600">
             <option value ='0'>0</option>
             <option>1</option>
@@ -150,8 +212,88 @@
           </select>
         </div>
         <div class='selection-wrapper'>
-          <label for="ACB-3000">3000 ACB</label>
-          <select class="select-position" id="ACB-3000">
+          <label for="ACB-2000">2000 TPN ACB</label>
+          <select class="select-position" id="ACB-2000">
+            <option value ='0'>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
+        </div>
+        <div class='selection-wrapper'>
+          <label for="ACB-2500">2500 TPN ACB</label>
+          <select class="select-position" id="ACB-2500">
+            <option value ='0'>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
+        </div>
+        <div class='selection-wrapper'>
+          <label for="ACB-3200">3200 TPN ACB</label>
+          <select class="select-position" id="ACB-3200">
+            <option value ='0'>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
+        </div>
+        <div class='selection-wrapper'>
+          <label for="ACB-4000">4000 TPN ACB</label>
+          <select class="select-position" id="ACB-4000">
+            <option value ='0'>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
+        </div>
+        <div class='selection-wrapper'>
+          <label for="ACB-5000">5000 TPN ACB</label>
+          <select class="select-position" id="ACB-5000">
+            <option value ='0'>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
+        </div>
+        <div class='selection-wrapper'>
+          <label for="ACB-6300">6300 TPN ACB</label>
+          <select class="select-position" id="ACB-6300">
             <option value ='0'>0</option>
             <option>1</option>
             <option>2</option>
@@ -169,8 +311,72 @@
     </div>
 
     <div class='sidebar-group'>
+      <div><b>Incoming Breaker</b><!--<span data-hint="Insert Breaker Rating based on your SLD" class="hint"> <u><b>(Hint)</b></u></span>--></div>
+      <div id='select-quantity' class='sidebar-group-content'>
+        <div class='selection-wrapper'>
+          <label for="Incoming 1">Supply 1 </label>
+          <select class="incoming-position" id="Incoming 1">
+            <option value ='0'>None</option>
+            <option>1250 ACB</option>
+            <option>1600 ACB</option>
+            <option>2000 ACB</option>
+            <option>2500 ACB</option>
+            <option>3200 ACB</option>
+            <option>4000 ACB</option>
+            <option>5000 ACB</option>
+            <option>6300 ACB</option>
+          </select>
+        </div>
+        <div class='selection-wrapper'>
+          <label for="Incoming 2">Supply 2 </label>
+          <select class="incoming-position" id="Incoming 2">
+            <option value ='0'>None</option>
+            <option>1250 ACB</option>
+            <option>1600 ACB</option>
+            <option>2000 ACB</option>
+            <option>2500 ACB</option>
+            <option>3200 ACB</option>
+            <option>4000 ACB</option>
+            <option>5000 ACB</option>
+            <option>6300 ACB</option>
+          </select>
+        </div>
+        <!--
+        <div class='selection-wrapper'>
+          <label for="Incoming 3">Supply 3 </label>
+          <select class="incoming-position" id="Incoming 3">
+            <option value ='0'>None</option>
+            <option>1250 ACB</option>
+            <option>1600 ACB</option>
+            <option>2000 ACB</option>
+            <option>2500 ACB</option>
+            <option>3200 ACB</option>
+            <option>4000 ACB</option>
+            <option>5000 ACB</option>
+            <option>6300 ACB</option>
+          </select>
+        </div>
+        <div class='selection-wrapper'>
+          <label for="Incoming 4">Supply 4 </label>
+          <select class="incoming-position" id="Incoming 4">
+            <option value ='0'>None</option>
+            <option>1250 ACB</option>
+            <option>1600 ACB</option>
+            <option>2000 ACB</option>
+            <option>2500 ACB</option>
+            <option>3200 ACB</option>
+            <option>4000 ACB</option>
+            <option>5000 ACB</option>
+            <option>6300 ACB</option>
+          </select>
+        </div>
+        -->
+      </div>
+    </div>
+
+    <div class='sidebar-group'>
       <div class="Option-Drawing">
-        <div><b>Drawing Options</b><span data-hint="Either display rating, height or width of Breaker" class="hint"> <u><b>(Hint)</b></u></span></div>
+        <div><b>Text Options</b><!--<span data-hint="Either display rating, height or width of Breaker" class="hint"> <u><b>(Hint)</b></u></span>--></div>
         <div id="user-controls" class='sidebar-group-content'>
           <div id='options-drawing'>
             <select id="block-text">
@@ -187,7 +393,7 @@
       <div class='Calculation'>
         <div><b>Start Calculation</b></div>
         <div class='btn-wrapper sidebar-group-content'>
-          <input type="button" value=Estimate class='btn btn-primary' id='estimate-btn'>
+          <input type="button" value=Draw class='btn btn-primary' id='estimate-btn'>
           <input type="button" value=Reset class='btn btn-primary' id="reset-btn">
         </div>
       </div>
@@ -197,7 +403,7 @@
       <div class='Debug'>
         <div><b>Debug</b></div>
         <div class='btn-wrapper sidebar-group-content'>
-          <input type="button" value='Random Qty' class='btn btn-secondary' id='random-qty-btn'>
+          <input type="button" value='Random Qty'  id='random-qty-btn'>
         </div>
       </div>
     </div>
@@ -206,13 +412,13 @@
       <div class='Save'>
         <div><b>Preset</b></div>
         <div class='btn-wrapper sidebar-group-content'>
-          <input type="button" value='Save' class='btn btn-secondary' id='Save-btn'>
-          <input type="button" value='Load' class='btn btn-secondary' id='Load-btn'>
+          <input type="button" value='Save'  id='Save-btn'>
+          <input type="button" value='Load'  id='Load-btn'>
         </div>
       </div>
     </div>
 
-    <!--Too be remove -->
+    <!--Too be remove 
     <div class = 'sidebar-group'>
       <div class='Music'>
         <div><b>MUSIC!!</b></div>
@@ -222,7 +428,7 @@
           <input type="button" id=btn-stop value="Stop" onclick = "MusicSakura_stop()()">
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 
   <div class='content-wrapper'>
@@ -231,7 +437,7 @@
       <div class='estimation-container'>
 
         <div class='estimation-header'>
-          <div class='estimation-text'>GUTHRIE Estimation (<b>Cable End Termination </b>)</div>
+          <div class='estimation-text'>GUTHRIE Estimation <b>Cable End Termination (Form 3B)</b></div>
         </div>
         <div class="measurements-container">
           <span class="measurements">Drawing Measurements: </span>
@@ -276,7 +482,6 @@
 
 
 <script src="js/intro.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 
 <script src="js/Sakura.js"></script>
 <script src="js/Music.js"></script>  
