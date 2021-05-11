@@ -66,6 +66,8 @@ const breakers = {
         { name: 'ACB-6300',        height: 1800, width: 81 },
     ],
     incoming: [
+        { name: '600 MCCB', display: 'Incoming\n600 MCCB',      height: 1800, width: 70 },
+        { name: '1000 ACB', display: 'Incoming\n1000 ACB',      height: 1800, width: 70 },
         { name: '1250 ACB', display: 'Incoming\n1250 ACB',      height: 1800, width: 70 },
         { name: '1600 ACB', display: 'Incoming\n1600 ACB',      height: 1800, width: 70 },
         { name: '2000 ACB', display: 'Incoming\n2000 ACB',      height: 1800, width: 80 },
@@ -330,7 +332,7 @@ class CanvasObject {
 
     displayMeasurements(blocks){
         const width = this.calcDrawingWidth(blocks);
-        this.measurementDisplay.textContent = `Overall Dimension (Including Busbar Panel..etc): Depth = 800 , Width = ${width} , Height = 2275`;
+        this.measurementDisplay.textContent = `Overall Dimension (Including Busbar Panel..etc): Depth = 800 , Length = ${width} , Height = 2275`;
     }
 
     drawBreakers(blocks, blockText = 'name', thickness = 1) {
@@ -374,7 +376,7 @@ class CanvasObject {
                     } 
                     else if (blockText == 'width') {                               //Reduce width from 120 --> 81
                         if(blocks[col][j].width == 81){                            //As it take up to much space and looks weird when drawn tgt
-                            textToUse = String( ((blocks[col][j].width)+39)*10 );      //Display of text and measurement for 'wdith' will +39 to calculation to get 120
+                            textToUse = String( ((blocks[col][j].width)+39)*10 );  //Display of text and measurement for 'wdith' will +39 to calculation to get 120
                         }
                         else{
                             textToUse = String( blocks[col][j].width*10 );
@@ -573,6 +575,9 @@ function startTour(){
                 title:'Remainder',
                 intro: 'Reference taken from Guthrie and Gathergates. <br/><br/><b>Note:</b><br/> Strictly for <b>Form 3B</b> only',
             },{
+                title: 'Very Important',
+                intro: '<b>Assumptions:</b><br/> ACB already have relays on their panels. <br/><br/> Thus, no relays will be insert beside them.',    
+            },{
                 element: document.querySelectorAll('.sidebar-group')[0],
                 title:'Outgoing Breakers',
                 intro: 'Based on your SLD,<br/> select your <b>Outgoing</b> breaker ratings.',
@@ -585,7 +590,7 @@ function startTour(){
             },{
                 element: document.querySelector('.Option-Drawing'),
                 title:'Text in drawing',
-                intro: 'Choose 1 options <br/> Text will appear accordingly <br/>(Breaker Rating, Height, Width) <br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display the new text change.',
+                intro: 'Choose 1 options <br/> Text will appear accordingly <br/>(Breaker Rating, Height, Length) <br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display the new text change.',
                 position: 'right'
             },{
                 element: document.querySelector('.Calculation'),
@@ -600,7 +605,7 @@ function startTour(){
             },{
                 element: document.querySelector('.measurements-container'),
                 title:'Measurement',
-                intro: 'Will display <b>Total</b> Length, Width and Height <b><br/><br/>Measurement Displayed </b> Includes Busbar Panel, Panel stand...etc.',
+                intro: 'Will display <b>Total</b> Depth, Length and Height <b><br/><br/>Measurement Displayed </b> Includes Busbar Panel, Panel stand...etc.',
                 position: 'right'
             },{
                 element: document.querySelector('.parentimage'),
@@ -626,9 +631,6 @@ function startTour(){
                 title: 'Important',
                 intro: 'Click on <b>`Start Tour`</b> at the top header if you wanna see the guide again. Thanks.',    
             },{
-                title: 'Very Important',
-                intro: '<b>Assumptions:</b><br/> ACB already have relays on their panels. <br/><br/> Thus, no relays will be insert beside them.',    
-            },{
                 title:'Last Remainder',
                 intro: 'This is for reference only, acutal dimension might differ slightly.',
             }]
@@ -646,15 +648,15 @@ startTour();
 
 // Get the modal Results
 var modal = document.getElementById("myModal");
-var modal2 = document.getElementById("catModal");
+//var modal2 = document.getElementById("catModal");
 
 // Get the button that opens the modal
 var result = document.getElementById("result-Btn");
-var catalogue = document.getElementById("catalogue-Btn");
+//var catalogue = document.getElementById("catalogue-Btn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
-var span2 = document.getElementsByClassName("close")[1];
+//var span2 = document.getElementsByClassName("close")[1];
 
 // When the user clicks the button, open the modal 
 let isFirstModalClick = true;
@@ -667,32 +669,32 @@ result.onclick = function() {
         let script = document.createElement("script");
         script.type = "text/javascript";
 
-        script.src = "https://onedrive.live.com/embed?resid=8E98B898C211FF23%21813&authkey=%21APXH2PE-7R7_VkU&em=3&wdItem=%22'Sheet1'!A1%3AE26%22&wdDivId=%22myExcelDiv%22&wdAllowInteractivity=0"; 
+        script.src = "https://onedrive.live.com/embed?resid=8E98B898C211FF23%21813&authkey=%21APXH2PE-7R7_VkU&em=3&wdItem=%22'Sheet1'!A1%3AE29%22&wdDivId=%22myExcelDiv%22&wdAllowInteractivity=0"; 
         document.getElementsByTagName("head")[0].appendChild(script);
     }
 }
 
 // When the user clicks the button, open the modal 
-catalogue.onclick = function() {
+/*catalogue.onclick = function() {
     modal2.style.display = "block";
-}
+}*/
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
 }
-span2.onclick = function() {
+/*span2.onclick = function() {
     modal2.style.display = "none";
-  }
+  }*/
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal)  {
     modal.style.display = "none";
     }
-  if (event.target == modal2) {
+/*  if (event.target == modal2) {
     modal2.style.display = "none";
-   }
+   }*/
 }
 
   jQuery(function($){
