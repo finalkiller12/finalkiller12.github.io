@@ -615,19 +615,19 @@ function startTour(){
             },{
                 element: document.querySelector('.Debug'),
                 title:'Random Generator',
-                intro: 'Generate random numbers of outgoing breakers <br/>(100 MCCB - 1000MCCB) & <br/> incoming breakers <br/><br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display it.',
+                intro: 'Generate random numbers of outgoing breakers <br/>(100 MCCB - 800MCCB) & <br/> incoming breakers <br/><br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display it.',
                 position: 'right'
             },{
                 element: document.querySelector('.Save'),
                 title: 'Caution',
                 intro: 'Able to <b>save 1 x combination</b>,<br/> and <b>load</b> it even after refreshing the page. Without needing to select it 1 by 1 all over again. <br/><br/> <b>Note:</b><br/> Saving another combination will delete the previous 1.',
                 position:'right'
-            },{
+            }/*,{
                 element: document.querySelector('.Music'),
                 title:'Extra',
                 intro: 'Play some musics if you want, also have some special effects.',
                 position: 'right'
-            },{
+            }*/,{
                 title: 'Important',
                 intro: 'Click on <b>`Start Tour`</b> at the top header if you wanna see the guide again. Thanks.',    
             },{
@@ -674,8 +674,13 @@ result.onclick = function() {
     }
 }
 
+<<<<<<< HEAD
 // When the user clicks the button, open the modal 
 /*catalogue.onclick = function() {
+=======
+/* When the user clicks the button, open the modal 
+catalogue.onclick = function() {
+>>>>>>> 918ee9563f5479b66cdbaac818893da5502aa54b
     modal2.style.display = "block";
 }*/
 
@@ -692,7 +697,11 @@ window.onclick = function(event) {
   if (event.target == modal)  {
     modal.style.display = "none";
     }
-/*  if (event.target == modal2) {
+<<<<<<< HEAD
+  /*if (event.target == modal2) {
+=======
+  /*if (event.target == modal2) {
+>>>>>>> 918ee9563f5479b66cdbaac818893da5502aa54b
     modal2.style.display = "none";
    }*/
 }
