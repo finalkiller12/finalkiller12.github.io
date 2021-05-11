@@ -674,13 +674,8 @@ result.onclick = function() {
     }
 }
 
-<<<<<<< HEAD
-// When the user clicks the button, open the modal 
-/*catalogue.onclick = function() {
-=======
 /* When the user clicks the button, open the modal 
 catalogue.onclick = function() {
->>>>>>> 918ee9563f5479b66cdbaac818893da5502aa54b
     modal2.style.display = "block";
 }*/
 
@@ -697,11 +692,7 @@ window.onclick = function(event) {
   if (event.target == modal)  {
     modal.style.display = "none";
     }
-<<<<<<< HEAD
   /*if (event.target == modal2) {
-=======
-  /*if (event.target == modal2) {
->>>>>>> 918ee9563f5479b66cdbaac818893da5502aa54b
     modal2.style.display = "none";
    }*/
 }
