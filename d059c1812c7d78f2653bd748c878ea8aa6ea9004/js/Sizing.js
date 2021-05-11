@@ -270,7 +270,7 @@ class CanvasObject {
             let busbar = { name: 'Bus-Coupler', height: incoming[0].height, width: incoming[0].width }; 
             content = [ [incoming[0]], [busbar], [incoming[1]] ];
         }
-        /*
+        
         else if (incoming.length == 3){
             let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
             content = [ [incoming[0]], [busbar], [incoming[1]], [busbar], [incoming[2]]];
@@ -279,7 +279,7 @@ class CanvasObject {
             let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
             content = [ [incoming[0]], [busbar], [incoming[1]], [busbar],[incoming[2]], [busbar], [incoming[3]]];
         }
-        */
+        
         const singleBlockCols = blocks.filter(x => x.length == 1 && sum(x.map(y => y.height)) == this.column.limit && x[0].name != 'Relay');
         const multiBlockCols = blocks.filter(x => x.length > 1 || sum(x.map(y => y.height))!= this.column.limit || x[0].name == 'Relay');
 
