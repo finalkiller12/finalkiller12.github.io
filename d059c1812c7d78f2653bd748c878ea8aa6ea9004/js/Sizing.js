@@ -669,7 +669,7 @@ result.onclick = function() {
         let script = document.createElement("script");
         script.type = "text/javascript";
 
-        script.src = "https://onedrive.live.com/embed?resid=8E98B898C211FF23%21813&authkey=%21APXH2PE-7R7_VkU&em=3&wdItem=%22'Sheet1'!A1%3AE29%22&wdDivId=%22myExcelDiv%22&wdAllowInteractivity=0"; 
+        script.src = "https://onedrive.live.com/embed?resid=8E98B898C211FF23%21813&authkey=%21APXH2PE-7R7_VkU&em=3&wdItem=%22'Sheet1'!A1%3AG36%22&wdDivId=%22myExcelDiv%22&wdDownloadButton=1&wdHideGridlines=1&wdAllowInteractivity=0"; 
         document.getElementsByTagName("head")[0].appendChild(script);
     }
 }

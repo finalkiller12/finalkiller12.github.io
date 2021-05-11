@@ -144,7 +144,7 @@ body {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 50px; /* Location of the box */
+  padding-top: 10px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -160,7 +160,7 @@ body {
   margin: 0 auto;
   padding: 2px;
   border: 1px solid #888;
-  width: 700px;
+  width: 800px;
 }
 
 .modal2-content {
