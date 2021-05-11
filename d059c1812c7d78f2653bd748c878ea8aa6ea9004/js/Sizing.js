@@ -66,6 +66,8 @@ const breakers = {
         { name: 'ACB-6300',        height: 1800, width: 81 },
     ],
     incoming: [
+        { name: '600 MCCB', display: 'Incoming\n600 MCCB',      height: 1800, width: 70 },
+        { name: '1000 ACB', display: 'Incoming\n1000 ACB',      height: 1800, width: 70 },
         { name: '1250 ACB', display: 'Incoming\n1250 ACB',      height: 1800, width: 70 },
         { name: '1600 ACB', display: 'Incoming\n1600 ACB',      height: 1800, width: 70 },
         { name: '2000 ACB', display: 'Incoming\n2000 ACB',      height: 1800, width: 80 },
@@ -265,9 +267,10 @@ class CanvasObject {
             content = [ [incoming[0]] ];
         }
         else if (incoming.length == 2){
-            let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
+            let busbar = { name: 'Bus-Coupler', height: incoming[0].height, width: incoming[0].width }; 
             content = [ [incoming[0]], [busbar], [incoming[1]] ];
         }
+        /*
         else if (incoming.length == 3){
             let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
             content = [ [incoming[0]], [busbar], [incoming[1]], [busbar], [incoming[2]]];
@@ -276,7 +279,7 @@ class CanvasObject {
             let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
             content = [ [incoming[0]], [busbar], [incoming[1]], [busbar],[incoming[2]], [busbar], [incoming[3]]];
         }
-
+        */
         const singleBlockCols = blocks.filter(x => x.length == 1 && sum(x.map(y => y.height)) == this.column.limit && x[0].name != 'Relay');
         const multiBlockCols = blocks.filter(x => x.length > 1 || sum(x.map(y => y.height))!= this.column.limit || x[0].name == 'Relay');
 
@@ -329,7 +332,7 @@ class CanvasObject {
 
     displayMeasurements(blocks){
         const width = this.calcDrawingWidth(blocks);
-        this.measurementDisplay.textContent = `Overall Dimension (Including Busbar Panel..etc): Length = 800 , Width = ${width} , Height = 2075`;
+        this.measurementDisplay.textContent = `Overall Dimension (Including Busbar Panel..etc): Depth = 800 , Length = ${width} , Height = 2275`;
     }
 
     drawBreakers(blocks, blockText = 'name', thickness = 1) {
@@ -373,7 +376,7 @@ class CanvasObject {
                     } 
                     else if (blockText == 'width') {                               //Reduce width from 120 --> 81
                         if(blocks[col][j].width == 81){                            //As it take up to much space and looks weird when drawn tgt
-                            textToUse = String( ((blocks[col][j].width)+39)*10 );      //Display of text and measurement for 'wdith' will +39 to calculation to get 120
+                            textToUse = String( ((blocks[col][j].width)+39)*10 );  //Display of text and measurement for 'wdith' will +39 to calculation to get 120
                         }
                         else{
                             textToUse = String( blocks[col][j].width*10 );
@@ -485,14 +488,21 @@ estimate_btn.addEventListener('click', function () {
 // button events
 
 document.getElementById('random-qty-btn').addEventListener('click', function () {
-    const selects = document.getElementsByClassName('select-position');
-
-    for (let i = 0; i < 15; i++) { //15 because there is 15 outgoing breakers, if not a error occur, but not affect anything
+    const outgoingSelects = document.getElementsByClassName('select-position');
+    const incomingSelects = document.getElementsByClassName('incoming-position');
+ 
+    for (let i = 0; i < outgoingSelects.length; i++) {
         let value = parseInt(Math.random()*6);
         if (breakers['guthrie'][i].height == 1800){
             value = 0; // dont set tallest units cus they dont help with testing
         }
-        selects[i].value = value;
+        outgoingSelects[i].value = value;
+    }
+
+    const incomingNames= breakers.incoming.map(x => x.name);
+    for (let i = 0; i < incomingSelects.length; i++) {
+        let value = incomingNames[Math.floor(Math.random() * incomingNames.length)]; // random value in array
+        incomingSelects[i].value = value;
     }
 })
 
@@ -563,7 +573,10 @@ function startTour(){
                 intro:'Please follow the guide for 1st timer <br/><br/> <b>2 mintues</b> of your time only.'
             },{
                 title:'Remainder',
-                intro: 'This is for reference only',
+                intro: 'Reference taken from Guthrie and Gathergates. <br/><br/><b>Note:</b><br/> Strictly for <b>Form 3B</b> only',
+            },{
+                title: 'Very Important',
+                intro: '<b>Assumptions:</b><br/> ACB already have relays on their panels. <br/><br/> Thus, no relays will be insert beside them.',    
             },{
                 element: document.querySelectorAll('.sidebar-group')[0],
                 title:'Outgoing Breakers',
@@ -577,7 +590,7 @@ function startTour(){
             },{
                 element: document.querySelector('.Option-Drawing'),
                 title:'Text in drawing',
-                intro: 'Choose 1 options <br/> Text will appear accordingly <br/>(Breaker Rating, Height, Width) <br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display the new text change.',
+                intro: 'Choose 1 options <br/> Text will appear accordingly <br/>(Breaker Rating, Height, Length) <br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display the new text change.',
                 position: 'right'
             },{
                 element: document.querySelector('.Calculation'),
@@ -592,7 +605,7 @@ function startTour(){
             },{
                 element: document.querySelector('.measurements-container'),
                 title:'Measurement',
-                intro: 'Will display <b>Total</b> Length, Width and Height <b><br/><br/>Measurement Displayed </b> Includes Busbar Panel, Panel stand...etc.',
+                intro: 'Will display <b>Total</b> Depth, Length and Height <b><br/><br/>Measurement Displayed </b> Includes Busbar Panel, Panel stand...etc.',
                 position: 'right'
             },{
                 element: document.querySelector('.parentimage'),
@@ -602,24 +615,21 @@ function startTour(){
             },{
                 element: document.querySelector('.Debug'),
                 title:'Random Generator',
-                intro: 'Generate random numbers of outgoing breakers <br/>(100 MCCB - 1000MCCB) <br/><br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display it.',
+                intro: 'Generate random numbers of outgoing breakers <br/>(100 MCCB - 800MCCB) & <br/> incoming breakers <br/><br/><b><br/> Note:<br/></b> Remember to click <b>`Draw`</b> to display it.',
                 position: 'right'
             },{
                 element: document.querySelector('.Save'),
                 title: 'Caution',
                 intro: 'Able to <b>save 1 x combination</b>,<br/> and <b>load</b> it even after refreshing the page. Without needing to select it 1 by 1 all over again. <br/><br/> <b>Note:</b><br/> Saving another combination will delete the previous 1.',
                 position:'right'
-            },{
+            }/*,{
                 element: document.querySelector('.Music'),
                 title:'Extra',
                 intro: 'Play some musics if you want, also have some special effects.',
                 position: 'right'
-            },{
+            }*/,{
                 title: 'Important',
                 intro: 'Click on <b>`Start Tour`</b> at the top header if you wanna see the guide again. Thanks.',    
-            },{
-                title: 'Very Important',
-                intro: '<b>Assumptions:</b><br/> ACB already have relays on their panels. <br/><br/> Thus, no relays will be insert beside them.',    
             },{
                 title:'Last Remainder',
                 intro: 'This is for reference only, acutal dimension might differ slightly.',
@@ -635,3 +645,86 @@ startTour();
 
     startTour();
 }*/
+
+// Get the modal Results
+var modal = document.getElementById("myModal");
+//var modal2 = document.getElementById("catModal");
+
+// Get the button that opens the modal
+var result = document.getElementById("result-Btn");
+//var catalogue = document.getElementById("catalogue-Btn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+//var span2 = document.getElementsByClassName("close")[1];
+
+// When the user clicks the button, open the modal 
+let isFirstModalClick = true;
+result.onclick = function() {
+    modal.style.display = "block";
+
+    if (isFirstModalClick){
+        isFirstModalClick = false;
+
+        let script = document.createElement("script");
+        script.type = "text/javascript";
+
+        script.src = "https://onedrive.live.com/embed?resid=8E98B898C211FF23%21813&authkey=%21APXH2PE-7R7_VkU&em=3&wdItem=%22'Sheet1'!A1%3AG36%22&wdDivId=%22myExcelDiv%22&wdDownloadButton=1&wdHideGridlines=1&wdAllowInteractivity=0"; 
+        document.getElementsByTagName("head")[0].appendChild(script);
+    }
+}
+
+/* When the user clicks the button, open the modal 
+catalogue.onclick = function() {
+    modal2.style.display = "block";
+}*/
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+/*span2.onclick = function() {
+    modal2.style.display = "none";
+  }*/
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal)  {
+    modal.style.display = "none";
+    }
+  /*if (event.target == modal2) {
+    modal2.style.display = "none";
+   }*/
+}
+
+  jQuery(function($){
+    // runs on page load
+    $(document).ajaxSend(function() {
+      $("#overlay").fadeIn(300);　
+    });
+          
+    let firstExcelLoad = true;
+    $('#result-Btn').click(function(){
+        // only trigger for the load event, disable itself afterwards
+        if (!firstExcelLoad){
+            return 
+        } else {
+            firstExcelLoad = false;
+        }
+        $.ajax({
+            type: 'GET',
+            success: function(data){
+            console.log(data);
+            }
+        }).done(function() {
+            var checkExist = setInterval(function() {
+                if ($('iframe').length) {
+                    clearInterval(checkExist);
+                    // stop loading animation here
+                    $("#overlay").fadeOut('fast');
+                }
+             }, 100); // check every 100ms
+        });
+    });	
+  });
+
