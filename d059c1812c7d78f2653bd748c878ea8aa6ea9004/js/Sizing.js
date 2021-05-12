@@ -248,7 +248,7 @@ class CanvasObject {
         return blocks;
     }
 
-    insertIncoming(blocks, incoming){
+    insertIncoming(incoming, outgoingLeft, outgoingRight){
         /*
         if only 1 incoming selected
         
@@ -270,7 +270,7 @@ class CanvasObject {
             let busbar = { name: 'Bus-Coupler', height: incoming[0].height, width: incoming[0].width }; 
             content = [ [incoming[0]], [busbar], [incoming[1]] ];
         }
-        
+        /*
         else if (incoming.length == 3){
             let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
             content = [ [incoming[0]], [busbar], [incoming[1]], [busbar], [incoming[2]]];
@@ -279,14 +279,23 @@ class CanvasObject {
             let busbar = { name: 'Busbar', height: incoming[0].height, width: incoming[0].width }; 
             content = [ [incoming[0]], [busbar], [incoming[1]], [busbar],[incoming[2]], [busbar], [incoming[3]]];
         }
-        
-        const singleBlockCols = blocks.filter(x => x.length == 1 && sum(x.map(y => y.height)) == this.column.limit && x[0].name != 'Relay');
-        const multiBlockCols = blocks.filter(x => x.length > 1 || sum(x.map(y => y.height))!= this.column.limit || x[0].name == 'Relay');
+        */
+        // const singleBlockCols = blocks.filter(x => x.length == 1 && sum(x.map(y => y.height)) == this.column.limit && x[0].name != 'Relay');
+        // const multiBlockCols = blocks.filter(x => x.length > 1 || sum(x.map(y => y.height))!= this.column.limit || x[0].name == 'Relay');
 
-        if (blocks.length == 1){
-            blocks = blocks.concat(content);
-        } 
-        else if (singleBlockCols.length == 0){
+         // the final arrangement to return
+        // if (outgoingLeft.length >= 1 && outgoingRight.length == 0){
+        //     blocks = outgoingLeft;
+        //     blocks = blocks.concat(content);
+        // } 
+        // else 
+        let blocks;
+        if (outgoingLeft.length == 0 || outgoingRight.length == 0){
+            // either outgoing has been set
+            // guess a good place to put the incoming
+            if (outgoingLeft.length == 0) { blocks = outgoingRight }
+            else if (outgoingRight.length == 0) { blocks = outgoingLeft }
+
             let index;
             for (let i = 1; i < blocks.length; i++){
                 if (blocks[i-1][0].name != 'Relay' && blocks[i][0].name != 'Relay'){
@@ -301,7 +310,7 @@ class CanvasObject {
             }
         } 
         else{
-            blocks = singleBlockCols.concat(content, multiBlockCols);
+            blocks = outgoingLeft.concat(content, outgoingRight);
         }
             
         return blocks;
@@ -426,22 +435,35 @@ function gatherUnitIncoming(){
 }
 
 function gatherUnitSelections(){
-    const selects = document.getElementsByClassName('select-position');
-    let values = [];
-    for (let i = 0; i < selects.length; i++) {
-        values.push(parseInt(selects[i].value));
+    const selectsOutgoing_1 = document.getElementsByClassName('select-position');
+    const selectsOutgoing_2 = document.getElementsByClassName('select-position-2');
+    let values_1 = [];
+    let values_2 = [];
+    for (let i = 0; i < selectsOutgoing_1.length; i++) {
+        values_1.push(parseInt(selectsOutgoing_1[i].value));
+
     }
-    return values;
+    for (let i = 0; i < selectsOutgoing_2.length; i++) {
+        values_2.push(parseInt(selectsOutgoing_2[i].value));
+
+    }
+    return [values_1, values_2];
 }
 
-function countUnits(quantities, supplierName) {
-    var units = []; // Size to be change according to breaker rating
-
+function countUnits(quantities_1, quantities_2, supplierName) {
+    // Size to be change according to breaker rating
+    var units_outgoing1 = []; 
+    var units_outgoing2 = [];
     // count the number of each unit
-    for (let i = 0; i < quantities.length; i++) {
-        units.push(...Array(quantities[i]).fill( breakers[supplierName][i] ));
+    for (let i = 0; i < quantities_1.length; i++) {
+        units_outgoing1.push(...Array(quantities_1[i]).fill( breakers[supplierName][i] ));
+        
     }
-    return units;
+    for (let i = 0; i < quantities_2.length; i++) {
+        units_outgoing2.push(...Array(quantities_2[i]).fill( breakers[supplierName][i] ));
+    }
+
+    return [units_outgoing1, units_outgoing2];
 }
 
 function sum(arr, stop=arr.length) {
@@ -457,6 +479,9 @@ const estimations = initEstimations();
 estimate_btn.addEventListener('click', function () {
 
     const quantities = gatherUnitSelections();
+    const quantities_1 = quantities[0];
+    const quantities_2 = quantities[1];
+
     const incoming = gatherUnitIncoming();
     const incomingUnits = incoming.map(unit => {
         return breakers.incoming.filter(obj => {return obj.name == unit})[0];
@@ -467,20 +492,26 @@ estimate_btn.addEventListener('click', function () {
     for (let i = 0; i < estimations.length; i++) {
         estimations[i].clearCanvas();
 
-        const units = countUnits(quantities, estimations[i].name);
-        const blocks = estimations[i].groupUnits(units);
-        const blocksWithRelays = estimations[i].insertRelays(blocks);
-        const paddedBlocks = estimations[i].emptySpace(blocksWithRelays);
+        const units = countUnits(quantities_1, quantities_2, estimations[i].name);
+        const units1 = units[0];
+        const units2 = units[1];
+        const blocks1 = estimations[i].groupUnits(units1);
+        const blocks2 = estimations[i].groupUnits(units2);
+
+        const blocksWithRelays1 = estimations[i].insertRelays(blocks1);
+        const blocksWithRelays2 = estimations[i].insertRelays(blocks2);
 
         let finalBlocks;
-        if (incomingUnits.length > 0){
-            finalBlocks = estimations[i].insertIncoming(paddedBlocks, incomingUnits);
+        if (incomingUnits.length > 0){ // only 1 outgoing block and incoming exist
+            finalBlocks = estimations[i].insertIncoming(incomingUnits, blocksWithRelays1, blocksWithRelays2);
         } else {
-            finalBlocks = paddedBlocks;
+            finalBlocks = blocksWithRelays1.concat(blocksWithRelays2);
         }
 
-        estimations[i].displayMeasurements(finalBlocks);
-        estimations[i].drawBreakers(finalBlocks, blockText);
+        const paddedBlocks = estimations[i].emptySpace(finalBlocks);
+
+        estimations[i].displayMeasurements(paddedBlocks);
+        estimations[i].drawBreakers(paddedBlocks, blockText);
     }
 })
 /// main program end lol
@@ -488,15 +519,23 @@ estimate_btn.addEventListener('click', function () {
 // button events
 
 document.getElementById('random-qty-btn').addEventListener('click', function () {
-    const outgoingSelects = document.getElementsByClassName('select-position');
+    const outgoingSelects_1 = document.getElementsByClassName('select-position');
+    const outgoingSelects_2 = document.getElementsByClassName('select-position-2');
     const incomingSelects = document.getElementsByClassName('incoming-position');
  
-    for (let i = 0; i < outgoingSelects.length; i++) {
+    for (let i = 0; i < outgoingSelects_1.length; i++) {
         let value = parseInt(Math.random()*6);
         if (breakers['guthrie'][i].height == 1800){
             value = 0; // dont set tallest units cus they dont help with testing
         }
-        outgoingSelects[i].value = value;
+        outgoingSelects_1[i].value = value;
+    }
+    for (let i = 0; i < outgoingSelects_2.length; i++) {
+        let value = parseInt(Math.random()*6);
+        if (breakers['guthrie'][i].height == 1800){
+            value = 0; // dont set tallest units cus they dont help with testing
+        }
+        outgoingSelects_2[i].value = value;
     }
 
     const incomingNames= breakers.incoming.map(x => x.name);
@@ -507,11 +546,15 @@ document.getElementById('random-qty-btn').addEventListener('click', function () 
 })
 
 document.getElementById('reset-btn').addEventListener('click', function() {
-    const outgoingSelects = document.getElementsByClassName('select-position');
+    const outgoingSelects_1 = document.getElementsByClassName('select-position');
+    const outgoingSelects_2 = document.getElementsByClassName('select-position-2');
     const incomingSelects = document.getElementsByClassName('incoming-position');
 
-    for (let i = 0; i < outgoingSelects.length; i++) {  
-        outgoingSelects[i].selectedIndex = 0;
+    for (let i = 0; i < outgoingSelects_1.length; i++) {  
+        outgoingSelects_1[i].selectedIndex = 0;
+    }
+    for (let i = 0; i < outgoingSelects_2.length; i++) {  
+        outgoingSelects_2[i].selectedIndex = 0;
     }
     for (let i = 0; i < incomingSelects.length; i++) {  
         incomingSelects[i].selectedIndex = 0;
