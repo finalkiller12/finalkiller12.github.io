@@ -17,7 +17,6 @@ body {
 .sidebar-group > div:first-child {
   background-color: white;
   padding-left: 5px;
-  
 }
 
 .sidebar-group-content {
@@ -220,4 +219,13 @@ body {
 }
 .is-hide{
   display:none;
+}
+
+/*For accordion*/
+.ui-accordion .ui-accordion-content {
+  padding: 0px;
+}
+
+element.style {
+  height: 0;
 }
