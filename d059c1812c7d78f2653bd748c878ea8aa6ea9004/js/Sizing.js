@@ -568,8 +568,10 @@ document.getElementById('Intro-btn').addEventListener('click', function() {
 })
 
 document.getElementById('Save-btn').addEventListener('click', function() {
+    outgoing = gatherUnitSelections();
     const data = {
-        outgoing: gatherUnitSelections(),
+        outgoing1: outgoing[0],
+        outgoing2: outgoing[1],
         incoming: gatherUnitIncoming()
     }
     localStorage['quantities'] = JSON.stringify(data);
@@ -578,11 +580,15 @@ document.getElementById('Save-btn').addEventListener('click', function() {
 
 document.getElementById('Load-btn').addEventListener('click', function(){
     const data = JSON.parse(localStorage['quantities']);
-    const outgoingSelects = document.getElementsByClassName('select-position');
+    const outgoingSelects1 = document.getElementsByClassName('select-position');
+    const outgoingSelects2 = document.getElementsByClassName('select-position-2');
     const incomingSelects = document.getElementsByClassName('incoming-position');
 
-    for (let i = 0; i < outgoingSelects.length; i++) {
-        outgoingSelects[i].value = data.outgoing[i];
+    for (let i = 0; i < outgoingSelects1.length; i++) {
+        outgoingSelects1[i].value = data.outgoing1[i];
+    }
+    for (let i = 0; i < outgoingSelects2.length; i++) {
+        outgoingSelects2[i].value = data.outgoing2[i];
     }
     for (let i = 0; i < incomingSelects.length; i++) {
         incomingSelects[i].value = data.incoming[i];
